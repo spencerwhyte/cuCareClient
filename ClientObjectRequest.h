@@ -22,6 +22,9 @@
 
 class ClientObjectRequest : public ClientXMLRequest
 {
+    // Internal
+    // We dont retain delegates
+    ClientObjectResponseDelegate * delegate;
 public:
     typedef enum ObjectRequestType{
         Add,
@@ -29,6 +32,8 @@ public:
         Remove,
         Query
     } ObjectRequestType;
+
+
     /*
       Constructs a client object request which is
       used to send an object to the server over the
@@ -41,8 +46,17 @@ public:
       who is responsible for handling the response.
       */
     int fillObjectRequest(StorableInterface& object, ClientObjectResponseDelegate * delegate, ObjectRequestType type);
+
+
     // Destructor
     ~ClientObjectRequest();
+
+private:
+    /*
+      Overriding base method from TCP to know when the
+      data has actually been sent to the server.
+      */
+    virtual void TCPRequestFilled();
 };
 
 #endif // CLIENTOBJECTREQUEST_H

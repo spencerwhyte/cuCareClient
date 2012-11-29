@@ -28,14 +28,18 @@ public:
       to transcribe the response from the server from
       the data recieved over the given tcp socket.
       */
-    ClientObjectResponse(int TCPSocket);
+    ClientObjectResponse(int TCPSocket, ClientObjectResponseDelegate * delegate);
     /*
       Reads the response from the server and transcribes it
       into a list of objects. This list ob objects is then
       relayed back to the ClientObjectResponseDelegate.
       */
-    fillRequest();
-
+    fillResponse();
+    /*
+      Overiding method from ClientXMLResponse to receive the parsed
+      XML data that was sent by the server.
+      */
+    virtual void XMLResponseFilled(QMap<QString, QVariant> xmlData);
 };
 
 #endif // CLIENTOBJECTRESPONSE_H

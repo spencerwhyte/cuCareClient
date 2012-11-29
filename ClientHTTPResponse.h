@@ -31,7 +31,12 @@ public:
             body - Output parameter used to store
             the body of the HTTP response sent by the server.
       */
-    fillHTTPResponse(QString &body);
+    int fillHTTPResponse(QString &body);
+    /*
+      Overriding base method to receive data that was sent
+      by the server
+      */
+    virtual void TCPResponseReceived(QString &totalData);
 };
 
 #endif // CLIENTHTTPRESPONSE_H

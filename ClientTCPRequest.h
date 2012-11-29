@@ -6,6 +6,7 @@
 
 #ifndef CLIENTTCPREQUEST_H
 #define CLIENTTCPREQUEST_H
+#include <QObject>
 
 /*
   The purpose of the ClientTCPRequest class is
@@ -13,17 +14,28 @@
   server over a given TCP socket
   */
 
-class ClientTCPRequest
+class ClientTCPRequest : public QObject
 {
+    Q_OBJECT
     int socket;
 public:
     /*
-      Creates an object where TCPSocket is the socket
+      Creates an ClientTCPRequest object where TCPSocket is the socket
       that will be used for data transfer
       */
     ClientTCPRequest(int TCPSocket);
-
-    fillRequest();
+    /*
+      Fills a request by sending the given data over the network
+      when the request has been filled, the TCPRequestFilled
+      method is called. Override this method to implement additional
+      functionality.
+      */
+    int fillTCPRequest(QString &data);
+    /*
+      This method gets called when all of the TCP data has been sent
+      over to the server.
+      */
+    virtual void TCPRequestFilled();
 
 };
 
