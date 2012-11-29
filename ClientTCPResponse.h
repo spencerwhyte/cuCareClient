@@ -1,3 +1,9 @@
+/*
+  By: Spencer Whyte
+  #100817664
+  Carleton University
+  */
+
 #ifndef CLIENTTCPRESPONSE_H
 #define CLIENTTCPRESPONSE_H
 

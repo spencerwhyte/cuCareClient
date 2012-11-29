@@ -2,4 +2,5 @@
 
 ClientObjectResponse::ClientObjectResponse()
 {
+
 }

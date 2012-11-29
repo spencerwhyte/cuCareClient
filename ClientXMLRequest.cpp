@@ -1,5 +1,5 @@
 #include "ClientXMLRequest.h"
 
-ClientXMLRequest::ClientXMLRequest()
+ClientXMLRequest::ClientXMLRequest(int TCPSocket)
 {
 }

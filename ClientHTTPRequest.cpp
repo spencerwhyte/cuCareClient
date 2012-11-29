@@ -1,5 +1,5 @@
 #include "ClientHTTPRequest.h"
 
-ClientHTTPRequest::ClientHTTPRequest()
+ClientHTTPRequest::ClientHTTPRequest(int TCPSocket)
 {
 }

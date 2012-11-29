@@ -38,7 +38,13 @@ SOURCES += main.cpp \
     ClientTCPResponse.cpp \
     ClientHTTPResponse.cpp \
     ClientXMLResponse.cpp \
-    ClientObjectResponse.cpp
+    ClientObjectResponse.cpp \
+    User.cpp \
+    StorableFactory.cpp \
+    Record.cpp \
+    PatientRecord.cpp \
+    FollowUpRecord.cpp \
+    ConsultationRecord.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -53,4 +59,11 @@ HEADERS += \
     ClientHTTPResponse.h \
     ClientXMLResponse.h \
     ClientObjectResponse.h \
+    User.h \
+    StorableInterface.h \
+    StorableFactory.h \
+    Record.h \
+    PatientRecord.h \
+    FollowUpRecord.h \
+    ConsultationRecord.h \
     ClientObjectResponseDelegate.h
