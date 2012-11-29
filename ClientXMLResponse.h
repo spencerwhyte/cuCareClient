@@ -9,6 +9,7 @@
 
 #include "ClientHTTPResponse.h"
 #include <QMap>
+#include <QDomDocument>
 
 /*
   The purpose of the ClientXMLResponse is to handle

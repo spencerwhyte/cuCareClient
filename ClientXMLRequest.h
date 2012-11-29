@@ -8,7 +8,7 @@
 #define CLIENTXMLREQUEST_H]
 
 #include <QMap>
-
+#include <QXmlStreamWriter>
 #include "ClientHTTPRequest.h"
 
 /*
@@ -29,7 +29,7 @@ public:
         Fills the XML request by sending the
         data to the server in xml format.
       */
-    int fillXMLRequest(QMap<QString, QVariant> &data, QString &url);
+    int fillXMLRequest(QMap<QString, QVariant> &data, QString &objectName, QString &operation);
 };
 
 #endif // CLIENTXMLREQUEST_H

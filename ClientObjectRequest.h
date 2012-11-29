@@ -47,9 +47,6 @@ public:
       */
     int fillObjectRequest(StorableInterface& object, ObjectRequestType type);
 
-
-
-
     // Destructor
     ~ClientObjectRequest();
 
@@ -59,8 +56,8 @@ private:
       data has actually been sent to the server.
       */
     virtual void TCPRequestFilled();
-
-        QString& stringForObjectRequestType(ObjectRequestType type);
+    // Helper method to help with constructing xml urls from the type of request
+    QString& stringForObjectRequestType(ObjectRequestType type);
 };
 
 #endif // CLIENTOBJECTREQUEST_H

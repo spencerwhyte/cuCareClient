@@ -12,14 +12,8 @@ int ClientObjectRequest::fillObjectRequest(StorableInterface& object, ObjectRequ
     QMap<QString, QVariant> mapping;
     object.getAttributesAndValues(mapping);
 
-    QString url;
-    url.append("/");
-    if(type ){
-        url.append();
-    }else{
-        url.append();
-    }
-    fillXMLRequest(mapping, url);
+    fillXMLRequest(mapping, object.className(), stringForObjectRequestType(type));
+
 }
 
 
@@ -28,11 +22,27 @@ ClientObjectRequest::~ClientObjectRequest(){
     delete response;
 }
 
-
 /*
   Overriding base method from TCP to know when the
   data has actually been sent to the server.
   */
 virtual void ClientObjectRequest::TCPRequestFilled(){
     response.fillObjectResponse();
+}
+
+// Helper method to help with constructing xml urls from the type of request
+QString& ClientObjectRequest::stringForObjectRequestType(ObjectRequestType type){
+    if(type == Add){
+        static QString add("Add");
+        return add;
+    }else if(type == Edit){
+        static QString edit("Edit");
+        return edit;
+    }else if(type == Remove){
+        static QString remove ("Remove");
+        return remove;
+    }else{
+        static QString query("Query");
+        return query;
+    }
 }
