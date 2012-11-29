@@ -7,7 +7,7 @@
 #ifndef CLIENTTCPRESPONSE_H
 #define CLIENTTCPRESPONSE_H
 #include <QObject>
-
+#include <QTcpSocket>
 /*
   The purpose of the ClientTCPResponse is to
   transcribe a response that has been sent by
@@ -16,21 +16,25 @@
 class ClientTCPResponse : public QObject
 {
     Q_OBJECT
-    int socket;
+    QTcpSocket * socket;
 
     QString * allData;
 public:
+    // Getters
+    QTcpSocket* getSocket();
+    void setSocket(QTcpSocket* newSocket);
+
     /*
      Creates a ClientTCPResponse where the given
      TCP socket is the socket over which the data
      will be sent.
       */
-    ClientTCPResponse(int TCPSocket);
+    ClientTCPResponse();
     /*
       Starts reading the tcp data received from
       the server into this internal buffer.
       */
-    int fillTCPRequest();
+    int fillTCPResponse();
     /*
       This method gets called when more TCPData has
       been received. Override this method to receive
@@ -41,6 +45,8 @@ public:
             thus far.
       */
     virtual void TCPResponseReceived(QString& totalData);
+
+    void readyToReceive();
 };
 
 #endif // CLIENTTCPRESPONSE_H

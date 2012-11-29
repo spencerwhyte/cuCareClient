@@ -44,7 +44,8 @@ SOURCES += main.cpp \
     Record.cpp \
     PatientRecord.cpp \
     FollowUpRecord.cpp \
-    ConsultationRecord.cpp
+    ConsultationRecord.cpp \
+    ClientSettings.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -66,4 +67,11 @@ HEADERS += \
     PatientRecord.h \
     FollowUpRecord.h \
     ConsultationRecord.h \
-    ClientObjectResponseDelegate.h
+    ClientObjectResponseDelegate.h \
+    ClientSettings.h
+
+
+QT += network
+
+
+QT += xml

@@ -9,7 +9,7 @@
 
 #include "ClientXMLRequest.h"
 #include "ClientObjectResponseDelegate.h"
-
+#include "ClientObjectResponse.h"
 #include "StorableFactory.h"
 
 
@@ -24,7 +24,7 @@ class ClientObjectRequest : public ClientXMLRequest
 {
     // Internal
     // We dont retain delegates
-    ClientObjectResponseDelegate * delegate;
+    ClientObjectResponse * response;
 public:
     typedef enum ObjectRequestType{
         Add,
@@ -39,13 +39,15 @@ public:
       used to send an object to the server over the
       given tcp socket.
       */
-    ClientObjectRequest(int TCPSocket);
+    ClientObjectRequest(ClientObjectResponseDelegate * delegate);
     /*
       Sends the given object to the server over http
       along with the given operation and the delegate
       who is responsible for handling the response.
       */
-    int fillObjectRequest(StorableInterface& object, ClientObjectResponseDelegate * delegate, ObjectRequestType type);
+    int fillObjectRequest(StorableInterface& object, ObjectRequestType type);
+
+
 
 
     // Destructor
@@ -57,6 +59,8 @@ private:
       data has actually been sent to the server.
       */
     virtual void TCPRequestFilled();
+
+        QString& stringForObjectRequestType(ObjectRequestType type);
 };
 
 #endif // CLIENTOBJECTREQUEST_H

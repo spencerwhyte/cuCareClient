@@ -7,6 +7,8 @@
 #ifndef CLIENTXMLREQUEST_H
 #define CLIENTXMLREQUEST_H]
 
+#include <QMap>
+
 #include "ClientHTTPRequest.h"
 
 /*
@@ -22,12 +24,12 @@ public:
       Constructs a new ClientXMLRequest with the
       TCP socket over which data will be sent.
       */
-    ClientXMLRequest(int TCPSocket);
+    ClientXMLRequest();
     /*
         Fills the XML request by sending the
-        data to the server in xml format
+        data to the server in xml format.
       */
-    int fillXMLRequest();
+    int fillXMLRequest(QMap<QString, QVariant> &data, QString &url);
 };
 
 #endif // CLIENTXMLREQUEST_H

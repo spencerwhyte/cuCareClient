@@ -7,7 +7,8 @@
 #ifndef CLIENTTCPREQUEST_H
 #define CLIENTTCPREQUEST_H
 #include <QObject>
-
+#include <QTcpSocket>
+#include "ClientSettings.h"
 /*
   The purpose of the ClientTCPRequest class is
   to provide the ability to send data to the
@@ -17,13 +18,23 @@
 class ClientTCPRequest : public QObject
 {
     Q_OBJECT
-    int socket;
+    QTcpSocket * socket;
+    QString * data;
+
+    QString * getData();
+    QTcpSocket* getSocket();
+
+    void setData(QString * newData);
+    void setSocket(QTcpSocket * socket);
+
 public:
     /*
       Creates an ClientTCPRequest object where TCPSocket is the socket
       that will be used for data transfer
       */
-    ClientTCPRequest(int TCPSocket);
+    ClientTCPRequest();
+    //Destructor
+    ~ClientTCPRequest();
     /*
       Fills a request by sending the given data over the network
       when the request has been filled, the TCPRequestFilled
@@ -36,6 +47,10 @@ public:
       over to the server.
       */
     virtual void TCPRequestFilled();
+
+private slots:
+
+    void readyToSend();
 
 };
 

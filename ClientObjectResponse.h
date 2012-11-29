@@ -9,8 +9,10 @@
 
 #include "ClientXMLResponse.h"
 #include "StorableInterface.h"
-#includ "ClientObjectResponseDelegate.h"
+#include "ClientObjectResponseDelegate.h"
 #include <QList>
+#include "StorableFactory.h"
+
 /*
 
   The purpose of the ClientObjectResponse class is to provide
@@ -28,18 +30,18 @@ public:
       to transcribe the response from the server from
       the data recieved over the given tcp socket.
       */
-    ClientObjectResponse(int TCPSocket, ClientObjectResponseDelegate * delegate);
+    ClientObjectResponse(ClientObjectResponseDelegate * delegate);
     /*
       Reads the response from the server and transcribes it
       into a list of objects. This list ob objects is then
       relayed back to the ClientObjectResponseDelegate.
       */
-    fillResponse();
+    int fillObjectResponse();
     /*
       Overiding method from ClientXMLResponse to receive the parsed
       XML data that was sent by the server.
       */
-    virtual void XMLResponseFilled(QMap<QString, QVariant> xmlData);
+    virtual void XMLResponseReceived(QList<QMap<QString, QVariant> > & xmlData, QString & className);
 };
 
 #endif // CLIENTOBJECTRESPONSE_H

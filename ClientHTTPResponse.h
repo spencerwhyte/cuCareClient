@@ -27,11 +27,18 @@ public:
     /*
       Reads the body of the HTTP response from the
       server
-
-            body - Output parameter used to store
-            the body of the HTTP response sent by the server.
       */
-    int fillHTTPResponse(QString &body);
+    int fillHTTPResponse();
+
+    /*
+      This method gets called when an HTTP response has been
+      received. Override this method in the subclass to
+      receive the data.
+
+            body - The body of the HTTP request received
+      */
+    virtual void HTTPResponseReceived(QString &body);
+
     /*
       Overriding base method to receive data that was sent
       by the server

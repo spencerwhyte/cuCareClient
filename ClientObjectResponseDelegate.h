@@ -20,6 +20,7 @@
 */
 
 class ClientObjectResponseDelegate{
+public:
     /*
       Calls on the delegate when a successfull response has been
       received and passes in the results set which is a list
