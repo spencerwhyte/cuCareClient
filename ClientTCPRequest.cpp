@@ -17,9 +17,11 @@ ClientTCPRequest::~ClientTCPRequest(){
 
 
 void ClientTCPRequest::readyToSend(){
+    qDebug() << "READY TO SEND";
     QByteArray dataToSend;
     dataToSend.append(*data);
     getSocket()->write(dataToSend);
+    getSocket()->waitForBytesWritten(1000);
     TCPRequestFilled();
 }
 
@@ -56,6 +58,7 @@ int ClientTCPRequest::fillTCPRequest(QString &data){
     setData(new QString(data));
 
     getSocket()->connectToHost(ClientSettings::GetClientSettings().getDefaultAddress(), ClientSettings::GetClientSettings().getDefaultPort());
+    qDebug() << "CONNECTING TO HOST";
 }
 
 /*

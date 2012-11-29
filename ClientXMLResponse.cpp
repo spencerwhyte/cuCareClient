@@ -45,7 +45,7 @@ void ClientXMLResponse::HTTPResponseReceived(QString &body){
     QDomNodeList keyValues = root.childNodes();
     for(int i =0 ; i < root.childNodes().length(); i++){
         QDomNode node = keyValues.at(i);
-        data.insert(node.nodeName(), node.nodeValue());
+        data.insert(node.nodeName(), node.firstChild().nodeValue());
     }
 
     XMLReponseReceived(data, className);

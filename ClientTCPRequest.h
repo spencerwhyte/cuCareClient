@@ -48,7 +48,7 @@ public:
       */
     virtual void TCPRequestFilled();
 
-private slots:
+public slots:
 
     void readyToSend();
 

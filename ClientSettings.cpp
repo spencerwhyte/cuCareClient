@@ -1,6 +1,6 @@
 #include "ClientSettings.h"
 
-ClientSettings::ClientSettings() : port(60000), address(new QHostAddress(QHostAddress::LocalHost)){
+ClientSettings::ClientSettings() : port(60007), address(new QHostAddress("134.117.28.146")){
 
 
 }
