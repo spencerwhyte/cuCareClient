@@ -24,24 +24,26 @@ int ClientHTTPResponse::fillHTTPResponse(){
 
         body - The body of the HTTP request received
 
-virtual void ClientHTTPResponse::HTTPResponseReceived(QString &body){
+        */
+
+void ClientHTTPResponse::HTTPResponseReceived(QString &body){
 
 }
-  */
+
 
 /*
   Overriding base method to receive data that was sent
   by the server
   */
-virtual void ClientHTTPResponse::TCPResponseReceived(QString &totalData){
+void ClientHTTPResponse::TCPResponseReceived(QString &totalData){
 
     QStringList responseList = totalData.split("\r\n");
-    if(responseList.length < 2){ // We need to at least have a header and a body
+    if(responseList.length() < 2){ // We need to at least have a header and a body
         return;
     }
     QString header = responseList.at(0);
 
-    QString headerList = header.split("\n");
+    QStringList headerList = header.split("\n");
     if(headerList.length() < 2){ // We need to at least have the protocol header and content length
         return;
     }
@@ -67,7 +69,7 @@ virtual void ClientHTTPResponse::TCPResponseReceived(QString &totalData){
         return;
     }
 
-    QString responseData = totalData.right(contentLength);
+    QString responseData = totalData.right(contentLengthInteger);
 
     HTTPResponseReceived(responseData);
 

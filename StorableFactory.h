@@ -21,7 +21,7 @@ public:
     }
 
 
-    StorableInterface * getInstance(QString * className);
+    StorableInterface * getInstance(QString &className);
     // Constructor
     StorableFactory();
     // Destructor

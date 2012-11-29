@@ -22,11 +22,11 @@ int ClientObjectResponse::fillObjectResponse(){
   Overiding method from ClientXMLResponse to receive the parsed
   XML data that was sent by the server.
   */
-virtual void ClientObjectResponse::XMLResponseReceived(QList< QMap<QString, QVariant> > & xmlData, QString &className){
+void ClientObjectResponse::XMLResponseReceived(QList< QMap<QString, QVariant> > & xmlData, QString &className){
 
-    QList<StorableInterface> objects;
+    QList<StorableInterface*> objects;
     for(int i =0 ; i < xmlData.length(); i++){
-        StorableInterface current = StorableFactory::GetFactory().getInstance(className);
+        StorableInterface * current = StorableFactory::GetFactory().getInstance(className);
         objects.append(current);
     }
 

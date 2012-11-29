@@ -39,7 +39,7 @@ int ClientTCPResponse::fillTCPResponse(){
         all of the data that has been received
         thus far.
   */
-virtual void ClientTCPResponse::TCPResponseReceived(QString& totalData){
+void ClientTCPResponse::TCPResponseReceived(QString& totalData){
 
 }
 

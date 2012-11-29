@@ -29,7 +29,7 @@ public:
       the server over the given tcp socket
 
       */
-    ClientHTTPRequest(int socket);
+    ClientHTTPRequest();
     /*
       Destructor
       */

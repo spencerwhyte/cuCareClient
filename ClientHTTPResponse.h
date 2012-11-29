@@ -14,6 +14,7 @@
   */
 
 #include "ClientTCPResponse.h"
+#include <QStringList>
 
 class ClientHTTPResponse : public ClientTCPResponse
 {
@@ -23,7 +24,7 @@ public:
       the socket over which the HTTP data will be
       sent.
       */
-    ClientHTTPResponse(int TCPSocket);
+    ClientHTTPResponse();
     /*
       Reads the body of the HTTP response from the
       server

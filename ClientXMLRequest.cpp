@@ -30,6 +30,13 @@ int ClientXMLRequest::fillXMLRequest(QMap<QString, QVariant> &data, QString &obj
 
     writer.writeEndElement();
 
+
+    QString url;
+    url.append("/");
+    url.append(operation);
+    url.append("/");
+    url.append(objectName);
+
     fillHTTPRequest(xmlText, url);
 
 }

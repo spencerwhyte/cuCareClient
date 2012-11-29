@@ -8,7 +8,7 @@
 #define CLIENTTCPRESPONSE_H
 #include <QObject>
 #include <QTcpSocket>
-#include <QXML>
+
 /*
   The purpose of the ClientTCPResponse is to
   transcribe a response that has been sent by

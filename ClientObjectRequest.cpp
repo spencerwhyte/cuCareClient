@@ -11,8 +11,8 @@ ClientObjectRequest::ClientObjectRequest(ClientObjectResponseDelegate * delegate
 int ClientObjectRequest::fillObjectRequest(StorableInterface& object, ObjectRequestType type){
     QMap<QString, QVariant> mapping;
     object.getAttributesAndValues(mapping);
-
-    fillXMLRequest(mapping, object.className(), stringForObjectRequestType(type));
+    QString name = object.className();
+    fillXMLRequest(mapping, name, stringForObjectRequestType(type));
 
 }
 
@@ -26,8 +26,8 @@ ClientObjectRequest::~ClientObjectRequest(){
   Overriding base method from TCP to know when the
   data has actually been sent to the server.
   */
-virtual void ClientObjectRequest::TCPRequestFilled(){
-    response.fillObjectResponse();
+void ClientObjectRequest::TCPRequestFilled(){
+    response->fillObjectResponse();
 }
 
 // Helper method to help with constructing xml urls from the type of request

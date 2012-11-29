@@ -17,12 +17,12 @@ qint16 ClientSettings::getDefaultPort(){
     return port;
 }
 
-void setDefaultAddress(QString &newAddress){
+void  ClientSettings::setDefaultAddress(QString &newAddress){
     delete address;
     address = new QHostAddress(newAddress);
 }
 
-void setDefaultPort(int newPort){
+void ClientSettings::setDefaultPort(int newPort){
     port = newPort;
 }
 

@@ -29,11 +29,12 @@ public:
     // Setters
     void setDefaultPort(int newPort);
     void setDefaultAddress(QString & address);
-
+    ~ClientSettings();
 private:
     QHostAddress * address;
     qint16 port;
     ClientSettings();
+
     ClientSettings(ClientSettings  const &);
       void operator=(ClientSettings const &);
 };

@@ -12,7 +12,7 @@ ClientHTTPRequest::ClientHTTPRequest(){
 /*
   Destructor
   */
-~ClientHTTPRequest(){
+ClientHTTPRequest::~ClientHTTPRequest(){
 
 }
 

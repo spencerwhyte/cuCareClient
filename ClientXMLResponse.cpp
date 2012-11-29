@@ -22,7 +22,7 @@ int ClientXMLResponse::fillXMLResponse(){
 
         data - The XML data that was received
   */
-virtual void ClientXMLResponse::XMLReponseReceived(QMap<QString, QVariant> &data, QString & className){
+void ClientXMLResponse::XMLReponseReceived(QMap<QString, QVariant> &data, QString & className){
 
 }
 
@@ -32,17 +32,16 @@ virtual void ClientXMLResponse::XMLReponseReceived(QMap<QString, QVariant> &data
 
         body - The body of the HTTP response
   */
-virtual void ClientXMLResponse::HTTPResponseReceived(QString &body){
-    QMap<QString, QVariant> &data;
+void ClientXMLResponse::HTTPResponseReceived(QString &body){
+    QMap<QString, QVariant> data;
 
     QString className;
-
 
     QDomDocument document("XMLDocument");
     document.setContent(body);
 
-    QDomElement root = document.firstChild();
-    className = root.tagName();
+    QDomNode root = document.firstChild();
+    className = root.nodeName();
     QDomNodeList keyValues = root.childNodes();
     for(int i =0 ; i < root.childNodes().length(); i++){
         QDomNode node = keyValues.at(i);
