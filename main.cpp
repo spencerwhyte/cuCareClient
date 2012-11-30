@@ -10,6 +10,21 @@
 #include "FollowUpRecord.h"
 #include <QDateTime>
 
+
+
+
+
+
+
+#include<QApplication>
+#include<QMainWindow>
+#include<QLabel>
+#include<QGridLayout>
+#include<QString>
+#include"HomePage.h"
+#include"CUNavigationStack.h"
+#include"CUNavigationProvisioning.h"
+
 void testUser(){
     User u;
     QString username("Spencer Whyte");
@@ -761,7 +776,7 @@ void testRemoveFollowUp(){
 }
 
 
-
+/*
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QApplication> app(createApplication(argc, argv));
@@ -782,7 +797,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //testAddConsulationRecord();
     //testQueryConsultationRecord();
     //testEditConsultationRecord();
-    testRemoveConsultationRecord();
+    //testRemoveConsultationRecord();
 
     //testFollowUp();
     //testAddFollowUp();
@@ -794,3 +809,27 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
    return app->exec();
 }
+*/
+
+int main(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
+
+    //declare and initialize the stack that will hold the windows
+    CUNavigationStack *stack = new CUNavigationStack();
+
+    //declare the navigation element that will manage the control flow
+    CUNavigationProvisioning *navigation = new CUNavigationProvisioning(stack);
+
+    HomePage *initialPage = new HomePage(navigation);
+    stack->addWidget(initialPage);
+    stack->setCurrentWidget(initialPage);
+
+    QMainWindow mainWindow;
+    mainWindow.setCentralWidget(stack);
+
+    mainWindow.show();
+    return app.exec();
+}
+
+

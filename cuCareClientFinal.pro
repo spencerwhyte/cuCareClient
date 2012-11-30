@@ -45,7 +45,25 @@ SOURCES += main.cpp \
     PatientRecord.cpp \
     FollowUpRecord.cpp \
     ConsultationRecord.cpp \
-    ClientSettings.cpp
+    ClientSettings.cpp \
+    CUNavigationProvisioning.cpp \
+    QueryDatabaseForm.cpp \
+    ConsultationRecordPage.cpp \
+    CUPageFactory.cpp \
+    LoginForm.cpp \
+    CUPage.cpp \
+    HomePage.cpp \
+    PatientRecordPage.cpp \
+    IPAddressConfigurationForm.cpp \
+    AdministrativeAssistantPageFactory.cpp \
+    PhysicianPageFactory.cpp \
+    CUNavigationStack.cpp \
+    CUFormElement.cpp \
+    CUFormTable.cpp \
+    CUContentPane.cpp \
+    CUNavigationButton.cpp \
+    CUServerRequestButton.cpp \
+    LoadingSpinner.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -68,10 +86,33 @@ HEADERS += \
     FollowUpRecord.h \
     ConsultationRecord.h \
     ClientObjectResponseDelegate.h \
-    ClientSettings.h
+    ClientSettings.h \
+    QueryDatabaseForm.h \
+    ConsultationRecordPage.h \
+    HomePage.h \
+    CUPage.h \
+    PatientRecordPage.h \
+    LoginForm.h \
+    IPAddressConfigurationForm.h \
+    CUPageFactory.h \
+    CUNavigationProvisioning.h \
+    CUNavigationProvisioningInterface.h \
+    AdministrativeAssistantPageFactory.h \
+    PhysicianPageFactory.h \
+    CUNavigationStack.h \
+    LoadingSpinner.h \
+    CUServerRequestButton.h \
+    CUNavigationButton.h \
+    CUFormTable.h \
+    CUFormElement.h \
+    CUContentPane.h
 
 
 QT += network
 
 
 QT += xml
+
+OTHER_FILES += \
+    loader.gif \
+    configuration.png
