@@ -1,6 +1,6 @@
 #include "ClientObjectRequest.h"
-ClientObjectRequest::ClientObjectRequest(ClientObjectResponseDelegate * delegate) : response(new ClientObjectResponse(delegate)){
-
+ClientObjectRequest::ClientObjectRequest(ClientObjectResponseDelegate * delegate, StorableInterface& object, ObjectRequestType type) : response(new ClientObjectResponse(delegate)){
+    fillObjectRequest(object,type);
 }
 
 /*

@@ -39,18 +39,20 @@ public:
       used to send an object to the server over the
       given tcp socket.
       */
-    ClientObjectRequest(ClientObjectResponseDelegate * delegate);
-    /*
-      Sends the given object to the server over http
-      along with the given operation and the delegate
-      who is responsible for handling the response.
-      */
-    int fillObjectRequest(StorableInterface& object, ObjectRequestType type);
+    ClientObjectRequest(ClientObjectResponseDelegate * delegate,StorableInterface& object, ObjectRequestType type);
+
 
     // Destructor
     ~ClientObjectRequest();
 
 private:
+    /*
+      Sends the given object to the server over http
+      along with the given operation and the delegate
+      who is responsible for handling the response.
+      */
+
+    int fillObjectRequest(StorableInterface& object, ObjectRequestType type);
     /*
       Overriding base method from TCP to know when the
       data has actually been sent to the server.

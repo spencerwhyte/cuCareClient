@@ -35,11 +35,11 @@ void User::setUserType(UserType type){
 // Storable Interface Methods
 void User::getAttributesAndValues(QMap<QString, QVariant> & attributesAndValues) const{
     Record::getAttributesAndValues(attributesAndValues);
-    attributesAndValues.insert(QString("UserName"), QVariant(QString(getUsername())));
+    attributesAndValues.insert(QString("Username"), QVariant(QString(getUsername())));
     attributesAndValues.insert(QString("UserType"), QVariant(QString(stringForUserType())));
 }
 
-void User::setAttributesAndValues(QMap<QString, QVariant> & attributesAndValues){
+void User::setAttributesAndValues(const QMap<QString, QVariant> & attributesAndValues){
     Record::setAttributesAndValues(attributesAndValues);
     QString u = attributesAndValues.value(QString("Username")).toString();
     QString type = attributesAndValues.value(QString("UserType")).toString();

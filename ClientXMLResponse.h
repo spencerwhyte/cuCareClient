@@ -10,6 +10,7 @@
 #include "ClientHTTPResponse.h"
 #include <QMap>
 #include <QDomDocument>
+#include <QList>
 
 /*
   The purpose of the ClientXMLResponse is to handle
@@ -36,7 +37,7 @@ public:
 
             data - The XML data that was received
       */
-    virtual void XMLReponseReceived(QMap<QString, QVariant> &data, QString & className);
+    virtual void XMLResponseReceived(QList< QMap<QString, QVariant> > &data , QString & className);
 
     /*
       Overrides base class method to receive the

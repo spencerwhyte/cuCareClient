@@ -22,9 +22,10 @@ int ClientXMLResponse::fillXMLResponse(){
 
         data - The XML data that was received
   */
-void ClientXMLResponse::XMLReponseReceived(QMap<QString, QVariant> &data, QString & className){
-
+void ClientXMLResponse::XMLResponseReceived(QList<QMap<QString, QVariant> > &data, QString & className){
+    qDebug() << "GERE";
 }
+
 
 /*
   Overrides base class method to receive the
@@ -33,20 +34,32 @@ void ClientXMLResponse::XMLReponseReceived(QMap<QString, QVariant> &data, QStrin
         body - The body of the HTTP response
   */
 void ClientXMLResponse::HTTPResponseReceived(QString &body){
-    QMap<QString, QVariant> data;
+    QList<QMap<QString, QVariant> > data;
 
     QString className;
 
     QDomDocument document("XMLDocument");
     document.setContent(body);
 
-    QDomNode root = document.firstChild();
-    className = root.nodeName();
-    QDomNodeList keyValues = root.childNodes();
-    for(int i =0 ; i < root.childNodes().length(); i++){
-        QDomNode node = keyValues.at(i);
-        data.insert(node.nodeName(), node.firstChild().nodeValue());
-    }
+    QDomNode root = document.firstChildElement();
 
-    XMLReponseReceived(data, className);
+
+    QDomNodeList keyValues = root.childNodes();
+
+    for(int i =0 ; i < keyValues.length(); i++){
+        QDomNodeList doubleChildren = keyValues.at(i).childNodes();
+        className = keyValues.at(i).nodeName();
+        QMap<QString, QVariant> currentMap;
+        for(int j = 0 ; j < doubleChildren.length(); j++){
+            QDomNode node = doubleChildren.at(j);
+            QString attributeName = node.nodeName();
+            QVariant attributeValue(node.firstChild().nodeValue());
+            currentMap.insert(attributeName, attributeValue);
+        }
+        data.append(currentMap);
+    }
+    qDebug() << "DATA: " << data;
+    qDebug() << className;
+    XMLResponseReceived(data, className);
+    qDebug() << "WOOT";
 }

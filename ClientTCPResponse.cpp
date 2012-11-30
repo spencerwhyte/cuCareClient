@@ -17,7 +17,7 @@ void ClientTCPResponse::setSocket(QTcpSocket* newSocket){
  TCP socket is the socket over which the data
  will be sent.
   */
-ClientTCPResponse::ClientTCPResponse() : socket(NULL) , allData(new QString()){
+ClientTCPResponse::ClientTCPResponse() : socket(NULL) , allData(new QString()), dataReceived(false){
 
 }
 
@@ -48,12 +48,14 @@ void ClientTCPResponse::TCPResponseFailed(QString errorMessage){
 }
 
 void ClientTCPResponse::cannotReceive(){
-    if(allData->length() == 0){
+    qDebug() << "CANNOT RECEIVE" << *allData;
+    if(!dataReceived){
         TCPResponseFailed(QString("Error: Unable to connect to the cuCare central server.."));
     }
 }
 
 void ClientTCPResponse::readyToReceive(){
+    dataReceived = true;
     qDebug() << "READY TO RECEIVE";
 
     socket->waitForReadyRead(10);

@@ -41,7 +41,7 @@ public:
       Overiding method from ClientXMLResponse to receive the parsed
       XML data that was sent by the server.
       */
-    virtual void XMLResponseReceived(QList<QMap<QString, QVariant> > & xmlData, QString & className);
+    void XMLResponseReceived(QList<QMap<QString, QVariant> > &data, QString & className);
     /*
       Gets called when the response fails to notify the delegate
       */

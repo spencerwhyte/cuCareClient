@@ -53,7 +53,7 @@ void PatientRecord::getAttributesAndValues(QMap<QString, QVariant> & attributesA
     attributesAndValues.insert(QString("PrimaryPhysician"), QVariant(QString(getPrimaryPhysician())));
 }
 
-void PatientRecord::setAttributesAndValues(QMap<QString, QVariant> & attributesAndValues){
+void PatientRecord::setAttributesAndValues(const QMap<QString, QVariant> & attributesAndValues){
     Record::setAttributesAndValues(attributesAndValues);
     QString  n = attributesAndValues.value(QString("Name")).toString();
     QString  p = attributesAndValues.value(QString("PhoneNumber")).toString();

@@ -41,7 +41,7 @@ public:
     /*
       Called on the delegate when the response received from
       the server is a failure response. Included is the
-      relevant error message.]
+      relevant error message.
 
             errrorMessage - The message explaining the error
 

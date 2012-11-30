@@ -19,6 +19,7 @@ class ClientTCPResponse : public QObject
     Q_OBJECT
     QTcpSocket * socket;
 
+    bool dataReceived;
     QString * allData;
 public:
     // Getters
