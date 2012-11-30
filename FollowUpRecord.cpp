@@ -13,25 +13,26 @@ void FollowUpRecord::setStatusForString(QString s){
     setStatus(INVALID);
 }
 
-void FollowUpRecord::setStatus(FollowUpRecordStatus  s){
+void FollowUpRecord::setStatus(FollowUpRecordStatus s){
     status = s;
 }
 
-void FollowUpRecord::setDueDateTime(QDateTime  d){
+void FollowUpRecord::setDueDateTime(QDateTime d){
     delete dueDateTime;
     dueDateTime = new QDateTime(d);
 }
 
 
-void FollowUpRecord::setDetails(QString  d){
+void FollowUpRecord::setDetails(QString d){
     delete details;
     details = new QString(d);
 }
 
+void FollowUpRecord::setConsultationRecordId(int newID){
+    consultationRecordId = newID;
+}
+
 // Getters
-
-
-
 
 QString FollowUpRecord::getStatusString() const{
     if(getStatus() == COMPLETE){
@@ -60,23 +61,30 @@ QString FollowUpRecord::getDetails() const{
     return *details;
 }
 
+int FollowUpRecord::getConsultationRecordId()const{
+    return consultationRecordId;
+}
+
 // Storable Interface Methods
 void FollowUpRecord::getAttributesAndValues(QMap<QString, QVariant> & attributesAndValues) const{
     Record::getAttributesAndValues(attributesAndValues);
     attributesAndValues.insert(QString("Status"), QVariant(getStatusString()));
     attributesAndValues.insert(QString("DueDateAndTime"), QVariant(QDateTime(getDueDateTime())));
     attributesAndValues.insert(QString("Details"), QVariant(QString(getDetails())));
+    attributesAndValues.insert(QString("ConsultationRecordID"), QVariant(getConsultationRecordId()));
 }
 
-void FollowUpRecord::setAttributesAndValues(const QMap<QString, QVariant> & attributesAndValues){
+void FollowUpRecord::setAttributesAndValues(QMap<QString, QVariant> & attributesAndValues){
     Record::setAttributesAndValues(attributesAndValues);
-    QString  s = attributesAndValues.value(QString("Status")).toString();
-    QDateTime  ddat = attributesAndValues.value(QString("DueDateAndTime")).toDateTime();
-    QString  d = attributesAndValues.value(QString("Details")).toString();
+    QString s = attributesAndValues.value(QString("Status")).toString();
+    QDateTime ddat = attributesAndValues.value(QString("DueDateAndTime")).toDateTime();
+    QString d = attributesAndValues.value(QString("Details")).toString();
+    int c = attributesAndValues.value(QString("ConsultationRecordID")).toInt();
 
     setStatusForString(s);
     setDueDateTime(ddat);
     setDetails(d);
+    setConsultationRecordId(c);
 }
 
 QString FollowUpRecord:: className() const{
@@ -85,7 +93,7 @@ QString FollowUpRecord:: className() const{
 }
 
 // Constructor / Destructor
-FollowUpRecord::FollowUpRecord() : status(INVALID), dueDateTime(new QDateTime()), details(new QString()){
+FollowUpRecord::FollowUpRecord() : status(INVALID), dueDateTime(new QDateTime()), details(new QString()), consultationRecordId(-1){
 
 }
 
