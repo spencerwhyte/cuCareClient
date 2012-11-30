@@ -9,11 +9,11 @@ ClientSettings::~ClientSettings(){
     delete address;
 }
 
-QString ClientSettings::getDefaultAddress(){
+QHostAddress& ClientSettings::getDefaultAddress(){
     return *address;
 }
 
-QString ClientSettings::getDefaultPort(){
+qint16 ClientSettings::getDefaultPort(){
     return port;
 }
 
