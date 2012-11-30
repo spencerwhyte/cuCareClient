@@ -8,6 +8,8 @@
 #include  <QList>
 #include "PatientRecord.h"
 
+#include <QDateTime>
+
 void testUser(){
     User u;
     QString username("Spencer Whyte");
@@ -312,6 +314,93 @@ void testRemoveUser(){
     ClientObjectRequest *r = new ClientObjectRequest(test, *u, ClientObjectRequest::Remove);
 }
 
+void testRemovePatient(){
+    PatientRecord * u = new PatientRecord();
+    u->setId(1);
+
+    class TestObject : public ClientObjectResponseDelegate{
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+             qDebug() << "REMOVED USER SUCCESSFULLY";
+             for(int i = 0 ; i < results.length(); i++){
+
+             }
+        }
+
+         virtual void didReceiveError(QString & errorMessage){
+             qDebug() << errorMessage;
+        }
+    };
+
+    TestObject* test = new TestObject();
+
+    ClientObjectRequest *r = new ClientObjectRequest(test, *u, ClientObjectRequest::Remove);
+}
+
+void testConsulationRecord(){
+
+    ConsultationRecord c;
+    QDateTime d;
+    QDate qd;
+    QTime qt;
+
+    qd.setYMD(2000,1,1);
+
+    qt.setHMS(12,12,12);
+
+
+
+    d.setDate(qd);
+    d.setTime(qt);
+
+    c.setDateAndTime(d);
+
+    c.setDiagnosis(QString("Cancer"));
+
+    c.setOHIPNumber(QString("QWERTYUIOP123456789"));
+
+    c.setReason(QString("It's just part of life"));
+
+
+
+    if(c.getDateAndTime().date().day() != 1){
+        qDebug() << "ERROR IN consultation/date/day TEST CASE";
+    }
+
+    if(c.getDateAndTime().date().month() != 1){
+        qDebug() << "ERROR IN consultation/date/month TEST CASE";
+    }
+
+    if(c.getDateAndTime().date().year() != 2000){
+        qDebug() << "ERROR IN consultation/date/year TEST CASE";
+    }
+
+    if(c.getDateAndTime().time().hour() != 12){
+        qDebug() << "ERROR IN consultation/time/hour TEST CASE";
+    }
+
+    if(c.getDateAndTime().time().minute() != 12){
+        qDebug() << "ERROR IN consultation/time/minute TEST CASE";
+    }
+
+    if(c.getDateAndTime().time().second() != 12){
+        qDebug() << "ERROR IN consultation/time/second TEST CASE";
+    }
+
+    if(QString::compare(c.getDiagnosis(), "Cancer") !=0){
+        qDebug() << "ERROR IN consultation/diagnosis TEST CASE";
+    }
+
+    if(QString::compare(c.getOHIPNumber(), "QWERTYUIOP123456789") !=0){
+        qDebug() << "ERROR IN consultation/ohip TEST CASE";
+    }
+
+    if(QString::compare(c.getReason(), "It's just part of life") !=0){
+        qDebug() << "ERROR IN consultation/reason TEST CASE";
+    }
+
+
+}
+
 
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
@@ -327,7 +416,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //testPatient();
     //testAddPatient();
     //testQueryPatient();
-    testEditPatient();
+    //testEditPatient();
+    //testRemovePatient();
+
+    testConsulationRecord();
+    testAddConsultationRecord();
+
 
    return app->exec();
 }
