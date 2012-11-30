@@ -517,7 +517,44 @@ void testQueryConsultationRecord(){
 
 }
 void testEditConsultationRecord(){
+    ConsultationRecord c;
+    QDateTime d;
+    QDate qd;
+    QTime qt;
 
+    qd.setYMD(2000,1,1);
+
+    qt.setHMS(12,12,12);
+
+    d.setDate(qd);
+    d.setTime(qt);
+
+    c.setDateAndTime(d);
+
+    c.setDiagnosis(QString("Cancer"));
+
+    c.setOHIPNumber(QString("QWERTYUIOP123456789"));
+
+    c.setReason(QString("It's not just part of life"));
+
+    c.setId(1);
+
+    class TestObject : public ClientObjectResponseDelegate{
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+             qDebug() <<"SUCCESS";
+             for(int i = 0 ; i < results.length(); i++){
+
+             }
+        }
+
+         virtual void didReceiveError(QString & errorMessage){
+             qDebug() << errorMessage;
+        }
+    };
+
+    TestObject* test = new TestObject();
+
+    ClientObjectRequest *r = new ClientObjectRequest(test, c, ClientObjectRequest::Edit);
 }
 
 
@@ -532,15 +569,16 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //testRemoveUser();
 
     //testPatient();
-    //testAddPatient();
+    testAddPatient();
     //testQueryPatient();
     //testEditPatient();
     //testRemovePatient();
 
    // testConsulationRecord();
-    //testAddConsulationRecord();
-   // testQueryConsultationRecord();
-      testEditConsultationRecord();
+   // testAddConsulationRecord();
+     // testQueryConsultationRecord();
+   // testEditConsultationRecord();
+
 
 
 
