@@ -10,7 +10,7 @@ LoginForm::LoginForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Lo
 
     // create the network configuration button
     configurationButton = new CUNavigationButton("", this);
-    configurationButton->setIcon(QIcon("./configuration.png"));
+    configurationButton->setIcon(QIcon(":/new/config/configuration.png"));
     configurationButton->setIconSize(QSize(30, 30));
 
     // add the two elements to the page's content pane
@@ -24,6 +24,7 @@ LoginForm::LoginForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Lo
     connect(configurationButton, SIGNAL(clicked()), this, SLOT(configurationButtonClicked()));
 
     //connect this window' navigation signal to the navigator
+    connect(loginButton->getButton(), SIGNAL(clicked()), this, SLOT(communicateUsernameToServer()));
     connect(this, SIGNAL(navigateAwayFromPage(int)), pNavigator, SLOT(navigateFromLoginForm(int)));
 }
 
@@ -36,4 +37,34 @@ LoginForm::~LoginForm()
 void LoginForm::configurationButtonClicked()
 {
     emit navigateAwayFromPage(1);
+}
+
+void LoginForm::communicateUsernameToServer()
+{
+    User u;
+    u.setUsername(usernameField->getInput());
+    ClientObjectRequest * request= new ClientObjectRequest(this, u, ClientObjectRequest::Query);
+    setRequest(request);
+}
+
+
+
+
+/*
+  Gets called when the request to login has completed
+  */
+void LoginForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> &results){
+
+    emit navigateAwayFromPage(0);
+
+
+}
+
+/*
+ Gets called when request to the server fails
+*/
+void LoginForm::didReceiveError(QString & errorMessage){
+    QMessageBox errorMessageBox;
+    errorMessageBox.setText(errorMessage);
+    errorMessageBox.exec();
 }

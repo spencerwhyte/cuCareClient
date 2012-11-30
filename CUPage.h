@@ -22,13 +22,19 @@ This class is the super class for all pages in cuCare. The template involves a t
 #include"CUNavigationButton.h"
 #include"CUNavigationProvisioningInterface.h"
 
+#include "ClientObjectRequest.h"
+
 class CUPage : public QWidget
 {
     Q_OBJECT
-
+    ClientObjectRequest * request;
 public:
     CUPage(QString title, bool containsBackButton, CUNavigationProvisioningInterface *pNavigator);
 	~CUPage();
+
+    void setRequest(ClientObjectRequest * request);
+
+    ClientObjectRequest * getRequest();
 
     QGridLayout* getLayout();
     CUNavigationProvisioningInterface* getNavigator();

@@ -18,10 +18,7 @@
 
 #include<QApplication>
 #include<QMainWindow>
-#include<QLabel>
-#include<QGridLayout>
 #include<QString>
-#include"HomePage.h"
 #include"CUNavigationStack.h"
 #include"CUNavigationProvisioning.h"
 
@@ -805,8 +802,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //testEditFollowUp();
     //testRemoveFollowUp();
 
-
-
    return app->exec();
 }
 */
@@ -821,7 +816,7 @@ int main(int argc, char *argv[])
     //declare the navigation element that will manage the control flow
     CUNavigationProvisioning *navigation = new CUNavigationProvisioning(stack);
 
-    HomePage *initialPage = new HomePage(navigation);
+    LoginForm *initialPage = new LoginForm(navigation);
     stack->addWidget(initialPage);
     stack->setCurrentWidget(initialPage);
 

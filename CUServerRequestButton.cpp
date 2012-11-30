@@ -17,6 +17,11 @@ CUServerRequestButton::~CUServerRequestButton()
 
 }
 
+QPushButton* CUServerRequestButton::getButton()
+{
+    return button;
+}
+
 //this method starts the gif loading animation spinning
 void CUServerRequestButton::startSpinner()
 {

@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/new/config">
+        <file>configuration.png</file>
+    </qresource>
+    <qresource prefix="/new/spinner">
+        <file>loader.gif</file>
+    </qresource>
+</RCC>

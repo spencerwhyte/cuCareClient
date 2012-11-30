@@ -24,9 +24,11 @@ class CUFormElement : public QWidget
 public:
     typedef enum cuFormVariant {LINE, PARAGRAPH, DATE} cuFormElement;
 
-    CUFormElement(QString labelName, cuFormVariant formVariant, QWidget *parent);
+    CUFormElement(QString labelName, cuFormVariant pFormVariant, QWidget *parent);
 	~CUFormElement();
 
+    //get user input
+    QString getInput();
     //set whether the input field ought to be edited or not
     void setEditable(bool editable);
 
@@ -34,6 +36,7 @@ private:
 	QLabel *label;
 	QWidget *formInput;
 	QGridLayout *layout;
+    cuFormVariant formVariant;
 };
 
 #endif

@@ -22,6 +22,7 @@ public:
     CUServerRequestButton(QString buttonName, QWidget *parent);
 	~CUServerRequestButton();
 
+    QPushButton* getButton();
 	void startSpinner(); // this sets the gif loading animation going
 	void stopSpinner(); // this stops and hides the gif loading animation
 

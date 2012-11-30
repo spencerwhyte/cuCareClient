@@ -50,7 +50,7 @@ void ClientTCPResponse::TCPResponseFailed(QString errorMessage){
 void ClientTCPResponse::cannotReceive(){
     qDebug() << "CANNOT RECEIVE" << *allData;
     if(!dataReceived){
-        TCPResponseFailed(QString("Error: Unable to connect to the cuCare central server.."));
+        TCPResponseFailed(QString("Error: Unable to connect to the cuCare central server."));
     }
 }
 

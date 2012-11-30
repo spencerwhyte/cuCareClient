@@ -116,3 +116,6 @@ QT += xml
 OTHER_FILES += \
     loader.gif \
     configuration.png
+
+RESOURCES += \
+    ImageResources.qrc

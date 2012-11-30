@@ -3,7 +3,7 @@
 LoadingSpinner::LoadingSpinner(QWidget *parent) : QLabel(parent)
 {
 	setFixedSize(16, 16);
-    spinnyMovie = new QMovie(":/loader.gif");
+    spinnyMovie = new QMovie(":/new/spinner/loader.gif");
 
 	this->setMovie(spinnyMovie);
 }

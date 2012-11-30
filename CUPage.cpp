@@ -1,6 +1,6 @@
 #include"CUPage.h"
 
-CUPage::CUPage(QString title, bool containsBackButton, CUNavigationProvisioningInterface *pNavigator) : QWidget(), backButton(NULL)
+CUPage::CUPage(QString title, bool containsBackButton, CUNavigationProvisioningInterface *pNavigator) : QWidget(), backButton(NULL), request(NULL)
 {
     setMinimumSize(800, 600); // a smaller window would be unusable, a bigger window would be ugly
 
@@ -50,12 +50,26 @@ CUPage::CUPage(QString title, bool containsBackButton, CUNavigationProvisioningI
 // Never know what you might want to fill into a destructor
 CUPage::~CUPage()
 {
-
+    if(request){
+       delete request;
+    }
 }
 
 CUNavigationProvisioningInterface* CUPage::getNavigator()
 {
 
+}
+
+
+void CUPage::setRequest(ClientObjectRequest * r){
+    if(request){
+        delete request;
+    }
+    request = r;
+}
+
+ClientObjectRequest * CUPage::getRequest(){
+    return request;
 }
 
 QGridLayout* CUPage::getLayout()

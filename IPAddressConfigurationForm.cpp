@@ -11,9 +11,38 @@ IPAddressConfigurationForm::IPAddressConfigurationForm(CUNavigationProvisioningI
     addElement(ipAddressEntry);
     addElement(portNumberEntry);
     addElement(submitButton, 0, 3, 1, 1, Qt::AlignRight);
+
+    QObject::connect(submitButton->getButton(), SIGNAL(clicked()), this, SLOT(submitButtonClicked()));
+    QObject::connect(this, SIGNAL(goBack()), pNavigator, SLOT(back()));
 }
 
 IPAddressConfigurationForm::~IPAddressConfigurationForm()
 {
+
+}
+
+void IPAddressConfigurationForm::submitButtonClicked()
+{
+
+    ClientSettings& clientSettings = ClientSettings::GetClientSettings();
+    QString addressInput = ipAddressEntry->getInput();
+    if(clientSettings.setDefaultAddressString(addressInput)){
+            QString portInput = portNumberEntry->getInput();
+            if(clientSettings.setDefaultPortString(portInput)){
+                emit goBack();
+
+            }else{
+                QMessageBox messageBox;
+                messageBox.setText("The port number you entered was incorrect, please try again");
+                messageBox.exec();
+            }
+    }else{
+        QMessageBox messageBox;
+        messageBox.setText("The IP address you entered was incorrect, please input the address in the format XXX.XXX.XXX.XXX");
+        messageBox.exec();
+    }
+
+
+
 
 }

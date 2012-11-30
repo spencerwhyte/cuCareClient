@@ -1,8 +1,10 @@
 #include"CUFormElement.h"
 
 // the form variant determines whether the 2nd pair item is a LineEdit, ParagraphEdit, or DateEdit
-CUFormElement::CUFormElement(QString labelName, cuFormVariant formVariant, QWidget *parent) : QWidget(parent)
+CUFormElement::CUFormElement(QString labelName, cuFormVariant pFormVariant, QWidget *parent) : QWidget(parent)
 {
+    formVariant = pFormVariant;
+
     layout = new QGridLayout(this);
     label = new QLabel(labelName, this);
 
@@ -36,6 +38,21 @@ CUFormElement::CUFormElement(QString labelName, cuFormVariant formVariant, QWidg
 
 CUFormElement::~CUFormElement()
 {
+
+}
+
+QString CUFormElement::getInput()
+{
+    switch(formVariant)
+    {
+    case LINE: // LineEdit
+       return ((QLineEdit*)formInput)->text();
+    case PARAGRAPH: // TextEdit
+       return ((QTextEdit*)formInput)->document()->toPlainText();
+    case DATE: // DateTime
+
+        break;
+    }
 
 }
 

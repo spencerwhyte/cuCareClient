@@ -12,6 +12,10 @@ These may be changed, affecting the network settings on the current system
 #include"CUPage.h"
 #include"CUFormElement.h"
 #include"CUServerRequestButton.h"
+#include "ClientSettings.h"
+#include <QMessageBox>
+
+
 
 class IPAddressConfigurationForm : public CUPage
 {
@@ -20,6 +24,12 @@ class IPAddressConfigurationForm : public CUPage
 public:
     IPAddressConfigurationForm(CUNavigationProvisioningInterface *pNavigator);
     ~IPAddressConfigurationForm();
+
+public slots:
+    void submitButtonClicked();
+
+signals:
+    void goBack();
 
 private:
     QLabel *instructionLabel; //informs user what to input
