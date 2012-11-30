@@ -28,14 +28,13 @@ void ClientObjectResponse::XMLResponseReceived(QList<QMap<QString, QVariant> > &
     for(int i =0 ; i < data.length(); i++){
         StorableInterface * current = StorableFactory::GetFactory().getInstance(className);
         current->setAttributesAndValues(data.at(i));
-        qDebug() << "FINAL RECEIVED DATA" << data.at(i);
-        qDebug() << className;
-        qDebug() << current->className();
-        qDebug() << ((User*)current)->getUsername();
+
         objects.append(current);
     }
 
     delegate->didSuccessfullyReceiveResponse(objects);
+
+
 
 }
 

@@ -7,7 +7,7 @@
 #include "ClientObjectResponseDelegate.h"
 #include  <QList>
 #include "PatientRecord.h"
-
+#include "FollowUpRecord.h"
 #include <QDateTime>
 
 void testUser(){
@@ -502,7 +502,9 @@ void testQueryConsultationRecord(){
          void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
              qDebug() <<"SUCCESS";
              for(int i = 0 ; i < results.length(); i++){
-
+                 ConsultationRecord * r;
+                 r= (ConsultationRecord * )results.at(i);
+                 qDebug()<< r->getOHIPNumber();
              }
         }
 
@@ -557,6 +559,208 @@ void testEditConsultationRecord(){
     ClientObjectRequest *r = new ClientObjectRequest(test, c, ClientObjectRequest::Edit);
 }
 
+void testRemoveConsultationRecord(){
+    ConsultationRecord c;
+    c.setId(1);
+
+    class TestObject : public ClientObjectResponseDelegate{
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+             qDebug() <<"SUCCESS";
+             for(int i = 0 ; i < results.length(); i++){
+
+             }
+        }
+
+         virtual void didReceiveError(QString & errorMessage){
+             qDebug() << errorMessage;
+        }
+    };
+
+    TestObject* test = new TestObject();
+
+    ClientObjectRequest *r = new ClientObjectRequest(test, c, ClientObjectRequest::Remove);
+}
+
+
+void testFollowUp(){
+    FollowUpRecord f;
+    f.setConsultationRecordId(1);
+    f.setDetails(QString("Details string"));
+    QDate qd;
+    QTime qt;
+    QDateTime d;
+
+    qd.setYMD(2000,1,1);
+
+    qt.setHMS(12,12,12);
+
+    d.setDate(qd);
+    d.setTime(qt);
+
+    f.setDueDateTime(d);
+
+    f.setStatus(FollowUpRecord::PENDING);
+
+    if(f.getConsultationRecordId() != 1){
+        qDebug() << "ERROR WITH /followuprecord/consultationrecordid";
+    }
+
+    if(QString::compare(QString("Details string"),f.getDetails())!=0){
+        qDebug() << "ERROR WITH /followuprecord/details TEST";
+    }
+
+    if(f.getDueDateTime().date().day() != 1){
+        qDebug() << "ERROR WITH /followuprecord/datetime/day TEST";
+    }
+
+    if(f.getDueDateTime().date().month() != 1){
+        qDebug() << "ERROR WITH /followuprecord/datetime/month TEST";
+    }
+
+    if(f.getDueDateTime().date().year() != 2000){
+        qDebug() << "ERROR WITH /followuprecord/datetime/year TEST";
+    }
+
+    if(f.getDueDateTime().time().hour() != 12){
+        qDebug() << "ERROR WITH /followuprecord/datetime/hour TEST";
+    }
+
+    if(f.getDueDateTime().time().minute() != 12){
+        qDebug() << "ERROR WITH /followuprecord/datetime/minute TEST";
+    }
+
+    if(f.getDueDateTime().time().second() != 12){
+        qDebug() << "ERROR WITH /followuprecord/datetime/second TEST";
+    }
+
+    if(f.getStatus() != FollowUpRecord::PENDING){
+        qDebug() <<"ERROR WITH /followuprecord/status";
+    }
+
+
+}
+
+void testAddFollowUp(){
+    FollowUpRecord f;
+    f.setConsultationRecordId(1);
+    f.setDetails(QString("Details string"));
+    QDate qd;
+    QTime qt;
+    QDateTime d;
+
+    qd.setYMD(2000,1,1);
+
+    qt.setHMS(12,12,12);
+
+    d.setDate(qd);
+    d.setTime(qt);
+
+    f.setDueDateTime(d);
+
+    f.setStatus(FollowUpRecord::PENDING);
+
+    class TestObject : public ClientObjectResponseDelegate{
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+             qDebug() <<"SUCCESS";
+             for(int i = 0 ; i < results.length(); i++){
+
+             }
+        }
+
+         virtual void didReceiveError(QString & errorMessage){
+             qDebug() << errorMessage;
+        }
+    };
+
+    TestObject* test = new TestObject();
+
+    ClientObjectRequest *r = new ClientObjectRequest(test, f, ClientObjectRequest::Add);
+}
+
+void testQueryFollowUp(){
+    FollowUpRecord f;
+    f.setStatus(FollowUpRecord::PENDING);
+
+    class TestObject : public ClientObjectResponseDelegate{
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+             qDebug() <<"SUCCESS";
+             for(int i = 0 ; i < results.length(); i++){
+                 qDebug() << ((FollowUpRecord*)results.at(i))->getId();
+             }
+        }
+
+         virtual void didReceiveError(QString & errorMessage){
+             qDebug() << errorMessage;
+        }
+    };
+
+    TestObject* test = new TestObject();
+
+    ClientObjectRequest *r = new ClientObjectRequest(test, f, ClientObjectRequest::Query);
+
+}
+
+void testEditFollowUp(){
+    FollowUpRecord f;
+    f.setId(1);
+    f.setConsultationRecordId(15);
+    f.setDetails(QString("Details string"));
+    QDate qd;
+    QTime qt;
+    QDateTime d;
+
+    qd.setYMD(2000,1,1);
+
+    qt.setHMS(12,12,12);
+
+    d.setDate(qd);
+    d.setTime(qt);
+
+    f.setDueDateTime(d);
+
+    f.setStatus(FollowUpRecord::OVERDUE);
+
+    class TestObject : public ClientObjectResponseDelegate{
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+             qDebug() <<"SUCCESS";
+             for(int i = 0 ; i < results.length(); i++){
+
+             }
+        }
+
+         virtual void didReceiveError(QString & errorMessage){
+             qDebug() << errorMessage;
+        }
+    };
+
+    TestObject* test = new TestObject();
+
+    ClientObjectRequest *r = new ClientObjectRequest(test, f, ClientObjectRequest::Edit);
+}
+
+void testRemoveFollowUp(){
+    FollowUpRecord f;
+    f.setId(1);
+
+    class TestObject : public ClientObjectResponseDelegate{
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+             qDebug() <<"SUCCESS";
+             for(int i = 0 ; i < results.length(); i++){
+
+             }
+        }
+
+         virtual void didReceiveError(QString & errorMessage){
+             qDebug() << errorMessage;
+        }
+    };
+
+    TestObject* test = new TestObject();
+
+    ClientObjectRequest *r = new ClientObjectRequest(test, f, ClientObjectRequest::Remove);
+}
+
+
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -569,17 +773,22 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     //testRemoveUser();
 
     //testPatient();
-    testAddPatient();
-    //testQueryPatient();
+    //testAddPatient();
+    ///testQueryPatient();
     //testEditPatient();
     //testRemovePatient();
 
-   // testConsulationRecord();
-   // testAddConsulationRecord();
-     // testQueryConsultationRecord();
-   // testEditConsultationRecord();
+    //testConsulationRecord();
+    //testAddConsulationRecord();
+    //testQueryConsultationRecord();
+    //testEditConsultationRecord();
+    testRemoveConsultationRecord();
 
-
+    //testFollowUp();
+    //testAddFollowUp();
+    //testQueryFollowUp();
+    //testEditFollowUp();
+    //testRemoveFollowUp();
 
 
 

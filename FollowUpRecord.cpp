@@ -5,25 +5,28 @@
 void FollowUpRecord::setStatusForString(QString s){
     if(QString::compare(QString("PENDING"),s) == 0){
         setStatus(PENDING);
+        return;
     }else if(QString::compare(QString("OVERDUE"),s) == 0){
         setStatus(OVERDUE);
+        return;
     }else if(QString::compare(QString("COMPLETE"),s) == 0){
         setStatus(COMPLETE);
+        return;
     }
     setStatus(INVALID);
 }
 
-void FollowUpRecord::setStatus(FollowUpRecordStatus s){
+void FollowUpRecord::setStatus(FollowUpRecordStatus  s){
     status = s;
 }
 
-void FollowUpRecord::setDueDateTime(QDateTime d){
+void FollowUpRecord::setDueDateTime(QDateTime  d){
     delete dueDateTime;
     dueDateTime = new QDateTime(d);
 }
 
 
-void FollowUpRecord::setDetails(QString d){
+void FollowUpRecord::setDetails(QString  d){
     delete details;
     details = new QString(d);
 }
@@ -34,18 +37,21 @@ void FollowUpRecord::setConsultationRecordId(int newID){
 
 // Getters
 
+
+
+
 QString FollowUpRecord::getStatusString() const{
     if(getStatus() == COMPLETE){
         static QString complete("COMPLETE");
         return complete;
     }else if(getStatus() == PENDING){
-        static QString complete("COMPLETE");
+        static QString complete("PENDING");
         return complete;
     }else if(getStatus() == OVERDUE){
-        static QString complete("COMPLETE");
+        static QString complete("OVERDUE");
         return complete;
     }
-    static QString invalid("INVALID");
+    static QString invalid("");
     return invalid;
 }
 
@@ -74,11 +80,11 @@ void FollowUpRecord::getAttributesAndValues(QMap<QString, QVariant> & attributes
     attributesAndValues.insert(QString("ConsultationRecordID"), QVariant(getConsultationRecordId()));
 }
 
-void FollowUpRecord::setAttributesAndValues(QMap<QString, QVariant> & attributesAndValues){
+void FollowUpRecord::setAttributesAndValues(const QMap<QString, QVariant> & attributesAndValues){
     Record::setAttributesAndValues(attributesAndValues);
-    QString s = attributesAndValues.value(QString("Status")).toString();
-    QDateTime ddat = attributesAndValues.value(QString("DueDateAndTime")).toDateTime();
-    QString d = attributesAndValues.value(QString("Details")).toString();
+    QString  s = attributesAndValues.value(QString("Status")).toString();
+    QDateTime  ddat = attributesAndValues.value(QString("DueDateAndTime")).toDateTime();
+    QString  d = attributesAndValues.value(QString("Details")).toString();
     int c = attributesAndValues.value(QString("ConsultationRecordID")).toInt();
 
     setStatusForString(s);
