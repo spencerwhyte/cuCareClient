@@ -27,7 +27,13 @@ ClientObjectRequest::~ClientObjectRequest(){
   data has actually been sent to the server.
   */
 void ClientObjectRequest::TCPRequestFilled(){
+    response->setSocket(getSocket());
     response->fillObjectResponse();
+}
+
+
+void ClientObjectRequest::TCPRequestFailed(){
+    response->responseFailed(QString("Error: Unable to connect to the cuCare central server."));
 }
 
 // Helper method to help with constructing xml urls from the type of request

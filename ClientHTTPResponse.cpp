@@ -37,13 +37,13 @@ void ClientHTTPResponse::HTTPResponseReceived(QString &body){
   */
 void ClientHTTPResponse::TCPResponseReceived(QString &totalData){
 
-    QStringList responseList = totalData.split("\r\n");
+    QStringList responseList = totalData.split("\r\n\r\n");
     if(responseList.length() < 2){ // We need to at least have a header and a body
         return;
     }
     QString header = responseList.at(0);
 
-    QStringList headerList = header.split("\n");
+    QStringList headerList = header.split("\r\n");
     if(headerList.length() < 2){ // We need to at least have the protocol header and content length
         return;
     }
@@ -65,7 +65,7 @@ void ClientHTTPResponse::TCPResponseReceived(QString &totalData){
 
     int contentLengthInteger = contentLength.toInt();
 
-    if(totalData.length() != header.length() + 2 + contentLengthInteger){ // We need to have all of the content
+    if(totalData.length() != header.length() + 4 + contentLengthInteger){ // We need to have all of the content
         return;
     }
 

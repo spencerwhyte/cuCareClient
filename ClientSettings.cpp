@@ -9,20 +9,42 @@ ClientSettings::~ClientSettings(){
     delete address;
 }
 
-QHostAddress& ClientSettings::getDefaultAddress(){
+QString ClientSettings::getDefaultAddress(){
     return *address;
 }
 
-qint16 ClientSettings::getDefaultPort(){
+QString ClientSettings::getDefaultPort(){
     return port;
 }
 
-void  ClientSettings::setDefaultAddress(QString &newAddress){
-    delete address;
-    address = new QHostAddress(newAddress);
+QString ClientSettings::getDefaultAddressString(){
+    return address->toString();
 }
 
-void ClientSettings::setDefaultPort(int newPort){
-    port = newPort;
+QString ClientSettings::getDefaultPortString(){
+    return QString::number(port);
 }
+
+// Setters
+bool ClientSettings::setDefaultPortString(QString & portString){
+    int newPort = portString.toInt();
+    if(newPort != 0){
+        port = newPort;
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool ClientSettings::setDefaultAddressString(QString & addressString){
+        QHostAddress * newAddress = new QHostAddress();
+        if(newAddress->setAddress(addressString)){
+            delete address;
+            address = newAddress;
+            return true;
+        }else{
+            return false;
+        }
+}
+
 

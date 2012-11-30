@@ -41,8 +41,8 @@ void testAddUser(){
              qDebug() << "SUCCESS";
         }
 
-         void didReceiveError(QString & errorMessage){
-             qDebug() << "FAILURE";
+         virtual void didReceiveError(QString & errorMessage){
+             qDebug() << errorMessage;
         }
     };
 

@@ -27,7 +27,7 @@ ClientTCPResponse::ClientTCPResponse() : socket(NULL) , allData(new QString()){
   */
 int ClientTCPResponse::fillTCPResponse(){
    connect(socket, SIGNAL(readyRead()), this, SLOT(readyToReceive()));
-   readyToReceive();
+   connect(socket, SIGNAL(disconnected()), this, SLOT(cannotReceive()));
 }
 
 /*
@@ -43,7 +43,19 @@ void ClientTCPResponse::TCPResponseReceived(QString& totalData){
 
 }
 
+void ClientTCPResponse::TCPResponseFailed(QString errorMessage){
+
+}
+
+void ClientTCPResponse::cannotReceive(){
+    if(allData->length() == 0){
+        TCPResponseFailed(QString("Error: Unable to connect to the cuCare central server.."));
+    }
+}
+
 void ClientTCPResponse::readyToReceive(){
+    qDebug() << "READY TO RECEIVE";
+
     socket->waitForReadyRead(10);
     QByteArray newData = socket->readAll();
     allData->append(newData);

@@ -18,16 +18,18 @@
 class ClientTCPRequest : public QObject
 {
     Q_OBJECT
+    qint64 totalBytesSent;
     QTcpSocket * socket;
     QString * data;
 
     QString * getData();
-    QTcpSocket* getSocket();
+
 
     void setData(QString * newData);
     void setSocket(QTcpSocket * socket);
 
 public:
+     QTcpSocket* getSocket();
     /*
       Creates an ClientTCPRequest object where TCPSocket is the socket
       that will be used for data transfer
@@ -47,9 +49,17 @@ public:
       over to the server.
       */
     virtual void TCPRequestFilled();
+    /*
+      This method gets called when the TCP request fails.
+      */
+    virtual void TCPRequestFailed();
+    /*
+      Gets called when a chunk of the data has been sent.
+      */
+
 
 public slots:
-
+    void dataSent(qint64 bytesSent);
     void readyToSend();
 
 };

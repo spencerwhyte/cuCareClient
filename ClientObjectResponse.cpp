@@ -5,7 +5,7 @@
   to transcribe the response from the server from
   the data recieved over the given tcp socket.
   */
-ClientObjectResponse::ClientObjectResponse(ClientObjectResponseDelegate * delegate){
+ClientObjectResponse::ClientObjectResponse(ClientObjectResponseDelegate * d): delegate(d){
 
 }
 
@@ -33,3 +33,11 @@ void ClientObjectResponse::XMLResponseReceived(QList< QMap<QString, QVariant> > 
     delegate->didSuccessfullyReceiveResponse(objects);
 
 }
+
+void ClientObjectResponse::responseFailed(QString error){
+    delegate->didReceiveError(error);
+}
+
+  void ClientObjectResponse::TCPResponseFailed(QString errorMessage){
+      responseFailed(errorMessage);
+  }

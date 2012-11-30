@@ -4,25 +4,33 @@
   Creates an ClientTCPRequest object where TCPSocket is the socket
   that will be used for data transfer
   */
-ClientTCPRequest::ClientTCPRequest() : socket(new QTcpSocket(this)), data(new QString()){
+ClientTCPRequest::ClientTCPRequest() : socket(new QTcpSocket(this)), data(new QString()), totalBytesSent(0){
 
 
     connect(getSocket(), SIGNAL(connected()), this, SLOT(readyToSend()));
-
+    connect(getSocket(), SIGNAL(bytesWritten(qint64)), this, SLOT(dataSent(qint64)));
 }
 
 ClientTCPRequest::~ClientTCPRequest(){
     delete data;
 }
 
+void ClientTCPRequest::dataSent(qint64 bytesSent){
+    totalBytesSent += bytesSent;
+    if(totalBytesSent == data->length()){
+        TCPRequestFilled();
+    }
+}
 
 void ClientTCPRequest::readyToSend(){
-    qDebug() << "READY TO SEND";
-    QByteArray dataToSend;
-    dataToSend.append(*data);
-    getSocket()->write(dataToSend);
-    getSocket()->waitForBytesWritten(1000);
-    TCPRequestFilled();
+
+    if(getSocket()->state()==QAbstractSocket::ConnectedState){
+        QByteArray dataToSend;
+        dataToSend.append(*data);
+        getSocket()->write(dataToSend);
+    }else{
+        TCPRequestFailed();
+    }
 }
 
 // Setters
@@ -66,5 +74,13 @@ int ClientTCPRequest::fillTCPRequest(QString &data){
   over to the server.
   */
 void ClientTCPRequest::TCPRequestFilled(){
+
+}
+
+/*
+  This method gets called when the TCP connection
+  fails.
+  */
+void ClientTCPRequest::TCPRequestFailed(){
 
 }

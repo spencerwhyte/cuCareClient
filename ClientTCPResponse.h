@@ -47,7 +47,10 @@ public:
       */
     virtual void TCPResponseReceived(QString& totalData);
 
+    virtual void TCPResponseFailed(QString errorMessage);
+private slots:
     void readyToReceive();
+    void cannotReceive();
 };
 
 #endif // CLIENTTCPRESPONSE_H

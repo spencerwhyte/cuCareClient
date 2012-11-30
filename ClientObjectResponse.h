@@ -42,6 +42,14 @@ public:
       XML data that was sent by the server.
       */
     virtual void XMLResponseReceived(QList<QMap<QString, QVariant> > & xmlData, QString & className);
+    /*
+      Gets called when the response fails to notify the delegate
+      */
+    void responseFailed(QString error);
+    /*
+      Gets called when the TCP response fails
+      */
+    void TCPResponseFailed(QString errorMessage);
 };
 
 #endif // CLIENTOBJECTRESPONSE_H

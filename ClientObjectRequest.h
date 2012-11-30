@@ -56,6 +56,12 @@ private:
       data has actually been sent to the server.
       */
     virtual void TCPRequestFilled();
+    /*
+      Overriding base method from TCP to know when
+      the TCP request fails
+      */
+    virtual void TCPRequestFailed();
+
     // Helper method to help with constructing xml urls from the type of request
     QString& stringForObjectRequestType(ObjectRequestType type);
 };

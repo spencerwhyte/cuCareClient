@@ -32,12 +32,11 @@ int ClientHTTPRequest::fillHTTPRequest(QString &data, QString &url){
 
     dataToBeSent.append("POST ");
     dataToBeSent.append(url);
-    dataToBeSent.append(" HTTP/1.1\n");
+    dataToBeSent.append(" HTTP/1.1\r\n");
 
     dataToBeSent.append("Content-Length: ");
     dataToBeSent.append(new QString(QString::number(data.length())));
-    dataToBeSent.append("\n");
-
+    dataToBeSent.append("\r\n");
     dataToBeSent.append("\r\n");
 
     dataToBeSent.append(data);

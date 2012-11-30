@@ -26,9 +26,13 @@ public:
     // Getters
     QHostAddress& getDefaultAddress();
     qint16 getDefaultPort();
+    QString getDefaultAddressString();
+    QString getDefaultPortString();
+
     // Setters
-    void setDefaultPort(int newPort);
-    void setDefaultAddress(QString & address);
+    bool setDefaultPortString(QString & port);
+    bool setDefaultAddressString(QString & address);
+
     ~ClientSettings();
 private:
     QHostAddress * address;
