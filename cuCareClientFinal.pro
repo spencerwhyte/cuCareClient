@@ -69,6 +69,7 @@ SOURCES += main.cpp \
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
+
 HEADERS += \
     ClientTCPRequest.h \
     ClientHTTPRequest.h \

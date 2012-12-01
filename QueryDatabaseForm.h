@@ -8,17 +8,15 @@ This class is responsible for creating queries and displaying query reports
 #ifndef QUERYDATABASEFORM
 #define QUERYDATABASEFORM
 
-#include<QLabel>
 #include<QComboBox>
 #include"CUPage.h"
+#include"ClientObjectResponseDelegate.h"
 #include"CUFormElement.h"
-#include"CUContentPane.h"
 #include"CUServerRequestButton.h"
 #include"CUFormTable.h"
 #include<QStackedWidget>
-#include"PatientRecord.h"
-#include"StorableInterface.h"
-#include"ClientObjectResponseDelegate.h"
+
+class PatientRecord;
 
 class QueryDatabaseForm : public CUPage, public ClientObjectResponseDelegate
 {

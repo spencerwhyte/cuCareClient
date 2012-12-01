@@ -119,10 +119,12 @@ void QueryDatabaseForm::addPatientTableData(QList<StorableInterface*> &dataEntri
 
 void QueryDatabaseForm::searchButtonClicked()
 {
+
     PatientRecord p;
     QString physicianName = primaryPhysician->getInput();
     p.setHasCompletedFollowUps(true);
     p.setPrimaryPhysician(physicianName);
+
     switch(followupStatusComboBox->currentIndex())
     {
         case 1:
@@ -137,6 +139,7 @@ void QueryDatabaseForm::searchButtonClicked()
     }
 
     ClientObjectRequest* r = new ClientObjectRequest(this, p, ClientObjectRequest::Query);
+
 }
 
 void QueryDatabaseForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> &results)
