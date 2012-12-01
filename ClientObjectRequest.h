@@ -30,7 +30,8 @@ public:
         Add,
         Edit,
         Remove,
-        Query
+        Query,
+        EqualityQuery
     } ObjectRequestType;
 
 

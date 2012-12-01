@@ -41,6 +41,9 @@ public slots:
     void configurationButtonClicked();
     void communicateUsernameToServer();
 
+signals:
+    void submitUser(User*);
+
 private:
 	CUFormElement *usernameField; //this will contain the label and the line input
 	CUServerRequestButton *loginButton; // login to cuCare

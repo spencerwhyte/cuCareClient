@@ -1,7 +1,7 @@
 #include"CUFormElement.h"
 
 // the form variant determines whether the 2nd pair item is a LineEdit, ParagraphEdit, or DateEdit
-CUFormElement::CUFormElement(QString labelName, cuFormVariant pFormVariant, QWidget *parent) : QWidget(parent)
+CUFormElement::CUFormElement(QString labelName, cuFormVariant pFormVariant,QWidget *parent) : QWidget(parent)
 {
     formVariant = pFormVariant;
 
@@ -10,10 +10,14 @@ CUFormElement::CUFormElement(QString labelName, cuFormVariant pFormVariant, QWid
 
 	switch(formVariant)
 	{
-	case LINE: // LineEdit
+    case LINE: // LineEdit
         formInput = new QLineEdit(this);
-		break;
+        qDebug() << "BEFORE FAIL EMIT";
+        connect(this, SIGNAL(setLineText(QString)), (QLineEdit*)formInput, SLOT(setText(QString)));
+        qDebug() << "AFTER FAIL EMIT";
+        break;
 	case PARAGRAPH: // TextEdit
+        qDebug() << "TTTTTTTT";
         formInput = new QTextEdit(this);
 		//this element needs to have a bigger body than the other two
         setMinimumHeight(75);
@@ -53,7 +57,25 @@ QString CUFormElement::getInput()
 
         break;
     }
+    return QString("");
+}
 
+void CUFormElement::setInput(QString newInput)
+{
+    switch(formVariant)
+    {
+    case LINE: // LineEdit
+        qDebug() << "LINE";
+        emit setLineText(newInput);
+        break;
+    case PARAGRAPH: // TextEdit
+          qDebug() << "PARAGRAPH";
+        ((QTextEdit*)formInput)->document()->setPlainText(newInput);
+          break;
+    case DATE: // DateTime
+         qDebug() << "DateTime";
+        break;
+    }
 }
 
 void CUFormElement::setEditable(bool editable)

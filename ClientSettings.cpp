@@ -13,7 +13,7 @@ QHostAddress& ClientSettings::getDefaultAddress(){
     return *address;
 }
 
-qint16 ClientSettings::getDefaultPort(){
+qint64 ClientSettings::getDefaultPort(){
     return port;
 }
 

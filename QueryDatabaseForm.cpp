@@ -9,6 +9,8 @@ QueryDatabaseForm::QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigat
 	subjectComboBox = new QComboBox();
 	subjectComboBox->addItem("<select subject>");
 	subjectComboBox->addItem("Patient");
+    subjectComboBox->addItem("Physician");
+            subjectComboBox->addItem("Consultation");
 
     subjectPane->addElement(subjectLabel, 0, 0, 1, 1, Qt::AlignTop);
     subjectPane->addElement(subjectComboBox, 1, 0, 1, 1, Qt::AlignTop);
@@ -37,8 +39,10 @@ QueryDatabaseForm::QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigat
 
     hider = new QStackedWidget();
     QWidget *blankWidget = new QWidget();
+    QLabel *notificationWidget = new QLabel("This functionality is not yet available");
     hider->addWidget(blankWidget);
     hider->addWidget(patientLimitSearchPane);
+    hider->addWidget(notificationWidget);
     hider->setCurrentWidget(blankWidget);
 
     //add the new content pane into this page's content pane
@@ -69,6 +73,12 @@ void QueryDatabaseForm::previewLimits(int choice)
             break;
         case 1:
             hider->setCurrentIndex(1);
+            break;
+        case 2:
+            hider->setCurrentIndex(2);
+            break;
+        case 3:
+            hider->setCurrentIndex(3);
             break;
     }
 }

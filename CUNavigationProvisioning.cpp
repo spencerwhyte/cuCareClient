@@ -21,11 +21,14 @@ void CUNavigationProvisioning::back()
 // the user factory is initialized here
 void CUNavigationProvisioning::setUserType(User *user)
 {
+    delete currentUser;
     currentUser = user;
+   qDebug() << "347sdsfs85";
     // declare the user according to the appropriate factory
     switch(user->getUserType())
     {
         case User::Physician:
+           qDebug() << "sdfsdfsdf";
             userFactory = new PhysicianPageFactory(this);
             break;
         case User::MedicalPersonnel:
@@ -36,8 +39,6 @@ void CUNavigationProvisioning::setUserType(User *user)
         case User::Invalid:
             break;
     }
-
-    userFactory->navigateFromLoginForm(0);
 }
 
 void CUNavigationProvisioning::navigateFromLoginForm(int choice)
@@ -45,13 +46,19 @@ void CUNavigationProvisioning::navigateFromLoginForm(int choice)
     //if the choice is 1, then the page requested is a networking configuration page
     //at this stage the page factory is not constructed yet. Therefore, we respond
     //with the appropriate page directly from here
+    QWidget *newPage;
     if(choice == 1)
     {
-        IPAddressConfigurationForm *newPage = new IPAddressConfigurationForm(this);
-        applicationStack->push(newPage);
-        return;
+        qDebug() << "before the might cons the stack";
+        newPage = new IPAddressConfigurationForm(this);
+        qDebug() << "after the might cons the stack";
     }
-    userFactory->navigateFromLoginForm(choice);
+    else if(choice == 0)
+    {
+        newPage = userFactory->navigateFromLoginForm(choice);
+    }
+    applicationStack->push(newPage);
+
 }
 
 void CUNavigationProvisioning::navigateFromQueryDatabaseForm(int choice)

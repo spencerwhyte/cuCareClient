@@ -25,7 +25,7 @@ public:
     }
     // Getters
     QHostAddress& getDefaultAddress();
-    qint16 getDefaultPort();
+    qint64 getDefaultPort();
     QString getDefaultAddressString();
     QString getDefaultPortString();
 
@@ -36,7 +36,7 @@ public:
     ~ClientSettings();
 private:
     QHostAddress * address;
-    qint16 port;
+    qint64 port;
     ClientSettings();
 
     ClientSettings(ClientSettings  const &);

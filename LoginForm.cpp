@@ -26,6 +26,7 @@ LoginForm::LoginForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Lo
     //connect this window' navigation signal to the navigator
     connect(loginButton->getButton(), SIGNAL(clicked()), this, SLOT(communicateUsernameToServer()));
     connect(this, SIGNAL(navigateAwayFromPage(int)), pNavigator, SLOT(navigateFromLoginForm(int)));
+    connect(this, SIGNAL(   submitUser(User*)       ), pNavigator, SLOT(setUserType(User*)));
 }
 
 // since all QT elements will be garbage-collected and the elements in this page have no extra non-QT pointers, there is no content in most destructor bodies for now
@@ -42,9 +43,16 @@ void LoginForm::configurationButtonClicked()
 void LoginForm::communicateUsernameToServer()
 {
     User u;
-    u.setUsername(usernameField->getInput());
-    ClientObjectRequest * request= new ClientObjectRequest(this, u, ClientObjectRequest::Query);
-    setRequest(request);
+    if(usernameField->getInput().length() != 0){
+        u.setUsername(usernameField->getInput());
+        ClientObjectRequest * request= new ClientObjectRequest(this, u, ClientObjectRequest::EqualityQuery);
+        setRequest(request);
+        loginButton->startSpinner();
+    }else{
+        QMessageBox errorMessageBox;
+        errorMessageBox.setText(QString("You must input a username."));
+        errorMessageBox.exec();
+    }
 }
 
 
@@ -54,8 +62,22 @@ void LoginForm::communicateUsernameToServer()
   Gets called when the request to login has completed
   */
 void LoginForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> &results){
+    loginButton->stopSpinner();
+    qDebug() << results.length();
+    if(results.length()!= 0){
+        User* u = (User*)results.at(0);
+        qDebug() << u->stringForUserType();
+        if(u->getUserType() != User::Invalid){
+            emit submitUser(u);
+            usernameField->setInput("");
+            emit navigateAwayFromPage(0);
+            return;
+        }
+    }
 
-    emit navigateAwayFromPage(0);
+    QMessageBox errorMessageBox;
+    errorMessageBox.setText(QString("The username you have entered is invalid. Please try again."));
+    errorMessageBox.exec();
 
 
 }
@@ -64,6 +86,7 @@ void LoginForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> &resul
  Gets called when request to the server fails
 */
 void LoginForm::didReceiveError(QString & errorMessage){
+    loginButton->stopSpinner();
     QMessageBox errorMessageBox;
     errorMessageBox.setText(errorMessage);
     errorMessageBox.exec();

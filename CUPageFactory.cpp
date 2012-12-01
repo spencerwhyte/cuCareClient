@@ -22,7 +22,15 @@ QWidget* CUPageFactory::navigateFromConsultationRecordPage(int choice)
 
 QWidget* CUPageFactory::navigateFromLoginForm(int choice)
 {
-    IPAddressConfigurationForm *returnPage = new IPAddressConfigurationForm(navigator);
+    QWidget *returnPage;
+    if(choice == 0)
+    {
+        returnPage = new HomePage(navigator);
+    }
+    else if(choice == 1)
+    {
+        returnPage = new IPAddressConfigurationForm(navigator);
+    }
     return returnPage;
 }
 

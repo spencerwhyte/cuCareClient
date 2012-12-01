@@ -47,8 +47,11 @@ QString& ClientObjectRequest::stringForObjectRequestType(ObjectRequestType type)
     }else if(type == Remove){
         static QString remove ("Remove");
         return remove;
-    }else{
+    }else if(type == Query){
         static QString query("Query");
+        return query;
+    }else{
+        static QString query("EqualityQuery");
         return query;
     }
 }

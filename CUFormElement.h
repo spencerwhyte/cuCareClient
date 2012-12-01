@@ -15,6 +15,7 @@ This class contains a pair of a label (QLabel) and an input element (QLineEdit, 
 #include<QTextEdit>
 #include<QDateTime>
 #include<QDateTimeEdit>
+#include"CUNavigationProvisioningInterface.h"
 
 
 class CUFormElement : public QWidget
@@ -29,8 +30,12 @@ public:
 
     //get user input
     QString getInput();
+    void setInput(QString newInput);
     //set whether the input field ought to be edited or not
     void setEditable(bool editable);
+
+signals:
+    void setLineText(QString);
 
 private:
 	QLabel *label;
