@@ -26,6 +26,7 @@ ClientTCPResponse::ClientTCPResponse() : socket(NULL) , allData(new QString()), 
   the server into this internal buffer.
   */
 int ClientTCPResponse::fillTCPResponse(){
+
    connect(socket, SIGNAL(readyRead()), this, SLOT(readyToReceive()));
    connect(socket, SIGNAL(disconnected()), this, SLOT(cannotReceive()));
 }
@@ -47,6 +48,7 @@ void ClientTCPResponse::TCPResponseFailed(QString errorMessage){
 
 }
 
+
 void ClientTCPResponse::cannotReceive(){
     qDebug() << "CANNOT RECEIVE" << *allData;
     if(!dataReceived){
@@ -57,7 +59,6 @@ void ClientTCPResponse::cannotReceive(){
 void ClientTCPResponse::readyToReceive(){
     dataReceived = true;
     qDebug() << "READY TO RECEIVE";
-
     socket->waitForReadyRead(10);
     QByteArray newData = socket->readAll();
     allData->append(newData);
