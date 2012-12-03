@@ -29,7 +29,7 @@ public slots:
     void setUserType(User *user); //called by the login page when the user type may first be determined
     void back(); //move back in the stack
     void navigateFromLoginForm(int choice);
-    void navigateFromQueryDatabaseForm(int choice);
+    void navigateFromQueryDatabaseForm(int choice, StorableInterface* object);
     void navigateFromPatientRecordPage(int choice);
     void navigateFromConsultationRecordPage(int choice);
     void navigateFromHomePage(int choice);

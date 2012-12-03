@@ -33,13 +33,14 @@ public:
 	~CUPage();
 
     void setRequest(ClientObjectRequest * request);
+    void setTitle(QString newtitle);
 
     ClientObjectRequest * getRequest();
 
     QGridLayout* getLayout();
     CUNavigationProvisioningInterface* getNavigator();
     // set the title of the page
-    void setTitle(QString title);
+    void setPageTitle(QString title);
     // insert an element at the bottom of the contentpane
     void addElement(QWidget *element, int xPosition = 0);
     // specify where you want to insert the element in the contentpane and its span on the grid layout
@@ -49,6 +50,7 @@ public:
 
 signals:
     void navigateAwayFromPage(int choice);
+    void navigateAwayFromPage(int choice, StorableInterface* object);
 
 private:
 	QLabel *titleLabel;

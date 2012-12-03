@@ -57,6 +57,11 @@ CUPage::~CUPage()
     }
 }
 
+void CUPage::setPageTitle(QString newTitle)
+{
+    titleLabel->setText(newTitle);
+}
+
 CUNavigationProvisioningInterface* CUPage::getNavigator()
 {
 

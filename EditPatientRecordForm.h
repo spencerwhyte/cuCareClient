@@ -11,7 +11,7 @@
 class EditPatientRecordForm : public AddPatientRecordForm
 {
 public:
-    EditPatientRecordForm();
+    EditPatientRecordForm(CUNavigationProvisioningInterface* pNavigator, StorableInterface* patient);
   //EditPatientRecordForm(PatientRecord *patient);
     ~EditPatientRecordForm();
 };

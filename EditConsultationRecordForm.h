@@ -8,14 +8,15 @@
 
 #include "AddConsultationRecordForm.h"
 
+
 class EditConsultationRecordForm : public AddConsultationRecordForm
 {
 public:
-    EditConsultationRecordForm();
+    EditConsultationRecordForm(CUNavigationProvisioningInterface* pNavigator);
     //EditConsultationRecordForm(ConsultationRecord *consultation);
     ~EditConsultationRecordForm();
 
-protected:
+private:
     CUFormElement *diagnosisField;
 };
 

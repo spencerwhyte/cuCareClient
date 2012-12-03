@@ -1,6 +1,6 @@
 #include "AddConsultationRecordForm.h"
 
-AddConsultationRecordForm::AddConsultationRecordForm(QString title) : CUPage(title)
+AddConsultationRecordForm::AddConsultationRecordForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Add Consultation", true, pNavigator)
 {
     // decide the name and the type of the inputField and the type of input
     dateTimeField = new CUFormElement("Date and Time:", CUFormElement::DATE, this);
@@ -8,14 +8,12 @@ AddConsultationRecordForm::AddConsultationRecordForm(QString title) : CUPage(tit
     ohipField = new CUFormElement("OHIP Number:", CUFormElement::LINE, this);
 
     // create the buttons
-    cancelButton = new QPushButton("Cancel", this);
     confirmButton = new CUServerRequestButton("OK", this);
 
     // add the two elements to the page's content pane
     addElement(dateTimeField, 0, 0, 3);
     addElement(reasonField, 0, 1, 3);
     addElement(ohipField, 0, 2, 3);
-    addElement(cancelButton, 1, 4);
     addElement(confirmButton, 2, 4);
 }
 

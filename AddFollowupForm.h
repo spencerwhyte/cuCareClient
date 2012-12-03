@@ -15,7 +15,7 @@
 class AddFollowupForm : public CUPage
 {
 public:
-    AddFollowupForm(QString title = "Add Followup");
+    AddFollowupForm(CUNavigationProvisioningInterface *pNavigator);
   //AddFollowupForm(FollowUpRecord *followup, QString title = "Add Followup");
     ~AddFollowupForm();
 
@@ -23,7 +23,6 @@ protected:
     QComboBox *statusBox;
     CUFormElement *dueDateField;
     CUFormElement *detailsField;
-    QPushButton *cancelButton;
     CUServerRequestButton *confirmButton;
 
 private:

@@ -1,6 +1,6 @@
 #include "AddFollowupForm.h"
 
-AddFollowupForm::AddFollowupForm(QString title) : CUPage(title)
+AddFollowupForm::AddFollowupForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Add Follow-up", false, pNavigator)
 {
     // decide the name and the type of the fields and the corresponding types of input
     { //Status pane - I have it in its own block to separate it.
@@ -20,14 +20,12 @@ AddFollowupForm::AddFollowupForm(QString title) : CUPage(title)
     detailsField = new CUFormElement("Details:", CUFormElement::PARAGRAPH, this);
 
     // create the buttons
-    cancelButton = new QPushButton("Cancel", this);
     confirmButton = new CUServerRequestButton("OK", this);
 
     // add the elements to the page's content pane
     addElement(statusPane, 0, 0, 3);
     addElement(dueDateField, 0, 1, 3);
     addElement(detailsField, 0, 2, 3);
-    addElement(cancelButton, 1, 3);
     addElement(confirmButton, 2, 3);
 }
 

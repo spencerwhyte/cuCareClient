@@ -1,6 +1,6 @@
 #include"addpatientrecordform.h"
 
-AddPatientRecordForm::AddPatientRecordForm(QString title) : CUPage(title)
+AddPatientRecordForm::AddPatientRecordForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Add Patient Record", true, pNavigator)
 {
     // decide the name and the type of the inputField and the type of input
 //    usernameField = new CUFormElement("Username:", CUFormElement::LINE, this);
@@ -11,7 +11,6 @@ AddPatientRecordForm::AddPatientRecordForm(QString title) : CUPage(title)
 
     // create the login button
 //    loginButton = new CUServerRequestButton("Login", this);
-    cancelButton = new QPushButton("Cancel", this);
     confirmButton = new CUServerRequestButton("OK", this);
 
     // add the two elements to the page's content pane
@@ -21,7 +20,6 @@ AddPatientRecordForm::AddPatientRecordForm(QString title) : CUPage(title)
     addElement(phoneField, 0, 1, 3);
     addElement(ohipField, 0, 2, 3);
     addElement(physicianField, 0, 3, 3);
-    addElement(cancelButton, 1, 4);
     addElement(confirmButton, 2, 4);
 }
 

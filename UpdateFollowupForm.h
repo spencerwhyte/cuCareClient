@@ -11,7 +11,7 @@
 class UpdateFollowupForm : public AddFollowupForm
 {
 public:
-    UpdateFollowupForm();
+    UpdateFollowupForm(CUNavigationProvisioningInterface* pNavigator);
   //UpdateFollowupForm(FollowUpRecord *followup);
     ~UpdateFollowupForm();
 };

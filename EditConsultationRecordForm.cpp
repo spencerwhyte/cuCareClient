@@ -1,6 +1,6 @@
 #include "EditConsultationRecordForm.h"
 
-EditConsultationRecordForm::EditConsultationRecordForm() : AddConsultationRecordForm("Edit Consultation Record")
+EditConsultationRecordForm::EditConsultationRecordForm(CUNavigationProvisioningInterface* pNavigator) : AddConsultationRecordForm(pNavigator)
 {
     diagnosisField = new CUFormElement("Diagnosis:", CUFormElement::PARAGRAPH, this);
 

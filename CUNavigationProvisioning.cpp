@@ -61,9 +61,10 @@ void CUNavigationProvisioning::navigateFromLoginForm(int choice)
 
 }
 
-void CUNavigationProvisioning::navigateFromQueryDatabaseForm(int choice)
+void CUNavigationProvisioning::navigateFromQueryDatabaseForm(int choice, StorableInterface* object)
 {
-    userFactory->navigateFromQueryDatabaseForm(choice);
+    QWidget* newPage = userFactory->navigateFromQueryDatabaseForm(choice, object);
+    applicationStack->push(newPage);
 }
 
 void CUNavigationProvisioning::navigateFromPatientRecordPage(int choice)

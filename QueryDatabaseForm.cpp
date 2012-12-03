@@ -1,6 +1,6 @@
 #include"QueryDatabaseForm.h"
 
-QueryDatabaseForm::QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Query Database", true, pNavigator), dataEntries(NULL)
+QueryDatabaseForm::QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Query Database", true, pNavigator), dataEntries(NULL),currentObjectRequest(NULL)
 {
     subjectPane = new CUContentPane(0);
     patientLimitSearchPane = new CUContentPane(0);
@@ -65,11 +65,15 @@ QueryDatabaseForm::QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigat
     QObject::connect(searchButton->getButton(), SIGNAL(clicked()), this, SLOT(searchButtonClicked()));
     QObject::connect(this, SIGNAL(clearResultsTable()), resultsTable, SLOT(clearContents()));
     QObject::connect(resultsTable, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(launchPatientContextMenu(const QPoint &)));
+    QObject::connect(resultsTable, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(navigateToPatientRecord(int, int)));
+    QObject::connect(this, SIGNAL(navigateToPatientRecord(int, StorableInterface*)), pNavigator, SLOT(navigateFromQueryDatabaseForm(int,StorableInterface*)));
+    QObject::connect(this, SIGNAL(navigateToEditConsultationRecordPage(int, StorableInterface*)), pNavigator, SLOT(navigateFromQueryDatabaseForm(int,StorableInterface*)));
 }
 
 QueryDatabaseForm::~QueryDatabaseForm()
 {
     delete dataEntries;
+    delete currentObjectRequest;
 }
 
 void QueryDatabaseForm::previewLimits(int choice)
@@ -98,6 +102,11 @@ void QueryDatabaseForm::setDataEntries(QList<PatientRecord*> * da){
         delete dataEntries;
     }
     dataEntries = da;
+}
+
+void QueryDatabaseForm::setCurrentObjectRequest(ClientObjectRequest * newRequest){
+    delete currentObjectRequest;
+    currentObjectRequest = newRequest;
 }
 
 /*
@@ -165,7 +174,7 @@ void QueryDatabaseForm::searchButtonClicked()
     }
 
     ClientObjectRequest* r = new ClientObjectRequest(this, p, ClientObjectRequest::Query);
-
+    this->setCurrentObjectRequest(r);
 }
 
 void QueryDatabaseForm::launchPatientContextMenu(const QPoint &)
@@ -181,22 +190,55 @@ void QueryDatabaseForm::launchPatientContextMenu(const QPoint &)
     contextMenu = 0;
 }
 
+void QueryDatabaseForm::navigateToPatientRecord(int row, int col)
+{
+    qDebug() << row;
+    StorableInterface* patient = (StorableInterface*)dataEntries->at(row);
+    emit navigateToPatientRecord(1, patient);
+}
+
 void QueryDatabaseForm::editPatientRecord()
 {
-    qDebug() << resultsTable->currentRow();
+    StorableInterface* patient = (StorableInterface*)dataEntries->at(resultsTable->currentRow());
+    emit navigateToEditConsultationRecordPage(0, patient);
 }
 
 void QueryDatabaseForm::deletePatientRecord()
 {
     qDebug() << "Inside launchPatientContextMenu ATTENTION!!";
+    StorableInterface* patient = (StorableInterface*)dataEntries->at(resultsTable->currentRow());
+
+    ClientObjectRequest * request = new ClientObjectRequest((ClientObjectResponseDelegate*)this, *patient, ClientObjectRequest::Remove);
+    setCurrentObjectRequest(request);
+    // Remove the data from the internal data array
+    //dataEntries->removeAt(resultsTable->currentRow());
 }
 
 void QueryDatabaseForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> *results)
 {
+
     qDebug()<<"EMITING CLEAR RESULTS TABLE";
    // emit clearResultsTable();
-    qDebug() << "ADDING PATIENT DATA";
-    addPatientTableData(results);
+
+    qDebug() << currentObjectRequest->stringForObjectRequestType(currentObjectRequest->getType());
+    if(currentObjectRequest->getType()==ClientObjectRequest::Query){
+        qDebug() << "ADDING PATIENT DATA";
+        addPatientTableData(results);
+    }else if(currentObjectRequest->getType()==ClientObjectRequest::Remove){
+        PatientRecord * deletedPatientRecord = (PatientRecord*)results->at(0);
+        for(int i = 0 ; i < dataEntries->length(); i++){
+            PatientRecord * currentPatientRecord = (PatientRecord*)dataEntries->at(i);
+            if(currentPatientRecord->getId() == deletedPatientRecord->getId()){
+                // Delete patient record at i from the table
+                resultsTable->removeRow(i);
+                dataEntries->removeAt(i);
+                delete currentPatientRecord;
+                break;
+            }
+        }
+    }
+
+
 }
 
 /*

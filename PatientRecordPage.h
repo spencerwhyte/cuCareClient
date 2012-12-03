@@ -19,13 +19,17 @@ class PatientRecordPage : public CUPage
     Q_OBJECT
 
 public:
-    PatientRecordPage(CUNavigationProvisioningInterface *pNavigator);
+    PatientRecordPage(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object);
     ~PatientRecordPage();
+
+    void addConsultationTableData(QList<StorableInterface*> * da);
+    void setDataEntries(QList<ConsultationRecord*> * da);
 
 private:
     CUFormElement *phoneNumberElement, *ohipNumberElement, *primaryPhysicianElement; //patient data
     CUNavigationButton *addConsultationButton;
     CUFormTable *consultationRecordsTable;
+    QList<ConsultationRecord*> * dataEntries;
 };
 
 #endif

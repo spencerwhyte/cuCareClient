@@ -1,6 +1,6 @@
 #include "ClientObjectRequest.h"
-ClientObjectRequest::ClientObjectRequest(ClientObjectResponseDelegate * delegate, StorableInterface& object, ObjectRequestType type) : response(new ClientObjectResponse(delegate)){
-    fillObjectRequest(object,type);
+ClientObjectRequest::ClientObjectRequest(ClientObjectResponseDelegate * delegate, StorableInterface& object, ObjectRequestType t) : response(new ClientObjectResponse(delegate)), type(t){
+    fillObjectRequest(object,t);
 }
 
 /*
@@ -8,14 +8,17 @@ ClientObjectRequest::ClientObjectRequest(ClientObjectResponseDelegate * delegate
   along with the given operation and the delegate
   who is responsible for handling the response.
   */
-int ClientObjectRequest::fillObjectRequest(StorableInterface& object, ObjectRequestType type){
+int ClientObjectRequest::fillObjectRequest(StorableInterface& object, ObjectRequestType t){
     QMap<QString, QVariant> mapping;
     object.getAttributesAndValues(mapping);
     QString name = object.className();
-    fillXMLRequest(mapping, name, stringForObjectRequestType(type));
+    fillXMLRequest(mapping, name, stringForObjectRequestType(t));
 
 }
 
+ClientObjectRequest::ObjectRequestType ClientObjectRequest::getType(){
+    return type;
+}
 
 // Destructor
 ClientObjectRequest::~ClientObjectRequest(){
@@ -37,17 +40,17 @@ void ClientObjectRequest::TCPRequestFailed(){
 }
 
 // Helper method to help with constructing xml urls from the type of request
-QString& ClientObjectRequest::stringForObjectRequestType(ObjectRequestType type){
-    if(type == Add){
+QString& ClientObjectRequest::stringForObjectRequestType(ObjectRequestType t){
+    if(t == Add){
         static QString add("Add");
         return add;
-    }else if(type == Edit){
+    }else if(t == Edit){
         static QString edit("Edit");
         return edit;
-    }else if(type == Remove){
+    }else if(t == Remove){
         static QString remove ("Remove");
         return remove;
-    }else if(type == Query){
+    }else if(t == Query){
         static QString query("Query");
         return query;
     }else{

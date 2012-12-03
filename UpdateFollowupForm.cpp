@@ -1,6 +1,6 @@
 #include "UpdateFollowupForm.h"
 
-UpdateFollowupForm::UpdateFollowupForm() : AddFollowupForm("Edit Followup")
+UpdateFollowupForm::UpdateFollowupForm(CUNavigationProvisioningInterface* pNavigator) : AddFollowupForm(pNavigator)
 {
     //Just call the superclass constructor with the new parameter. Also enable one little thing.
     statusBox->setEnabled(true);

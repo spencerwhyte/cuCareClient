@@ -16,13 +16,14 @@ This class is responsible for creating queries and displaying query reports
 #include"CUServerRequestButton.h"
 #include"CUFormTable.h"
 #include<QStackedWidget>
+#include "ClientObjectRequest.h"
 
 class PatientRecord;
 
 class QueryDatabaseForm : public CUPage, public ClientObjectResponseDelegate
 {
     Q_OBJECT
-    QList<PatientRecord*> *dataEntries;
+
 public:
     QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigator);
 	~QueryDatabaseForm();
@@ -33,6 +34,7 @@ public:
 
     void setDataEntries(QList<PatientRecord*> *dataEntries);
 
+    void setCurrentObjectRequest(ClientObjectRequest* newCurrent);
 
     /*
       Called on the delegate when the response received from
@@ -51,9 +53,12 @@ public slots:
     void launchPatientContextMenu(const QPoint &);
     void editPatientRecord();
     void deletePatientRecord();
+    void navigateToPatientRecord(int row, int col);
 
 signals:
     void clearResultsTable();
+    void navigateToPatientRecord(int, StorableInterface*);
+    void navigateToEditConsultationRecordPage(int, StorableInterface*);
 
 private:
 	CUContentPane *subjectPane; // will hold the subject label and comboBox
@@ -67,6 +72,8 @@ private:
 	CUServerRequestButton *searchButton;
 	CUFormTable *resultsTable;
     QStackedWidget* hider;
+    QList<PatientRecord*> *dataEntries;
+    ClientObjectRequest * currentObjectRequest;
 };
 
 #endif

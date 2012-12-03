@@ -25,6 +25,7 @@ class ClientObjectRequest : public ClientXMLRequest
     // Internal
     // We dont retain delegates
     ClientObjectResponse * response;
+
 public:
     typedef enum ObjectRequestType{
         Add,
@@ -46,7 +47,13 @@ public:
     // Destructor
     ~ClientObjectRequest();
 
+    ObjectRequestType getType();
+
+
+    // Helper method to help with constructing xml urls from the type of request
+    QString& stringForObjectRequestType(ObjectRequestType type);
 private:
+    ObjectRequestType type;
     /*
       Sends the given object to the server over http
       along with the given operation and the delegate
@@ -65,8 +72,7 @@ private:
       */
     virtual void TCPRequestFailed();
 
-    // Helper method to help with constructing xml urls from the type of request
-    QString& stringForObjectRequestType(ObjectRequestType type);
+
 };
 
 #endif // CLIENTOBJECTREQUEST_H

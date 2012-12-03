@@ -23,7 +23,7 @@
 class AddPatientRecordForm : public CUPage
 {
 public:
-    AddPatientRecordForm(QString title = "Add Patient Record"); //Note - this should /only/ be given an input from a subclass!
+    AddPatientRecordForm(CUNavigationProvisioningInterface *pNavigator); //Note - this should /only/ be given an input from a subclass!
   //AddPatientRecordForm(PatientRecord *patient, QString title = "Add Patient Record"); //This is simply what I'd be expecting to change!
     ~AddPatientRecordForm();
 
@@ -32,7 +32,6 @@ protected:
     CUFormElement *phoneField;
     CUFormElement *ohipField;
     CUFormElement *physicianField;
-    QPushButton *cancelButton;
     CUServerRequestButton *confirmButton;
   //PatientRecord *patient; //Again, expected change.
 };
