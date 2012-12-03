@@ -18,7 +18,7 @@ class ConsultationRecordPage : public CUPage
     Q_OBJECT
 
 public:
-    ConsultationRecordPage(CUNavigationProvisioningInterface *pNavigator);
+    ConsultationRecordPage(CUNavigationProvisioningInterface *pNavigator, StorableInterface* consultation);
     ~ConsultationRecordPage();
 
 public slots:

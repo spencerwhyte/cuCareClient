@@ -12,7 +12,7 @@
 class EditConsultationRecordForm : public AddConsultationRecordForm
 {
 public:
-    EditConsultationRecordForm(CUNavigationProvisioningInterface* pNavigator);
+    EditConsultationRecordForm(CUNavigationProvisioningInterface* pNavigator, StorableInterface* consultation);
     //EditConsultationRecordForm(ConsultationRecord *consultation);
     ~EditConsultationRecordForm();
 

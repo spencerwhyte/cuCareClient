@@ -22,6 +22,7 @@ The reason some of the pages in cuCare aren't here is because they only navigate
 #include"PatientRecordPage.h"
 #include"QueryDatabaseForm.h"
 #include"EditPatientRecordForm.h"
+#include"EditConsultationRecordForm.h"
 #include"addpatientrecordform.h"
 
 class CUPageFactory
@@ -34,7 +35,7 @@ public:
     // for occasions where there are two navigation buttons beside a back button
     QWidget* navigateFromConsultationRecordPage(int choice);
     QWidget* navigateFromLoginForm(int choice);
-    QWidget* navigateFromPatientRecordPage(int choice);
+    QWidget* navigateFromPatientRecordPage(int choice, StorableInterface* object);
     QWidget* navigateFromQueryDatabaseForm(int choice, StorableInterface* object);
     QWidget* navigateFromHomePage(int choice);
 

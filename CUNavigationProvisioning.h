@@ -30,7 +30,7 @@ public slots:
     void back(); //move back in the stack
     void navigateFromLoginForm(int choice);
     void navigateFromQueryDatabaseForm(int choice, StorableInterface* object);
-    void navigateFromPatientRecordPage(int choice);
+    void navigateFromPatientRecordPage(int choice, StorableInterface* object);
     void navigateFromConsultationRecordPage(int choice);
     void navigateFromHomePage(int choice);
 

@@ -53,9 +53,6 @@ QueryDatabaseForm::QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigat
 
     resultsTable = new CUFormTable(0, 0);
 
-
-
-
 	// add the last two elements now
     addElement(searchButton, 1, 1, 1, 1, Qt::AlignRight);
     addElement(resultsTable, 0, 2, 2, 1);
@@ -229,7 +226,6 @@ void QueryDatabaseForm::didSuccessfullyReceiveResponse(QList<StorableInterface *
         for(int i = 0 ; i < dataEntries->length(); i++){
             PatientRecord * currentPatientRecord = (PatientRecord*)dataEntries->at(i);
             if(currentPatientRecord->getId() == deletedPatientRecord->getId()){
-                // Delete patient record at i from the table
                 resultsTable->removeRow(i);
                 dataEntries->removeAt(i);
                 delete currentPatientRecord;

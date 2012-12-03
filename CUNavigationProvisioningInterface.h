@@ -14,7 +14,7 @@ public slots:
     virtual void back() = 0; //move back in the stack
     virtual void navigateFromLoginForm(int choice) = 0;
     virtual void navigateFromQueryDatabaseForm(int choice, StorableInterface* object) = 0;
-    virtual void navigateFromPatientRecordPage(int choice) = 0;
+    virtual void navigateFromPatientRecordPage(int choice, StorableInterface* object) = 0;
     virtual void navigateFromConsultationRecordPage(int choice) = 0;
     virtual void navigateFromHomePage(int choice) = 0;
 

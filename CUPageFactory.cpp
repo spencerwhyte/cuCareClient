@@ -34,9 +34,18 @@ QWidget* CUPageFactory::navigateFromLoginForm(int choice)
     return returnPage;
 }
 
-QWidget* CUPageFactory::navigateFromPatientRecordPage(int choice)
+QWidget* CUPageFactory::navigateFromPatientRecordPage(int choice, StorableInterface* object)
 {
-
+    QWidget* returnPage = 0;
+    if (choice == 0) //they chose to edit the consultation record
+    {
+        returnPage = new EditConsultationRecordForm(navigator, object);
+    }
+    else if (choice == 1) //they chose to navigate to a consultation record
+    {
+        returnPage = new ConsultationRecordPage(navigator, object);
+    }
+    return returnPage;
 }
 
 QWidget* CUPageFactory::navigateFromQueryDatabaseForm(int choice, StorableInterface* object)

@@ -1,6 +1,6 @@
 #include"PatientRecordPage.h"
 
-PatientRecordPage::PatientRecordPage(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object) : CUPage(((PatientRecord*)object)->getName(), true, pNavigator), dataEntries(NULL)
+PatientRecordPage::PatientRecordPage(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object) : CUPage(((PatientRecord*)object)->getName(), true, pNavigator), dataEntries(NULL),currentObjectRequest(NULL)
 {
     //note the lack of a title. The title should be the patient's name. Make sure you setup the name after the patient data is received
     phoneNumberElement = new CUFormElement("Phone Number:", CUFormElement::LINE, 0);
@@ -26,11 +26,40 @@ PatientRecordPage::PatientRecordPage(CUNavigationProvisioningInterface *pNavigat
     phoneNumberElement->setEditable(false);
     ohipNumberElement->setEditable(false);
     primaryPhysicianElement->setEditable(false);
+
+    //connect all navigation handlers
+    QObject::connect(consultationRecordsTable, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(launchPatientContextMenu(const QPoint &)));
+    QObject::connect(consultationRecordsTable, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(navigateToConsultationRecordPage(int, int)));
+    QObject::connect(this, SIGNAL(navigateAwayFromPage(int,StorableInterface*)), pNavigator, SLOT(navigateFromPatientRecordPage(int, StorableInterface*)));
+
+    QString ohipNumber = patientRecord->getOHIPNumber();
+
+    ConsultationRecord record;
+    record.setOHIPNumber(ohipNumber);
+
+
+    ClientObjectRequest * request = new ClientObjectRequest((ClientObjectResponseDelegate*)this,record,ClientObjectRequest::EqualityQuery);
+
+
 }
 
 PatientRecordPage::~PatientRecordPage()
 {
     delete dataEntries;
+    delete currentObjectRequest;
+}
+
+void PatientRecordPage::setCurrentObjectRequest(ClientObjectRequest * newRequest){
+    delete currentObjectRequest;
+    currentObjectRequest = newRequest;
+}
+
+void PatientRecordPage::didSuccessfullyReceiveResponse(QList<StorableInterface *> * results){
+    addConsultationTableData(results);
+}
+
+void PatientRecordPage::didReceiveError(QString & errorMessage){
+
 }
 
 /*
@@ -55,6 +84,7 @@ void PatientRecordPage::addConsultationTableData(QList<StorableInterface*> * da)
         ConsultationRecord * currentConsultation = (ConsultationRecord*)dataEntries->at(row);
         QTableWidgetItem * dateAndTime = new QTableWidgetItem();
 
+        qDebug() << currentConsultation->getDateAndTime().toString();
         dateAndTime->setData(Qt::DisplayRole, currentConsultation->getDateAndTime().toString());
 
         QList<QTableWidgetItem *> * currentRow = new  QList<QTableWidgetItem *>();
@@ -73,4 +103,28 @@ void PatientRecordPage::setDataEntries(QList<ConsultationRecord *> *da)
 {
     delete dataEntries;
     dataEntries = da;
+}
+
+void PatientRecordPage::launchPatientContextMenu(const QPoint &)
+{
+    QMenu* contextMenu = new QMenu ( this );
+    Q_CHECK_PTR ( contextMenu );
+
+    contextMenu->addAction ( "Edit" , this , SLOT (editConsultationRecord()) );
+    contextMenu->popup( QCursor::pos() );
+    contextMenu->exec();
+    delete contextMenu;
+    contextMenu = 0;
+}
+
+void PatientRecordPage::editConsultationRecord()
+{
+    StorableInterface* consultation = dataEntries->at(consultationRecordsTable->currentRow());
+    emit navigateAwayFromPage(0, consultation);
+}
+
+void PatientRecordPage::navigateToConsultationRecordPage(int row, int col)
+{
+    StorableInterface* consultation = dataEntries->at(row);
+    emit navigateAwayFromPage(1, consultation);
 }

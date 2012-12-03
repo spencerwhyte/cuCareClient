@@ -9,12 +9,13 @@ A consultation may be clicked to access that consultation
 #ifndef PATIENTRECORDPAGE
 #define PATIENTRECORDPAGE
 
+#include<QMenu>
 #include"CUPage.h"
 #include"CUFormElement.h"
 #include"CUNavigationButton.h"
 #include"CUFormTable.h"
 
-class PatientRecordPage : public CUPage
+class PatientRecordPage : public CUPage, ClientObjectResponseDelegate
 {
     Q_OBJECT
 
@@ -24,12 +25,22 @@ public:
 
     void addConsultationTableData(QList<StorableInterface*> * da);
     void setDataEntries(QList<ConsultationRecord*> * da);
+    void setCurrentObjectRequest(ClientObjectRequest * newRequest);
+
+    void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);
+    void didReceiveError(QString & errorMessage);
+
+public slots:
+    void editConsultationRecord();
+    void navigateToConsultationRecordPage(int row, int col);
+    void launchPatientContextMenu(const QPoint &);
 
 private:
     CUFormElement *phoneNumberElement, *ohipNumberElement, *primaryPhysicianElement; //patient data
     CUNavigationButton *addConsultationButton;
     CUFormTable *consultationRecordsTable;
     QList<ConsultationRecord*> * dataEntries;
+    ClientObjectRequest * currentObjectRequest;
 };
 
 #endif

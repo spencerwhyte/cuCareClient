@@ -1,6 +1,6 @@
 #include"ConsultationRecordPage.h"
 
-ConsultationRecordPage::ConsultationRecordPage(CUNavigationProvisioningInterface *pNavigator) : CUPage("", true, pNavigator)
+ConsultationRecordPage::ConsultationRecordPage(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object) : CUPage(((ConsultationRecord*)object)->getDateAndTime().toString(), true, pNavigator)
 {
     //note the lack of a title. The title should be the patient's name. Make sure you setup the name after the patient data is received
     dateAndTime = new CUFormElement("Date and Time:", CUFormElement::DATE, 0);
@@ -39,3 +39,52 @@ void ConsultationRecordPage::addFollowupButtonClicked()
 {
     emit navigateAwayFromPage(0);
 }
+
+/*
+  This method receives a list of followups and traverses them,
+  for each followup, that followup's information is collected and
+  cast into a QTableWidgetItem.
+  */
+/*
+void ConsultationRecordPage::addFollowupTableData(QList<StorableInterface*> * da)
+{
+    setDataEntries((QList<FollowUpRecord*> *) da);
+    followupTable->setColumnCount(1);
+    QStringList headerList;
+    headerList << "Date and Time of Consultation";
+    followupTable->setHeaderLabels(headerList);
+
+    qDebug() << "SETTING HEADERS TO: " << headerList;
+
+    QList<QList<QTableWidgetItem *> *> allRows;
+
+    for (int row = 0; row < dataEntries->size(); row++)
+    {
+        followupTable * currentFollowup = (FollowUpRecord*)dataEntries->at(row);
+        QTableWidgetItem * dateAndTime = new QTableWidgetItem();
+
+        if(status == FollowUpRecord::PENDING)
+        {
+
+        }
+        PENDING,
+        OVERDUE,
+        COMPLETE,
+
+status;
+    QDateTime * dueDateTime;
+    QString * details;
+
+        qDebug() << currentFollowup->getDateAndTime().toString();
+        dateAndTime->setData(Qt::DisplayRole, currentConsultation->getDateAndTime().toString());
+
+        QList<QTableWidgetItem *> * currentRow = new  QList<QTableWidgetItem *>();
+
+        currentRow->append(dateAndTime);
+
+        allRows.append(currentRow);
+    }
+    consultationRecordsTable->addAllRows(allRows);
+
+    qDeleteAll(allRows);
+}*/

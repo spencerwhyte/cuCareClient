@@ -27,6 +27,7 @@ CUFormElement::CUFormElement(QString labelName, cuFormVariant pFormVariant,QWidg
 		//create a QDateTime object so that the default date and time match curent ones
 		QDateTime current = QDateTime::currentDateTime();
         formInput = new QDateTimeEdit(current, this);
+        ((QDateTimeEdit*)formInput)->setDisplayFormat(QString("d.MMM.yyyy hh:mm"));
 		break;
 	}
 
