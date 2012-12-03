@@ -21,6 +21,7 @@ The reason some of the pages in cuCare aren't here is because they only navigate
 #include"HomePage.h"
 #include"PatientRecordPage.h"
 #include"QueryDatabaseForm.h"
+#include"EditPatientRecordForm.h"
 
 class CUPageFactory
 {

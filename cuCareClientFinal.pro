@@ -63,7 +63,19 @@ SOURCES += main.cpp \
     CUContentPane.cpp \
     CUNavigationButton.cpp \
     CUServerRequestButton.cpp \
-    LoadingSpinner.cpp
+    LoadingSpinner.cpp \
+    ../PutMeOnDropbox/UpdateFollowupForm.cpp \
+    ../PutMeOnDropbox/EditPatientRecordForm.cpp \
+    ../PutMeOnDropbox/EditConsultationRecordForm.cpp \
+    ../PutMeOnDropbox/addpatientrecordform.cpp \
+    ../PutMeOnDropbox/AddFollowupForm.cpp \
+    ../PutMeOnDropbox/AddConsultationRecordForm.cpp \
+    EditConsultationRecordForm.cpp \
+    AddConsultationRecordForm.cpp \
+    AddFollowupForm.cpp \
+    UpdateFollowupForm.cpp \
+    addpatientrecordform.cpp \
+    EditPatientRecordForm.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -106,7 +118,13 @@ HEADERS += \
     CUNavigationButton.h \
     CUFormTable.h \
     CUFormElement.h \
-    CUContentPane.h
+    CUContentPane.h \
+    EditConsultationRecordForm.h \
+    AddConsultationRecordForm.h \
+    addpatientrecordform.h \
+    AddFollowupForm.h \
+    UpdateFollowupForm.h \
+    EditPatientRecordForm.h
 
 
 QT += network

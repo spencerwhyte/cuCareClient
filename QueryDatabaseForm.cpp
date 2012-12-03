@@ -1,6 +1,6 @@
 #include"QueryDatabaseForm.h"
 
-QueryDatabaseForm::QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Query Database", true, pNavigator)
+QueryDatabaseForm::QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Query Database", true, pNavigator), dataEntries(NULL)
 {
     subjectPane = new CUContentPane(0);
     patientLimitSearchPane = new CUContentPane(0);
@@ -64,11 +64,12 @@ QueryDatabaseForm::QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigat
     QObject::connect(subjectComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(previewLimits(int)));
     QObject::connect(searchButton->getButton(), SIGNAL(clicked()), this, SLOT(searchButtonClicked()));
     QObject::connect(this, SIGNAL(clearResultsTable()), resultsTable, SLOT(clearContents()));
+    QObject::connect(resultsTable, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(launchPatientContextMenu(const QPoint &)));
 }
 
 QueryDatabaseForm::~QueryDatabaseForm()
 {
-
+    delete dataEntries;
 }
 
 void QueryDatabaseForm::previewLimits(int choice)
@@ -92,14 +93,21 @@ void QueryDatabaseForm::previewLimits(int choice)
     }
 }
 
+void QueryDatabaseForm::setDataEntries(QList<PatientRecord*> * da){
+    if(dataEntries){
+        delete dataEntries;
+    }
+    dataEntries = da;
+}
+
 /*
   This method receives a list of patient records and traverses them,
   for each patient record, the patient's information is collected and
   cast into a QTableWidgetItem.
   */
-void QueryDatabaseForm::addPatientTableData(QList<StorableInterface*> &dataEntries)
+void QueryDatabaseForm::addPatientTableData(QList<StorableInterface*> * da)
 {
-
+    setDataEntries((QList<PatientRecord*> *) da);
     resultsTable->setColumnCount(4);
     QStringList headerList;
     headerList << "Patient Name" << "OHIP Number" << "Phone Number" << "Primary Physician";
@@ -107,28 +115,30 @@ void QueryDatabaseForm::addPatientTableData(QList<StorableInterface*> &dataEntri
 
     qDebug() << "SETTING HEADERS TO: " << headerList;
 
-    for (int row = 0; row < dataEntries.size(); row++)
-    {
-        PatientRecord * currentPatient = (PatientRecord*)dataEntries.at(row);
+    QList<QList<QTableWidgetItem *> *> allRows;
 
-        QTableWidgetItem *name = new QTableWidgetItem(QString(currentPatient->getName()));
+    for (int row = 0; row < dataEntries->size(); row++)
+    {
+        PatientRecord * currentPatient = (PatientRecord*)dataEntries->at(row);
+
+        QTableWidgetItem *name = new QTableWidgetItem();
+        name->setData(Qt::DisplayRole, QString(currentPatient->getName()));
         QTableWidgetItem *ohipNumber = new QTableWidgetItem(QString(currentPatient->getOHIPNumber()));
         QTableWidgetItem *phoneNumber = new QTableWidgetItem(QString(currentPatient->getPhoneNumber()));
         QTableWidgetItem *primaryPhysician = new QTableWidgetItem(QString(currentPatient->getPrimaryPhysician()));
 
-        QList<QTableWidgetItem *> currentRow;
+        QList<QTableWidgetItem *> * currentRow = new  QList<QTableWidgetItem *>();
 
-        currentRow.append(name);
-        currentRow.append(ohipNumber);
-        currentRow.append(phoneNumber);
-        currentRow.append(primaryPhysician);
+        currentRow->append(name);
+        currentRow->append(ohipNumber);
+        currentRow->append(phoneNumber);
+        currentRow->append(primaryPhysician);
 
-        resultsTable->addRow(currentRow);
-
-
-
+        allRows.append(currentRow);
     }
+    resultsTable->addAllRows(allRows);
 
+    qDeleteAll(allRows);
 }
 
 void QueryDatabaseForm::searchButtonClicked()
@@ -158,7 +168,30 @@ void QueryDatabaseForm::searchButtonClicked()
 
 }
 
-void QueryDatabaseForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> &results)
+void QueryDatabaseForm::launchPatientContextMenu(const QPoint &)
+{
+    QMenu* contextMenu = new QMenu ( this );
+    Q_CHECK_PTR ( contextMenu );
+
+    contextMenu->addAction ( "Edit" , this , SLOT (editPatientRecord()) );
+    contextMenu->addAction ( "Delete" , this , SLOT (deletePatientRecord()) );
+    contextMenu->popup( QCursor::pos() );
+    contextMenu->exec();
+    delete contextMenu;
+    contextMenu = 0;
+}
+
+void QueryDatabaseForm::editPatientRecord()
+{
+    qDebug() << resultsTable->currentRow();
+}
+
+void QueryDatabaseForm::deletePatientRecord()
+{
+    qDebug() << "Inside launchPatientContextMenu ATTENTION!!";
+}
+
+void QueryDatabaseForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> *results)
 {
     qDebug()<<"EMITING CLEAR RESULTS TABLE";
    // emit clearResultsTable();

@@ -36,7 +36,7 @@ public:
             resuls - The list of results that were received
             from the server
       */
-    virtual void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) = 0;
+    virtual void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results) = 0;
 
     /*
       Called on the delegate when the response received from

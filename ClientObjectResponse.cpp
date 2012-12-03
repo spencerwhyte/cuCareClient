@@ -24,12 +24,12 @@ int ClientObjectResponse::fillObjectResponse(){
   */
 void ClientObjectResponse::XMLResponseReceived(QList<QMap<QString, QVariant> > &data, QString & className){
     qDebug() << "HERE";
-    QList<StorableInterface*> objects;
+    QList<StorableInterface*> * objects  = new QList<StorableInterface*>();
     for(int i =0 ; i < data.length(); i++){
         StorableInterface * current = StorableFactory::GetFactory().getInstance(className);
         current->setAttributesAndValues(data.at(i));
 
-        objects.append(current);
+        objects->append(current);
     }
 
     delegate->didSuccessfullyReceiveResponse(objects);

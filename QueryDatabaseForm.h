@@ -9,6 +9,7 @@ This class is responsible for creating queries and displaying query reports
 #define QUERYDATABASEFORM
 
 #include<QComboBox>
+#include<QMenu>
 #include"CUPage.h"
 #include"ClientObjectResponseDelegate.h"
 #include"CUFormElement.h"
@@ -21,13 +22,17 @@ class PatientRecord;
 class QueryDatabaseForm : public CUPage, public ClientObjectResponseDelegate
 {
     Q_OBJECT
-
+    QList<PatientRecord*> *dataEntries;
 public:
     QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigator);
 	~QueryDatabaseForm();
 
-    void addPatientTableData(QList<StorableInterface*> &dataEntries);
-    virtual void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results);
+    void addPatientTableData(QList<StorableInterface*> * dataEntries);
+    virtual void didSuccessfullyReceiveResponse(QList<StorableInterface *>*results);
+
+
+    void setDataEntries(QList<PatientRecord*> *dataEntries);
+
 
     /*
       Called on the delegate when the response received from
@@ -43,6 +48,9 @@ public:
 public slots:
     void previewLimits(int choice);
     void searchButtonClicked();
+    void launchPatientContextMenu(const QPoint &);
+    void editPatientRecord();
+    void deletePatientRecord();
 
 signals:
     void clearResultsTable();

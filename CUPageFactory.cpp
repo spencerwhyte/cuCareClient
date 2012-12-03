@@ -42,7 +42,11 @@ QWidget* CUPageFactory::navigateFromPatientRecordPage(int choice)
 
 QWidget* CUPageFactory::navigateFromQueryDatabaseForm(int choice)
 {
-    QueryDatabaseForm *returnPage = new QueryDatabaseForm(navigator);
+    CUPage *returnPage = 0;
+    if (choice == 0) //this leads to edit a patient record
+    {
+        returnPage = new EditPatientForm();
+    }
     return returnPage;
 }
 

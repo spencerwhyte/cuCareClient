@@ -2,9 +2,10 @@
 
 CUFormTable::CUFormTable(int pColumns, int pRows) : QTableWidget(pRows, pColumns)
 {
+    setSelectionBehavior(QAbstractItemView::SelectRows);
+
 	columns = pColumns;
 	rows = pRows;
-	currentRow = 0; //if any data is to be added, this will point to which row is to be edited
 
     //remove the grid
     setGridStyle(Qt::NoPen);
@@ -15,6 +16,8 @@ CUFormTable::CUFormTable(int pColumns, int pRows) : QTableWidget(pRows, pColumns
     //headerPalette.setColor(QPalette::Button, Qt::red);
 
     verticalHeader()->hide();
+
+    setContextMenuPolicy(Qt::CustomContextMenu);
 }
 
 CUFormTable::~CUFormTable()
@@ -22,17 +25,21 @@ CUFormTable::~CUFormTable()
 
 }
 
-void CUFormTable::addRow(QList<QTableWidgetItem*> dataEntries)
+void CUFormTable::addAllRows(QList<QList<QTableWidgetItem*> * > dataEntries)
 {
-    setRowCount(currentRow + 1);
-	//the QList holds a table entry for each column, loop thorugh each of those entries
-	for (int i = 0; i < columns; i++)
-	{
-        dataEntries.at(i)->setFlags(dataEntries.at(i)->flags()^ Qt::ItemIsEditable);
-		setItem(currentRow, i, dataEntries.at(i));
-	}	
-	//increment the currentRow such that the next addition will be at the next row
-	currentRow++;
+    setRowCount(dataEntries.length());
+    for(int j = 0 ; j < dataEntries.length();j++){
+        QList<QTableWidgetItem*> *currentRow =  dataEntries.at(j);
+        //the QList holds a table entry for each column, loop thorugh each of those entries
+        for (int i = 0; i < currentRow->length(); i++)
+        {
+            QTableWidgetItem* currentItem = currentRow->at(i);
+            currentItem->setFlags(currentItem->flags() ^ Qt::ItemIsEditable);
+
+            setItem(j, i , currentItem);
+
+        }
+    }
 }
 
 

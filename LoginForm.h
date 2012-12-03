@@ -29,7 +29,7 @@ public:
    /*
      Gets called when the request to login has completed
      */
-  virtual void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results);
+  virtual void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);
 
   /*
     Gets called when request to the server fails

@@ -61,11 +61,11 @@ void LoginForm::communicateUsernameToServer()
 /*
   Gets called when the request to login has completed
   */
-void LoginForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> &results){
+void LoginForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> * results){
     loginButton->stopSpinner();
-    qDebug() << results.length();
-    if(results.length()!= 0){
-        User* u = (User*)results.at(0);
+    qDebug() << results->length();
+    if(results->length()!= 0){
+        User* u = (User*)results->at(0);
         qDebug() << u->stringForUserType();
         if(u->getUserType() != User::Invalid){
             emit submitUser(u);

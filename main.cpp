@@ -86,10 +86,10 @@ void testAddUser(){
 
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
-             for(int i = 0 ; i < results.length(); i++){
-                 qDebug() << ((User*)results.at(i))->getUsername();
-                 qDebug() << ((User*)results.at(i))->stringForUserType();
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
+             for(int i = 0 ; i < results->length(); i++){
+                 qDebug() << ((User*)results->at(i))->getUsername();
+                 qDebug() << ((User*)results->at(i))->stringForUserType();
              }
         }
 
@@ -121,14 +121,14 @@ void testAddPatient(){
 
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
-                 qDebug() << ((PatientRecord*)results.at(i))->getName();
-                 qDebug() << ((PatientRecord*)results.at(i))->getPhoneNumber();
-                 qDebug() << ((PatientRecord*)results.at(i))->getOHIPNumber();
-                 qDebug() << ((PatientRecord*)results.at(i))->getPrimaryPhysician();
-                 qDebug() << ((PatientRecord*)results.at(i))->getId();
+             for(int i = 0 ; i < results->length(); i++){
+                 qDebug() << ((PatientRecord*)results->at(i))->getName();
+                 qDebug() << ((PatientRecord*)results->at(i))->getPhoneNumber();
+                 qDebug() << ((PatientRecord*)results->at(i))->getOHIPNumber();
+                 qDebug() << ((PatientRecord*)results->at(i))->getPrimaryPhysician();
+                 qDebug() << ((PatientRecord*)results->at(i))->getId();
              }
         }
 
@@ -151,11 +151,11 @@ void testQueryUser(){
 
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
-                 qDebug() << ((User*)results.at(i))->getUsername();
-                 qDebug() << ((User*)results.at(i))->stringForUserType();
+             for(int i = 0 ; i < results->length(); i++){
+                 qDebug() << ((User*)results->at(i))->getUsername();
+                 qDebug() << ((User*)results->at(i))->stringForUserType();
              }
         }
 
@@ -189,14 +189,14 @@ void testQueryPatient(){
    // p->setId(1);
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
-                 qDebug() << ((PatientRecord*)results.at(i))->getName();
-                 qDebug() << ((PatientRecord*)results.at(i))->getPhoneNumber();
-                 qDebug() << ((PatientRecord*)results.at(i))->getOHIPNumber();
-                 qDebug() << ((PatientRecord*)results.at(i))->getPrimaryPhysician();
-                 qDebug() << ((PatientRecord*)results.at(i))->getId();
+             for(int i = 0 ; i < results->length(); i++){
+                 qDebug() << ((PatientRecord*)results->at(i))->getName();
+                 qDebug() << ((PatientRecord*)results->at(i))->getPhoneNumber();
+                 qDebug() << ((PatientRecord*)results->at(i))->getOHIPNumber();
+                 qDebug() << ((PatientRecord*)results->at(i))->getPrimaryPhysician();
+                 qDebug() << ((PatientRecord*)results->at(i))->getId();
              }
         }
 
@@ -219,10 +219,10 @@ void testEditUser(){
 
     class TestObject2 : public ClientObjectResponseDelegate{
 
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
-             qDebug() << ((User*)results.at(0))->getUsername();
-             qDebug() << ((User*)results.at(0))->stringForUserType();
-             qDebug() << ((User*)results.at(0))->getId();
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
+             qDebug() << ((User*)results->at(0))->getUsername();
+             qDebug() << ((User*)results->at(0))->stringForUserType();
+             qDebug() << ((User*)results->at(0))->getId();
              qDebug() << "EDIT FINISHED";
          }
 
@@ -239,11 +239,12 @@ void testEditUser(){
         QList<StorableInterface*> * rj;
 
 
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             rj = new QList<StorableInterface*>(results);
+
+
              TestObject2 * t2 = new TestObject2();
-             User * u = (User*)results.at(0);
+             User * u = (User*)results->at(0);
              u->setUserType(User::MedicalPersonnel);
              ClientObjectRequest * r2 = new ClientObjectRequest(t2 , *u, ClientObjectRequest::Edit);
 
@@ -278,14 +279,14 @@ void testEditPatient(){
     p->setId(1);
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
-                 qDebug() << ((PatientRecord*)results.at(i))->getName();
-                 qDebug() << ((PatientRecord*)results.at(i))->getPhoneNumber();
-                 qDebug() << ((PatientRecord*)results.at(i))->getOHIPNumber();
-                 qDebug() << ((PatientRecord*)results.at(i))->getPrimaryPhysician();
-                 qDebug() << ((PatientRecord*)results.at(i))->getId();
+             for(int i = 0 ; i < results->length(); i++){
+                 qDebug() << ((PatientRecord*)results->at(i))->getName();
+                 qDebug() << ((PatientRecord*)results->at(i))->getPhoneNumber();
+                 qDebug() << ((PatientRecord*)results->at(i))->getOHIPNumber();
+                 qDebug() << ((PatientRecord*)results->at(i))->getPrimaryPhysician();
+                 qDebug() << ((PatientRecord*)results->at(i))->getId();
              }
         }
 
@@ -310,11 +311,11 @@ void testRemoveUser(){
 
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() << "REMOVED USER SUCCESSFULLY";
-             for(int i = 0 ; i < results.length(); i++){
-                 qDebug() << ((User*)results.at(i))->getUsername();
-                 qDebug() << ((User*)results.at(i))->stringForUserType();
+             for(int i = 0 ; i < results->length(); i++){
+                 qDebug() << ((User*)results->at(i))->getUsername();
+                 qDebug() << ((User*)results->at(i))->stringForUserType();
              }
         }
 
@@ -333,9 +334,9 @@ void testRemovePatient(){
     u->setId(1);
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() << "REMOVED USER SUCCESSFULLY";
-             for(int i = 0 ; i < results.length(); i++){
+             for(int i = 0 ; i < results->length(); i++){
 
              }
         }
@@ -446,9 +447,9 @@ void testAddConsulationRecord(){
 
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
+             for(int i = 0 ; i < results->length(); i++){
 
              }
         }
@@ -513,11 +514,11 @@ void testQueryConsultationRecord(){
     c.setOHIPNumber(QString("QWERTYUIOP123456789"));
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
+             for(int i = 0 ; i < results->length(); i++){
                  ConsultationRecord * r;
-                 r= (ConsultationRecord * )results.at(i);
+                 r= (ConsultationRecord * )results->at(i);
                  qDebug()<< r->getOHIPNumber();
              }
         }
@@ -556,9 +557,9 @@ void testEditConsultationRecord(){
     c.setId(1);
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
+             for(int i = 0 ; i < results->length(); i++){
 
              }
         }
@@ -578,9 +579,9 @@ void testRemoveConsultationRecord(){
     c.setId(1);
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
+             for(int i = 0 ; i < results->length(); i++){
 
              }
         }
@@ -674,9 +675,9 @@ void testAddFollowUp(){
     f.setStatus(FollowUpRecord::PENDING);
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
+             for(int i = 0 ; i < results->length(); i++){
 
              }
         }
@@ -696,10 +697,10 @@ void testQueryFollowUp(){
     f.setStatus(FollowUpRecord::PENDING);
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
-                 qDebug() << ((FollowUpRecord*)results.at(i))->getId();
+             for(int i = 0 ; i < results->length(); i++){
+                 qDebug() << ((FollowUpRecord*)results->at(i))->getId();
              }
         }
 
@@ -735,9 +736,9 @@ void testEditFollowUp(){
     f.setStatus(FollowUpRecord::OVERDUE);
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
+             for(int i = 0 ; i < results->length(); i++){
 
              }
         }
@@ -757,9 +758,9 @@ void testRemoveFollowUp(){
     f.setId(1);
 
     class TestObject : public ClientObjectResponseDelegate{
-         void didSuccessfullyReceiveResponse(QList<StorableInterface *> &results) {
+         void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {
              qDebug() <<"SUCCESS";
-             for(int i = 0 ; i < results.length(); i++){
+             for(int i = 0 ; i < results->length(); i++){
 
              }
         }

@@ -24,13 +24,12 @@ public:
 	~CUFormTable();
 	
 	// this method takes a list of table entries and fills the current row's cells one-by-one, the list should contain one entry for each column
-	void addRow(QList<QTableWidgetItem*> dataEntries);
+    void addAllRows(QList<QList<QTableWidgetItem*> * > dataEntries);
     void setHeaderLabels(QStringList columnHeaders);
 
 private:
 	int columns;
 	int rows;
-	int currentRow;
 };
 
 #endif
