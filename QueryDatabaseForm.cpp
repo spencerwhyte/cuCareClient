@@ -53,14 +53,17 @@ QueryDatabaseForm::QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigat
 
     resultsTable = new CUFormTable(0, 0);
 
+
+
+
 	// add the last two elements now
     addElement(searchButton, 1, 1, 1, 1, Qt::AlignRight);
     addElement(resultsTable, 0, 2, 2, 1);
 
     //handle the event in which a subject is selected and the parameter are to be displayed
     QObject::connect(subjectComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(previewLimits(int)));
-    QObject::connect(searchButton, SIGNAL(clicked()), this, SLOT(searchButtonClicked));
-    QObject::connect(this, SIGNAL(clearResultsTable()), resultsTable, SLOT(clear()));
+    QObject::connect(searchButton->getButton(), SIGNAL(clicked()), this, SLOT(searchButtonClicked()));
+    QObject::connect(this, SIGNAL(clearResultsTable()), resultsTable, SLOT(clearContents()));
 }
 
 QueryDatabaseForm::~QueryDatabaseForm()
@@ -96,9 +99,13 @@ void QueryDatabaseForm::previewLimits(int choice)
   */
 void QueryDatabaseForm::addPatientTableData(QList<StorableInterface*> &dataEntries)
 {
+
+    resultsTable->setColumnCount(4);
     QStringList headerList;
     headerList << "Patient Name" << "OHIP Number" << "Phone Number" << "Primary Physician";
-    resultsTable->setHorizontalHeaderLabels(headerList);
+    resultsTable->setHeaderLabels(headerList);
+
+    qDebug() << "SETTING HEADERS TO: " << headerList;
 
     for (int row = 0; row < dataEntries.size(); row++)
     {
@@ -109,12 +116,19 @@ void QueryDatabaseForm::addPatientTableData(QList<StorableInterface*> &dataEntri
         QTableWidgetItem *phoneNumber = new QTableWidgetItem(QString(currentPatient->getPhoneNumber()));
         QTableWidgetItem *primaryPhysician = new QTableWidgetItem(QString(currentPatient->getPrimaryPhysician()));
 
-        //insert the data into the table
-        resultsTable->setItem(row, 0, name);
-        resultsTable->setItem(row, 1, ohipNumber);
-        resultsTable->setItem(row, 2, phoneNumber);
-        resultsTable->setItem(row, 3, primaryPhysician);
+        QList<QTableWidgetItem *> currentRow;
+
+        currentRow.append(name);
+        currentRow.append(ohipNumber);
+        currentRow.append(phoneNumber);
+        currentRow.append(primaryPhysician);
+
+        resultsTable->addRow(currentRow);
+
+
+
     }
+
 }
 
 void QueryDatabaseForm::searchButtonClicked()
@@ -122,18 +136,20 @@ void QueryDatabaseForm::searchButtonClicked()
 
     PatientRecord p;
     QString physicianName = primaryPhysician->getInput();
-    p.setHasCompletedFollowUps(true);
     p.setPrimaryPhysician(physicianName);
 
     switch(followupStatusComboBox->currentIndex())
     {
         case 1:
+         qDebug() << "PENDING FOLLOW UPDSS";
             p.setHasPendingFollowUps(true);
             break;
         case 2:
+        qDebug() << "COMPLETED FOLLOW UPDSS";
             p.setHasCompletedFollowUps(true);
             break;
         case 3:
+         qDebug() << "OVERDUE FOLLOW UPDSS";
             p.setHasOverDueFollowUps(true);
             break;
     }
@@ -144,8 +160,9 @@ void QueryDatabaseForm::searchButtonClicked()
 
 void QueryDatabaseForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> &results)
 {
-    emit clearResultsTable();
-
+    qDebug()<<"EMITING CLEAR RESULTS TABLE";
+   // emit clearResultsTable();
+    qDebug() << "ADDING PATIENT DATA";
     addPatientTableData(results);
 }
 

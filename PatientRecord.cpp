@@ -4,7 +4,7 @@
   Carleton University
   */
 #include "PatientRecord.h"
-
+#include <QDebug>
 
 // Getters
 QString  PatientRecord::getName() const{
@@ -93,8 +93,11 @@ void PatientRecord::getAttributesAndValues(QMap<QString, QVariant> & attributesA
     attributesAndValues.insert(QString("PrimaryPhysician"), QVariant(QString(getPrimaryPhysician())));
 
     attributesAndValues.insert(QString("HasOverDueFollowUps"), QVariant(stringForBoolean(getHasOverDueFollowUps())));
+
     attributesAndValues.insert(QString("HasPendingFollowUps"), QVariant(stringForBoolean(getHasPendingFollowUps())));
     attributesAndValues.insert(QString("HasCompletedFollowUps"), QVariant(stringForBoolean(getHasCompletedFollowUps())));
+
+    qDebug() << attributesAndValues;
 }
 
 void PatientRecord::setAttributesAndValues(const QMap<QString, QVariant> & attributesAndValues){

@@ -22,6 +22,8 @@
 #include"CUNavigationStack.h"
 #include"CUNavigationProvisioning.h"
 
+#include <QDesktopWidget>
+
 void testUser(){
     User u;
     QString username("Spencer Whyte");
@@ -821,7 +823,15 @@ int main(int argc, char *argv[])
     stack->setCurrentWidget(initialPage);
 
     QMainWindow mainWindow;
+    mainWindow.setWindowTitle(QString("CUCare"));
     mainWindow.setCentralWidget(stack);
+
+    QRect geo = mainWindow.geometry();
+    QPoint center = QApplication::desktop()->availableGeometry().center();
+    center.setX(center.x() - 100);
+    center.setY(center.y() - 100);
+    geo.moveCenter(center);
+    mainWindow.setGeometry(geo);
 
     mainWindow.show();
     return app.exec();
