@@ -97,7 +97,6 @@ void PatientRecord::getAttributesAndValues(QMap<QString, QVariant> & attributesA
     attributesAndValues.insert(QString("HasPendingFollowUps"), QVariant(stringForBoolean(getHasPendingFollowUps())));
     attributesAndValues.insert(QString("HasCompletedFollowUps"), QVariant(stringForBoolean(getHasCompletedFollowUps())));
 
-    qDebug() << attributesAndValues;
 }
 
 void PatientRecord::setAttributesAndValues(const QMap<QString, QVariant> & attributesAndValues){

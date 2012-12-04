@@ -20,7 +20,6 @@ void CUNavigationProvisioning::back()
 
 void CUNavigationProvisioning::back(StorableInterface* newObject)
 {
-    qDebug() <<"STARTING PLACE";
     CUPage* widgetToModify = (CUPage*)applicationStack->lastQWidget();
     widgetToModify->addToTable(newObject);
     back();
@@ -28,7 +27,6 @@ void CUNavigationProvisioning::back(StorableInterface* newObject)
 
 void CUNavigationProvisioning::updateThenBack(StorableInterface* newObject)
 {
-    qDebug() <<"STARTING PLACE";
     CUPage* widgetToModify = (CUPage*)applicationStack->lastQWidget();
     widgetToModify->updateTable(newObject);
     back();
@@ -39,12 +37,10 @@ void CUNavigationProvisioning::setUserType(User *user)
 {
     delete currentUser;
     currentUser = user;
-   qDebug() << "347sdsfs85";
     // declare the user according to the appropriate factory
     switch(user->getUserType())
     {
         case User::Physician:
-           qDebug() << "sdfsdfsdf";
             userFactory = new PhysicianPageFactory(this);
             break;
         case User::MedicalPersonnel:
@@ -65,9 +61,7 @@ void CUNavigationProvisioning::navigateFromLoginForm(int choice)
     QWidget *newPage;
     if(choice == 1)
     {
-        qDebug() << "before the might cons the stack";
         newPage = new IPAddressConfigurationForm(this);
-        qDebug() << "after the might cons the stack";
     }
     else if(choice == 0)
     {

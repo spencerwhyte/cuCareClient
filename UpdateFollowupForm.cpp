@@ -5,7 +5,6 @@ UpdateFollowupForm::UpdateFollowupForm(CUNavigationProvisioningInterface* pNavig
     followup = (FollowUpRecord*)object;
     //Just call the superclass constructor with the new parameter. Also enable one little thing.
     statusBox->setEnabled(true);
-    //TODO: Populate the form with the data from a passed-in record!
 
     //populate the fields
     if(followup->getStatus() == FollowUpRecord::PENDING){
@@ -34,7 +33,6 @@ UpdateFollowupForm::~UpdateFollowupForm()
 
 void UpdateFollowupForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> * results){
     StorableInterface* record = results->at(0);
-    qDebug() << ((FollowUpRecord*)record)->getId() << " FOLLOWUP Should definitely not be -1";
     emit goBack(record);
 }
 
@@ -49,7 +47,6 @@ void UpdateFollowupForm::sendFollowupToServer()
     followup->setDetails(detailsField->getInput());
 
 
-    qDebug() << "I AM BEING CALLED FROM THE HEAVENS, WHERE I PLAY MY HARP I PEACE!";
     ClientObjectRequest * r = new ClientObjectRequest(this, *(StorableInterface*)followup, ClientObjectRequest::Edit);
     setRequest(r);
 }

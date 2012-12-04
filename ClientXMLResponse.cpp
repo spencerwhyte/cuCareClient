@@ -23,7 +23,6 @@ int ClientXMLResponse::fillXMLResponse(){
         data - The XML data that was received
   */
 void ClientXMLResponse::XMLResponseReceived(QList<QMap<QString, QVariant> > &data, QString & className){
-    qDebug() << "GERE";
 }
 
 
@@ -58,8 +57,5 @@ void ClientXMLResponse::HTTPResponseReceived(QString &body){
         }
         data.append(currentMap);
     }
-    qDebug() << "DATA: " << data;
-    qDebug() << className;
     XMLResponseReceived(data, className);
-    qDebug() << "WOOT";
 }

@@ -63,10 +63,8 @@ void LoginForm::communicateUsernameToServer()
   */
 void LoginForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> * results){
     loginButton->stopSpinner();
-    qDebug() << results->length();
     if(results->length()!= 0){
         User* u = (User*)results->at(0);
-        qDebug() << u->stringForUserType();
         if(u->getUserType() != User::Invalid){
             emit submitUser(u);
             usernameField->setInput("");

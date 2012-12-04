@@ -23,7 +23,6 @@ int ClientObjectResponse::fillObjectResponse(){
   XML data that was sent by the server.
   */
 void ClientObjectResponse::XMLResponseReceived(QList<QMap<QString, QVariant> > &data, QString & className){
-    qDebug() << "HERE";
     QList<StorableInterface*> * objects  = new QList<StorableInterface*>();
     for(int i =0 ; i < data.length(); i++){
         StorableInterface * current = StorableFactory::GetFactory().getInstance(className);

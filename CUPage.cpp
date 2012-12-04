@@ -3,7 +3,6 @@
 CUPage::CUPage(QString title, bool containsBackButton, CUNavigationProvisioningInterface *pNavigator) : QWidget(), backButton(NULL), request(NULL)
 {
 
-    qDebug() << "CUPAGE CRASH TRACE";
     setMinimumSize(800, 600); // a smaller window would be unusable, a bigger window would be ugly
 
     layout = new QGridLayout(this);
@@ -18,7 +17,6 @@ CUPage::CUPage(QString title, bool containsBackButton, CUNavigationProvisioningI
     QPalette titlePalette;
     titlePalette.setColor(QPalette::WindowText, Qt::darkGray);
     titleLabel->setPalette(titlePalette);
-    qDebug() << "1";
     //if there is a back button, then assign the layout accordingly
     if(containsBackButton)
     {
@@ -45,7 +43,6 @@ CUPage::CUPage(QString title, bool containsBackButton, CUNavigationProvisioningI
     layout->setAlignment(contentPane, Qt::AlignCenter);
     layout->setRowStretch(0, 0); // the title should be stuck up no matter how the screen is resized
     layout->setRowStretch(1, 1); // the contents should always be in the center
-    qDebug() << "2";
     setLayout(layout);
 }
 
@@ -111,7 +108,6 @@ void CUPage::addElement(QWidget *element, int xPosition, int yPosition, int xSpa
 
 void CUPage::addToTable(StorableInterface* object)
 {
-    qDebug() << "ATTENTION I'M BEING CALLED FROM THE WRONG PLACE!";
 }
 
 void CUPage::updateTable(StorableInterface *object)

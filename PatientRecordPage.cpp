@@ -84,7 +84,6 @@ void PatientRecordPage::addConsultationTableDataAgain(QList<StorableInterface*> 
     headerList << "Date and Time of Consultation";
     consultationRecordsTable->setHeaderLabels(headerList);
 
-    qDebug() << "SETTING HEADERS TO: " << headerList;
 
     QList<QList<QTableWidgetItem *> *> allRows;
 
@@ -130,7 +129,6 @@ void PatientRecordPage::editConsultationRecord()
     if(consultationRecordsTable->currentItem()!=NULL)
     {
         StorableInterface* consultation = dataEntries->at(consultationRecordsTable->currentRow());
-        qDebug() << ((ConsultationRecord*)consultation)->getId() << "should not be -1";
         emit navigateAwayFromPage(0, consultation);
     }
 }

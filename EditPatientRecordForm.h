@@ -14,7 +14,6 @@ class EditPatientRecordForm : public AddPatientRecordForm
 
 public:
     EditPatientRecordForm(CUNavigationProvisioningInterface* pNavigator, StorableInterface* patient);
-  //EditPatientRecordForm(PatientRecord *patient);
     ~EditPatientRecordForm();
 
     void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);

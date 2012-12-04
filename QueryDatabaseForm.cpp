@@ -125,7 +125,6 @@ void QueryDatabaseForm::addQueryTableDataAgain(QList<StorableInterface*> * da)
     headerList << "Patient Name" << "OHIP Number" << "Phone Number" << "Primary Physician";
     resultsTable->setHeaderLabels(headerList);
 
-    qDebug() << "SETTING HEADERS TO: " << headerList;
 
     QList<QList<QTableWidgetItem *> *> allRows;
 
@@ -163,15 +162,12 @@ void QueryDatabaseForm::searchButtonClicked()
     switch(followupStatusComboBox->currentIndex())
     {
         case 1:
-         qDebug() << "PENDING FOLLOW UPDSS";
             p.setHasPendingFollowUps(true);
             break;
         case 2:
-        qDebug() << "COMPLETED FOLLOW UPDSS";
             p.setHasCompletedFollowUps(true);
             break;
         case 3:
-         qDebug() << "OVERDUE FOLLOW UPDSS";
             p.setHasOverDueFollowUps(true);
             break;
     }
@@ -195,7 +191,6 @@ void QueryDatabaseForm::launchPatientContextMenu(const QPoint &)
 
 void QueryDatabaseForm::navigateToPatientRecord(int row, int col)
 {
-    qDebug() << row;
     StorableInterface* patient = (StorableInterface*)dataEntries->at(row);
     emit navigateToPatientRecord(1, patient);
 }
@@ -213,7 +208,6 @@ void QueryDatabaseForm::deletePatientRecord()
 {
     if(resultsTable->currentItem()!=NULL)
     {
-        qDebug() << "Inside launchPatientContextMenu ATTENTION!!";
         StorableInterface* patient = (StorableInterface*)dataEntries->at(resultsTable->currentRow());
 
         ClientObjectRequest * request = new ClientObjectRequest((ClientObjectResponseDelegate*)this, *patient, ClientObjectRequest::Remove);
@@ -226,12 +220,9 @@ void QueryDatabaseForm::deletePatientRecord()
 void QueryDatabaseForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> *results)
 {
 
-    qDebug()<<"EMITING CLEAR RESULTS TABLE";
    // emit clearResultsTable();
 
-    qDebug() << currentObjectRequest->stringForObjectRequestType(currentObjectRequest->getType());
     if(currentObjectRequest->getType()==ClientObjectRequest::Query){
-        qDebug() << "ADDING PATIENT DATA";
         addPatientTableData(results);
     }else if(currentObjectRequest->getType()==ClientObjectRequest::Remove){
         PatientRecord * deletedPatientRecord = (PatientRecord*)results->at(0);

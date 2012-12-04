@@ -19,7 +19,6 @@ class AddFollowupForm : public CUPage, public ClientObjectResponseDelegate
 
 public:
     AddFollowupForm(CUNavigationProvisioningInterface *pNavigator, StorableInterface* consultation);
-  //AddFollowupForm(FollowUpRecord *followup, QString title = "Add Followup");
     ~AddFollowupForm();
 
 

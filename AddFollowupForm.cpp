@@ -59,7 +59,6 @@ void AddFollowupForm::sendFollowupToServer()
     recordToBeAdded.setDueDateTime(dueDateField->getDate());
     recordToBeAdded.setDetails(detailsField->getInput());
 
-    qDebug() << "I AM BEING CALLED FROM THE DEEP!";
     ClientObjectRequest * r = new ClientObjectRequest(this, recordToBeAdded, ClientObjectRequest::Add);
     setRequest(r);
 }

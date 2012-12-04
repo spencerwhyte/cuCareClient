@@ -2,26 +2,20 @@
 
 IPAddressConfigurationForm::IPAddressConfigurationForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Networking Configuration", true, pNavigator)
 {
-    qDebug() << "in IP cons";
     instructionLabel = new QLabel("Please enter the server machine's ip address and port number:");
     ipAddressEntry = new CUFormElement("IP Address:", CUFormElement::LINE, 0);
     portNumberEntry = new CUFormElement("Port Number:", CUFormElement::LINE, 0);
     submitButton = new CUServerRequestButton("Submit", 0);
-    qDebug() << "HERE";
     addElement(instructionLabel);
     addElement(ipAddressEntry);
     addElement(portNumberEntry);
     addElement(submitButton, 0, 3, 1, 1, Qt::AlignRight);
 
 
-        qDebug() << "HERE";
     ClientSettings& clientSettings = ClientSettings::GetClientSettings();
 
-          qDebug() << "HERE2";
 
-          qDebug() << "HERE3";
     ipAddressEntry->setInput(clientSettings.getDefaultAddressString());
-     qDebug() << clientSettings.getDefaultPortString();
     portNumberEntry->setInput(clientSettings.getDefaultPortString());
 
 

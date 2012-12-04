@@ -7,7 +7,6 @@ EditConsultationRecordForm::EditConsultationRecordForm(CUNavigationProvisioningI
     diagnosisField = new CUFormElement("Diagnosis:", CUFormElement::PARAGRAPH, this);
 
     addElement(diagnosisField, 0, 3, 3);
-    //TODO: Populate the form with the data from a passed-in record!
 
     diagnosisField->setInput(consultation->getDiagnosis());
     dateTimeField->setInput(consultation->getDateAndTime().toString());

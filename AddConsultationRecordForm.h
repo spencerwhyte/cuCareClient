@@ -18,7 +18,6 @@ class AddConsultationRecordForm : public CUPage, public ClientObjectResponseDele
 
 public:
     AddConsultationRecordForm(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object); //Note - this should /only/ be given an input from a subclass!
-  //AddConsultationRecordForm(ConsultationRecord *consultation, QString title = "Add Consultation Record"); //This is simply what I'd be expecting to change!
     ~AddConsultationRecordForm();
 
     void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);

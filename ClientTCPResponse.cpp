@@ -63,7 +63,6 @@ void ClientTCPResponse::TCPResponseFailed(QString errorMessage){
 
 
 void ClientTCPResponse::cannotReceive(){
-    qDebug() << "CANNOT RECEIVE" << *allData;
     if(!dataReceived){
         timer->stop();
         TCPResponseFailed(QString("Error: Unable to connect to the cuCare central server."));
@@ -73,7 +72,6 @@ void ClientTCPResponse::cannotReceive(){
 void ClientTCPResponse::readyToReceive(){
     timer->stop();
     dataReceived = true;
-    qDebug() << "READY TO RECEIVE";
     socket->waitForReadyRead(10);
     QByteArray newData = socket->readAll();
     allData->append(newData);

@@ -11,7 +11,6 @@ ConsultationRecordPage::ConsultationRecordPage(CUNavigationProvisioningInterface
     diagnosis = new CUFormElement("Diagnosis:", CUFormElement::PARAGRAPH, 0);
     addFollowupButton = new CUNavigationButton("Add Followup", 0);
     followupTable = new CUFormTable(0,0);
-    //diagnosis->setMinimumWidth(500);
 
     //populate the fields
     dateAndTime->setInput(consultation->getDateAndTime().toString());
@@ -35,7 +34,6 @@ ConsultationRecordPage::ConsultationRecordPage(CUNavigationProvisioningInterface
 
     //connect the add followup button to the navigator
     QObject::connect(addFollowupButton, SIGNAL(clicked()), this, SLOT(navigateToAddFollowupForm()));
-    //QObject::connect(this, SIGNAL(navigateAwayFromPage(int)), pNavigator, SLOT(navigateFromConsultationRecordPage(int)));
     QObject::connect(followupTable, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(launchPatientContextMenu(const QPoint &)));
     QObject::connect(this, SIGNAL(navigateAwayFromPage(int, StorableInterface*)), pNavigator, SLOT(navigateFromConsultationRecordPage(int, StorableInterface*)));
     QObject::connect(followupTable, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(navigateToUpdateFollowups(int, int)));
@@ -86,7 +84,6 @@ void ConsultationRecordPage::addFollowupTableDataAgain(QList<StorableInterface*>
     headerList << "Status" << "Due Date" << "Details";
     followupTable->setHeaderLabels(headerList);
 
-    qDebug() << "SETTING HEADERS TO: " << headerList;
 
     QList<QList<QTableWidgetItem *> *> allRows;
 
@@ -138,7 +135,6 @@ void ConsultationRecordPage::setDataEntries(QList<FollowUpRecord *> *da)
 
 void ConsultationRecordPage::didSuccessfullyReceiveResponse(QList<StorableInterface *> * results){
 
-    qDebug() << "SDHFJKJBSDBFJKSBDJKSDJKFSDFJKSHDKJFHSDJKf";
 
     if(currentObjectRequest->getType() == ClientObjectRequest::EqualityQuery){
          addFollowupTableData(results);

@@ -173,20 +173,9 @@ void testQueryUser(){
 void testQueryPatient(){
     PatientRecord * p = new PatientRecord();
 
-   // QString name("John Doe");
-   // p->setName(name);
-
-    //QString phoneNumber("613-599-1209");
-   // p->setPhoneNumber(phoneNumber);
-
-    //QString ohip("QWERTYUIOP123456789");
-    //p->setOHIPNumber(ohip);
-
     QString physician("Spencer Whyte");
     p->setPrimaryPhysician(physician);
 
-   // int id=1;
-   // p->setId(1);
 
     class TestObject : public ClientObjectResponseDelegate{
          void didSuccessfullyReceiveResponse(QList<StorableInterface *> *results) {

@@ -37,7 +37,6 @@ void ClientTCPRequest::connectionTimedOut(){
 }
 
 void ClientTCPRequest::readyToSend(){
-    qDebug() << "Ready to send";
     timer->stop();
     if(getSocket()->state()==QAbstractSocket::ConnectedState){
         QByteArray dataToSend;
@@ -83,7 +82,6 @@ int ClientTCPRequest::fillTCPRequest(QString &data){
 
     getSocket()->connectToHost(ClientSettings::GetClientSettings().getDefaultAddress(), ClientSettings::GetClientSettings().getDefaultPort());
 
-    qDebug() << "CONNECTING TO HOST";
 }
 
 /*
