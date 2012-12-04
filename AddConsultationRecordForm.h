@@ -17,7 +17,7 @@ class AddConsultationRecordForm : public CUPage, public ClientObjectResponseDele
     Q_OBJECT
 
 public:
-    AddConsultationRecordForm(CUNavigationProvisioningInterface *pNavigator); //Note - this should /only/ be given an input from a subclass!
+    AddConsultationRecordForm(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object); //Note - this should /only/ be given an input from a subclass!
   //AddConsultationRecordForm(ConsultationRecord *consultation, QString title = "Add Consultation Record"); //This is simply what I'd be expecting to change!
     ~AddConsultationRecordForm();
 
@@ -34,8 +34,8 @@ signals:
 protected:
     CUFormElement *dateTimeField;
     CUFormElement *reasonField;
-    CUFormElement *ohipField;
     CUServerRequestButton *confirmButton;
+    PatientRecord* patient;
 };
 
 #endif // ADDCONSULTATIONRECORDFORM_H

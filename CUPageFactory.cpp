@@ -51,7 +51,7 @@ QWidget* CUPageFactory::navigateFromPatientRecordPage(int choice, StorableInterf
     }
     else if (choice == 2) //they chose to navigate to the add consultation record form
     {
-        returnPage = new AddConsultationRecordForm(navigator);
+        returnPage = new AddConsultationRecordForm(navigator, object);
     }
     return returnPage;
 }

@@ -23,6 +23,9 @@ public:
 
 public slots:
     void sendFollowupToServer();
+
+private:
+    FollowUpRecord* followup;
 };
 
 #endif // UPDATEFOLLOWUPFORM_H

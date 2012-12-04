@@ -2,6 +2,8 @@
 
 PatientRecordPage::PatientRecordPage(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object) : CUPage(((PatientRecord*)object)->getName(), true, pNavigator), dataEntries(NULL),currentObjectRequest(NULL)
 {
+    patient = (PatientRecord*)object;
+
     //note the lack of a title. The title should be the patient's name. Make sure you setup the name after the patient data is received
     phoneNumberElement = new CUFormElement("Phone Number:", CUFormElement::LINE, 0);
     ohipNumberElement = new CUFormElement("OHIP Number:", CUFormElement::LINE, 0);
@@ -28,7 +30,7 @@ PatientRecordPage::PatientRecordPage(CUNavigationProvisioningInterface *pNavigat
     primaryPhysicianElement->setEditable(false);
 
     //connect all navigation handlers
-    QObject::connect(addConsultationButton, SIGNAL(clicked()), this, SLOT(navigateToAddPatientRecordPage()));
+    QObject::connect(addConsultationButton, SIGNAL(clicked()), this, SLOT(navigateToAddConsultationRecordForm()));
     QObject::connect(consultationRecordsTable, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(launchPatientContextMenu(const QPoint &)));
     QObject::connect(consultationRecordsTable, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(navigateToConsultationRecordPage(int, int)));
     QObject::connect(this, SIGNAL(navigateAwayFromPage(int,StorableInterface*)), pNavigator, SLOT(navigateFromPatientRecordPage(int, StorableInterface*)));
@@ -139,9 +141,9 @@ void PatientRecordPage::navigateToConsultationRecordPage(int row, int col)
     emit navigateAwayFromPage(1, consultation);
 }
 
-void PatientRecordPage::navigateToAddPatientRecordPage()
+void PatientRecordPage::navigateToAddConsultationRecordForm()
 {
-    emit navigateAwayFromPage(2, 0);
+    emit navigateAwayFromPage(2, patient);
 }
 
 void PatientRecordPage::addToTable(StorableInterface* object)

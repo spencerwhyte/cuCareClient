@@ -21,6 +21,7 @@ public slots:
     void sendUpdatedConsultationToServer();
 private:
     CUFormElement *diagnosisField;
+    ConsultationRecord* consultation;
 };
 
 #endif // EDITCONSULTATIONRECORDFORM_H
