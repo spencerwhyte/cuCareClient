@@ -26,10 +26,16 @@ EditConsultationRecordForm::~EditConsultationRecordForm()
     //Do nothing!
 }
 
+CUFormElement* EditConsultationRecordForm::getDiagnosisField()
+{
+    return diagnosisField;
+}
+
 void EditConsultationRecordForm::sendConsultationToServer()
 {
     consultation->setDateAndTime(dateTimeField->getDate());
     consultation->setReason(reasonField->getInput());
+    consultation->setDiagnosis(diagnosisField->getInput());
 
 
     ClientObjectRequest * r = new ClientObjectRequest(this, *(StorableInterface*)consultation, ClientObjectRequest::Edit);

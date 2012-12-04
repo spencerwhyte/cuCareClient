@@ -70,7 +70,9 @@ SOURCES += main.cpp \
     AddFollowupForm.cpp \
     UpdateFollowupForm.cpp \
     addpatientrecordform.cpp \
-    EditPatientRecordForm.cpp
+    EditPatientRecordForm.cpp \
+    AdministrativeAssisstantEditConsultationRecordForm.cpp \
+    AdministrativeAssisstantAddConsultationRecordForm.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -119,7 +121,9 @@ HEADERS += \
     addpatientrecordform.h \
     AddFollowupForm.h \
     UpdateFollowupForm.h \
-    EditPatientRecordForm.h
+    EditPatientRecordForm.h \
+    AdministrativeAssisstantEditConsultationRecordForm.h \
+    AdministrativeAssisstantAddConsultationRecordForm.h
 
 
 QT += network

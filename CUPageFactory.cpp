@@ -10,6 +10,11 @@ CUPageFactory::~CUPageFactory()
 
 }
 
+CUNavigationProvisioningInterface* CUPageFactory::getNavigator()
+{
+    return navigator;
+}
+
 QWidget* CUPageFactory::navigateFromConsultationRecordPage(int choice, StorableInterface* object)
 {
     QWidget *returnPage = 0;

@@ -10,12 +10,16 @@ to the pages that match his permissions
 #define ADMINISTRATIVEASSISTANTPAGEFACTORY
 
 #include"CUPageFactory.h"
+#include"AdministrativeAssisstantAddConsultationRecordForm.h"
+#include"AdministrativeAssisstantEditConsultationRecordForm.h"
 
 class AdministrativeAssistantPageFactory : public CUPageFactory
 {
 public:
     AdministrativeAssistantPageFactory(CUNavigationProvisioningInterface *pNavigator);
     ~AdministrativeAssistantPageFactory();
+
+    QWidget* navigateFromPatientRecordPage(int choice, StorableInterface* object);
 };
 
 #endif

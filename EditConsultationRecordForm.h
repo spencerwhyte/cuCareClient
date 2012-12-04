@@ -18,6 +18,8 @@ public:
     //EditConsultationRecordForm(ConsultationRecord *consultation);
     ~EditConsultationRecordForm();
 
+    CUFormElement* getDiagnosisField();
+
     void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);
 
     void didReceiveError(QString & errorMessage);

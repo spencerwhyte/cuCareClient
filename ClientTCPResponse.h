@@ -21,6 +21,7 @@ class ClientTCPResponse : public QObject
     QTcpSocket * socket;
     bool dataReceived;
     QString * allData;
+    QTimer *timer;
 public:
     // Getters
     QTcpSocket* getSocket();
@@ -32,6 +33,7 @@ public:
      will be sent.
       */
     ClientTCPResponse();
+    ~ClientTCPResponse();
     /*
       Starts reading the tcp data received from
       the server into this internal buffer.
@@ -50,6 +52,7 @@ public:
 
     virtual void TCPResponseFailed(QString errorMessage);
 private slots:
+    void responseTimeOut();
     void readyToReceive();
     void cannotReceive();
 };

@@ -24,6 +24,8 @@ public:
     void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);
     void didReceiveError(QString & errorMessage);
 
+    CUFormElement* getReasonField();
+
 
 public slots:
     void sendConsultationToServer();

@@ -35,12 +35,13 @@ public:
 
     // the choice at the end allows us to determine which nvaigation button on the page was pressed
     // for occasions where there are two navigation buttons beside a back button
-    QWidget* navigateFromConsultationRecordPage(int choice, StorableInterface* object);
-    QWidget* navigateFromLoginForm(int choice);
-    QWidget* navigateFromPatientRecordPage(int choice, StorableInterface* object);
-    QWidget* navigateFromQueryDatabaseForm(int choice, StorableInterface* object);
-    QWidget* navigateFromHomePage(int choice);
+    virtual QWidget* navigateFromConsultationRecordPage(int choice, StorableInterface* object);
+    virtual QWidget* navigateFromLoginForm(int choice);
+    virtual QWidget* navigateFromPatientRecordPage(int choice, StorableInterface* object);
+    virtual QWidget* navigateFromQueryDatabaseForm(int choice, StorableInterface* object);
+    virtual QWidget* navigateFromHomePage(int choice);
 
+    CUNavigationProvisioningInterface* getNavigator();
 private:
     CUNavigationProvisioningInterface *navigator;
 };

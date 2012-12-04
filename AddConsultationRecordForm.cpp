@@ -14,7 +14,7 @@ AddConsultationRecordForm::AddConsultationRecordForm(CUNavigationProvisioningInt
     // add the two elements to the page's content pane
     addElement(dateTimeField, 0, 0, 3);
     addElement(reasonField, 0, 1, 3);
-    addElement(confirmButton, 0, 2, 1, 1, Qt::AlignRight);
+    addElement(confirmButton, 2, 4, 1, 1, Qt::AlignRight);
 
     QObject::connect(confirmButton->getButton(), SIGNAL(clicked()), this, SLOT(sendConsultationToServer()));
     QObject::connect(this, SIGNAL(goBack(StorableInterface*)), pNavigator, SLOT(back(StorableInterface*)));
@@ -24,6 +24,11 @@ AddConsultationRecordForm::AddConsultationRecordForm(CUNavigationProvisioningInt
 AddConsultationRecordForm::~AddConsultationRecordForm()
 {
 
+}
+
+CUFormElement* AddConsultationRecordForm::getReasonField()
+{
+    return reasonField;
 }
 
 void AddConsultationRecordForm::sendConsultationToServer()
@@ -40,7 +45,6 @@ void AddConsultationRecordForm::sendConsultationToServer()
 
 void AddConsultationRecordForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> * results){
     StorableInterface* record = results->at(0);
-    qDebug() << ((ConsultationRecord*)record)->getId() << " should definitely not be -1";
     emit goBack(record);
 }
 

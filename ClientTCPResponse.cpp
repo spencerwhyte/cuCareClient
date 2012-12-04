@@ -18,8 +18,21 @@ void ClientTCPResponse::setSocket(QTcpSocket* newSocket){
  will be sent.
   */
 ClientTCPResponse::ClientTCPResponse() : socket(NULL) , allData(new QString()), dataReceived(false){
-
+    QTimer * timeoutTimer = new QTimer();
+    timeoutTimer->setInterval(8000);
+    timeoutTimer->setSingleShot(true);
+    timer = timeoutTimer;
+    timer->start();
+    connect(timer, SIGNAL(timeout()), this, SLOT(responseTimeOut()));
 }
+ClientTCPResponse::~ClientTCPResponse() {
+    delete timer;
+}
+
+void ClientTCPResponse::responseTimeOut(){
+    TCPResponseFailed(QString("Error: Unable to connect to the cuCare central database at this time."));
+}
+
 
 /*
   Starts reading the tcp data received from
@@ -52,11 +65,13 @@ void ClientTCPResponse::TCPResponseFailed(QString errorMessage){
 void ClientTCPResponse::cannotReceive(){
     qDebug() << "CANNOT RECEIVE" << *allData;
     if(!dataReceived){
+        timer->stop();
         TCPResponseFailed(QString("Error: Unable to connect to the cuCare central server."));
     }
 }
 
 void ClientTCPResponse::readyToReceive(){
+    timer->stop();
     dataReceived = true;
     qDebug() << "READY TO RECEIVE";
     socket->waitForReadyRead(10);

@@ -25,6 +25,7 @@ ClientTCPRequest::~ClientTCPRequest(){
 void ClientTCPRequest::dataSent(qint64 bytesSent){
     totalBytesSent += bytesSent;
     if(totalBytesSent == data->length()){
+        timer->stop();
         TCPRequestFilled();
     }
 }
@@ -43,6 +44,7 @@ void ClientTCPRequest::readyToSend(){
         dataToSend.append(*data);
         getSocket()->write(dataToSend);
     }else{
+        timer->stop();;
         TCPRequestFailed();
     }
 }
