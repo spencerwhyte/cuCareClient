@@ -10,6 +10,8 @@
 
 class EditPatientRecordForm : public AddPatientRecordForm
 {
+    Q_OBJECT
+
 public:
     EditPatientRecordForm(CUNavigationProvisioningInterface* pNavigator, StorableInterface* patient);
   //EditPatientRecordForm(PatientRecord *patient);

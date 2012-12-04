@@ -1,6 +1,6 @@
 #include "AddFollowupForm.h"
 
-AddFollowupForm::AddFollowupForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Add Follow-up", false, pNavigator)
+AddFollowupForm::AddFollowupForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Add Follow-up", true, pNavigator)
 {
     // decide the name and the type of the fields and the corresponding types of input
     { //Status pane - I have it in its own block to separate it.
@@ -10,7 +10,6 @@ AddFollowupForm::AddFollowupForm(CUNavigationProvisioningInterface *pNavigator) 
         statusBox->addItem("Pending");
         statusBox->addItem("Overdue");
         statusBox->addItem("Complete");
-        statusBox->addItem("Invalid");
         statusBox->setDisabled(true);
 
         statusPane->addElement(statusLabel, 0, 0, 1, 1, Qt::AlignTop);

@@ -11,6 +11,8 @@
 
 class EditConsultationRecordForm : public AddConsultationRecordForm
 {
+    Q_OBJECT
+
 public:
     EditConsultationRecordForm(CUNavigationProvisioningInterface* pNavigator, StorableInterface* consultation);
     //EditConsultationRecordForm(ConsultationRecord *consultation);

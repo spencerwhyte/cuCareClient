@@ -23,6 +23,8 @@ The reason some of the pages in cuCare aren't here is because they only navigate
 #include"QueryDatabaseForm.h"
 #include"EditPatientRecordForm.h"
 #include"EditConsultationRecordForm.h"
+#include"AddFollowupForm.h"
+#include"UpdateFollowupForm.h"
 #include"addpatientrecordform.h"
 
 class CUPageFactory
@@ -33,7 +35,7 @@ public:
 
     // the choice at the end allows us to determine which nvaigation button on the page was pressed
     // for occasions where there are two navigation buttons beside a back button
-    QWidget* navigateFromConsultationRecordPage(int choice);
+    QWidget* navigateFromConsultationRecordPage(int choice, StorableInterface* object);
     QWidget* navigateFromLoginForm(int choice);
     QWidget* navigateFromPatientRecordPage(int choice, StorableInterface* object);
     QWidget* navigateFromQueryDatabaseForm(int choice, StorableInterface* object);

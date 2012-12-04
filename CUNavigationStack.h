@@ -22,6 +22,7 @@ public:
 
     void push(QWidget *widget);
     void pop();
+    QWidget* lastQWidget();
 };
 
 #endif

@@ -6,6 +6,7 @@
   Another day, another GUI skeleton.
   */
 
+#include<QObject>
 #include <QComboBox>
 
 #include "CUPage.h"
@@ -14,6 +15,8 @@
 
 class AddFollowupForm : public CUPage
 {
+    Q_OBJECT
+
 public:
     AddFollowupForm(CUNavigationProvisioningInterface *pNavigator);
   //AddFollowupForm(FollowUpRecord *followup, QString title = "Add Followup");

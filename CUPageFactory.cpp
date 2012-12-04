@@ -10,12 +10,16 @@ CUPageFactory::~CUPageFactory()
 
 }
 
-QWidget* CUPageFactory::navigateFromConsultationRecordPage(int choice)
+QWidget* CUPageFactory::navigateFromConsultationRecordPage(int choice, StorableInterface* object)
 {
     QWidget *returnPage = 0;
     if(choice == 0)
     {
-        //AddFollowupPage *returnPage = new AddFollowupPage(navigator);
+        returnPage = new UpdateFollowupForm(navigator, object);
+    }
+    else if (choice == 1) // he chose to go to the addFollowupPage
+    {
+        returnPage = new AddFollowupForm(navigator);
     }
     return returnPage;
 }
@@ -44,6 +48,10 @@ QWidget* CUPageFactory::navigateFromPatientRecordPage(int choice, StorableInterf
     else if (choice == 1) //they chose to navigate to a consultation record
     {
         returnPage = new ConsultationRecordPage(navigator, object);
+    }
+    else if (choice == 2) //they chose to navigate to the add consultation record form
+    {
+        returnPage = new AddConsultationRecordForm(navigator);
     }
     return returnPage;
 }

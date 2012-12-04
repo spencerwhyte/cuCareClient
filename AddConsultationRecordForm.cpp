@@ -15,10 +15,36 @@ AddConsultationRecordForm::AddConsultationRecordForm(CUNavigationProvisioningInt
     addElement(reasonField, 0, 1, 3);
     addElement(ohipField, 0, 2, 3);
     addElement(confirmButton, 2, 4);
+
+    QObject::connect(confirmButton->getButton(), SIGNAL(clicked()), this, SLOT(sendConsultationToServer()));
+    QObject::connect(this, SIGNAL(goBack(StorableInterface*)), pNavigator, SLOT(back(StorableInterface*)));
 }
 
 // since all QT elements will be garbage-collected and the elements in this page have no extra non-QT pointers, there is no content in most destructor bodies for now
 AddConsultationRecordForm::~AddConsultationRecordForm()
 {
+
+}
+
+void AddConsultationRecordForm::sendConsultationToServer()
+{
+
+    ConsultationRecord recordToBeAdded;
+    recordToBeAdded.setDateAndTime(dateTimeField->getDate());
+    recordToBeAdded.setOHIPNumber(ohipField->getInput());
+    recordToBeAdded.setReason(reasonField->getInput());
+
+
+    ClientObjectRequest * r = new ClientObjectRequest(this, recordToBeAdded, ClientObjectRequest::Add);
+    setRequest(r);
+}
+
+void AddConsultationRecordForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> * results){
+    StorableInterface* record = results->at(0);
+
+    emit goBack(record);
+}
+
+void AddConsultationRecordForm::didReceiveError(QString & errorMessage){
 
 }

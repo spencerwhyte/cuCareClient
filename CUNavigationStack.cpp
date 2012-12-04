@@ -28,3 +28,9 @@ void CUNavigationStack::pop()
     removeWidget(disposableWidget);
     setCurrentWidget(widget(disposableIndex - 1));
 }
+
+QWidget* CUNavigationStack::lastQWidget()
+{
+    int previousIndex = currentIndex();
+    QWidget* previousWidget = widget(previousIndex);
+}

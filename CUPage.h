@@ -47,6 +47,8 @@ public:
     void addElement(QWidget *element, int xPosition, int yPosition, int xSpan = 1, int ySpan = 1);
     // add an element, and specify its alignment
     void addElement(QWidget *element, int xPosition, int yPosition, int xSpan, int ySpan, Qt::AlignmentFlag alignment);
+    // add an element to the table in the page, if it exists
+    virtual void addToTable(StorableInterface* object);
 
 signals:
     void navigateAwayFromPage(int choice);

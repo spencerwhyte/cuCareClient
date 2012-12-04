@@ -34,6 +34,7 @@ public slots:
     void editConsultationRecord();
     void navigateToConsultationRecordPage(int row, int col);
     void launchPatientContextMenu(const QPoint &);
+    void navigateToAddPatientRecordPage();
 
 private:
     CUFormElement *phoneNumberElement, *ohipNumberElement, *primaryPhysicianElement; //patient data

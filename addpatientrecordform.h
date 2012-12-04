@@ -16,12 +16,15 @@
   I'm also none too sure of how to hook up the buttons through this way of creating a layout.
   */
 
+#include <QObject>
 #include "CUPage.h"
 #include "CUFormElement.h"
 #include "CUServerRequestButton.h"
 
 class AddPatientRecordForm : public CUPage
 {
+    Q_OBJECT
+
 public:
     AddPatientRecordForm(CUNavigationProvisioningInterface *pNavigator); //Note - this should /only/ be given an input from a subclass!
   //AddPatientRecordForm(PatientRecord *patient, QString title = "Add Patient Record"); //This is simply what I'd be expecting to change!

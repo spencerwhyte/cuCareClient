@@ -61,6 +61,15 @@ QString CUFormElement::getInput()
     return QString("");
 }
 
+QDateTime CUFormElement::getDate()
+{
+    if(formVariant == DATE)
+    {
+        return ((QDateTimeEdit*)formInput)->dateTime();
+    }
+    return QDateTime::currentDateTime();
+}
+
 void CUFormElement::setInput(QString newInput)
 {
     switch(formVariant)

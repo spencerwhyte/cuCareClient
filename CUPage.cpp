@@ -67,7 +67,6 @@ CUNavigationProvisioningInterface* CUPage::getNavigator()
 
 }
 
-
 void CUPage::setRequest(ClientObjectRequest * r){
     if(request){
         delete request;
@@ -108,3 +107,9 @@ void CUPage::addElement(QWidget *element, int xPosition, int yPosition, int xSpa
 {
     contentPane->addElement(element, xPosition, yPosition, xSpan, ySpan, alignment);
 }
+
+void CUPage::addToTable(StorableInterface* object)
+{
+    qDebug() << "ATTENTION I'M BEING CALLED FROM THE WRONG PLACE!";
+}
+

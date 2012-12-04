@@ -28,6 +28,7 @@ PatientRecordPage::PatientRecordPage(CUNavigationProvisioningInterface *pNavigat
     primaryPhysicianElement->setEditable(false);
 
     //connect all navigation handlers
+    QObject::connect(addConsultationButton, SIGNAL(clicked()), this, SLOT(navigateToAddPatientRecordPage()));
     QObject::connect(consultationRecordsTable, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(launchPatientContextMenu(const QPoint &)));
     QObject::connect(consultationRecordsTable, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(navigateToConsultationRecordPage(int, int)));
     QObject::connect(this, SIGNAL(navigateAwayFromPage(int,StorableInterface*)), pNavigator, SLOT(navigateFromPatientRecordPage(int, StorableInterface*)));
@@ -84,7 +85,6 @@ void PatientRecordPage::addConsultationTableData(QList<StorableInterface*> * da)
         ConsultationRecord * currentConsultation = (ConsultationRecord*)dataEntries->at(row);
         QTableWidgetItem * dateAndTime = new QTableWidgetItem();
 
-        qDebug() << currentConsultation->getDateAndTime().toString();
         dateAndTime->setData(Qt::DisplayRole, currentConsultation->getDateAndTime().toString());
 
         QList<QTableWidgetItem *> * currentRow = new  QList<QTableWidgetItem *>();
@@ -127,4 +127,9 @@ void PatientRecordPage::navigateToConsultationRecordPage(int row, int col)
 {
     StorableInterface* consultation = dataEntries->at(row);
     emit navigateAwayFromPage(1, consultation);
+}
+
+void PatientRecordPage::navigateToAddPatientRecordPage()
+{
+    emit navigateAwayFromPage(2, 0);
 }

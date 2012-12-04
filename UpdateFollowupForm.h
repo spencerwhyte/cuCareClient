@@ -10,8 +10,10 @@
 
 class UpdateFollowupForm : public AddFollowupForm
 {
+    Q_OBJECT
+
 public:
-    UpdateFollowupForm(CUNavigationProvisioningInterface* pNavigator);
+    UpdateFollowupForm(CUNavigationProvisioningInterface* pNavigator, StorableInterface* followup);
   //UpdateFollowupForm(FollowUpRecord *followup);
     ~UpdateFollowupForm();
 };

@@ -13,6 +13,8 @@ EditConsultationRecordForm::EditConsultationRecordForm(CUNavigationProvisioningI
     dateTimeField->setInput(consultation->getDateAndTime().toString());
     reasonField->setInput(consultation->getReason());
     ohipField->setInput(consultation->getOHIPNumber());
+
+    setPageTitle("Edit Consultation");
 }
 
 EditConsultationRecordForm::~EditConsultationRecordForm()

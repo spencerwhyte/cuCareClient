@@ -30,6 +30,7 @@ public:
 
     //get user input
     QString getInput();
+    QDateTime getDate();
     void setInput(QString newInput);
     //set whether the input field ought to be edited or not
     void setEditable(bool editable);

@@ -18,6 +18,16 @@ void CUNavigationProvisioning::back()
     applicationStack->pop();
 }
 
+void CUNavigationProvisioning::back(StorableInterface* newObject)
+{
+    qDebug() <<"STARTING PLACE";
+    ConsultationRecordPage* widgetToModify = (ConsultationRecordPage*)applicationStack->lastQWidget();
+    QList<StorableInterface *> empty;
+    widgetToModify->didSuccessfullyReceiveResponse(&empty);
+    widgetToModify->addToTable(newObject);
+    back();
+}
+
 // the user factory is initialized here
 void CUNavigationProvisioning::setUserType(User *user)
 {
@@ -73,9 +83,9 @@ void CUNavigationProvisioning::navigateFromPatientRecordPage(int choice, Storabl
     applicationStack->push(newPage);
 }
 
-void CUNavigationProvisioning::navigateFromConsultationRecordPage(int choice)
+void CUNavigationProvisioning::navigateFromConsultationRecordPage(int choice, StorableInterface* object)
 {
-    QWidget* newPage = userFactory->navigateFromConsultationRecordPage(choice);
+    QWidget* newPage = userFactory->navigateFromConsultationRecordPage(choice, object);
     applicationStack->push(newPage);
 }
 
