@@ -27,7 +27,7 @@ QueryDatabaseForm::QueryDatabaseForm(CUNavigationProvisioningInterface *pNavigat
     followupStatusComboBox->addItem("Overdue");
     followupStatusComboBox->setMinimumWidth(180);
     QWidget* container = new QWidget(this);
-    QGridLayout *tempLayout = new QGridLayout(this);
+    QGridLayout *tempLayout = new QGridLayout(container);
     container->setLayout(tempLayout);
     tempLayout->addWidget(followupStatusLabel, 0, 0);
     tempLayout->addWidget(followupStatusComboBox, 0, 1);

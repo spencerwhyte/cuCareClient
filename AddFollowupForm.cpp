@@ -2,19 +2,19 @@
 
 AddFollowupForm::AddFollowupForm(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object) : CUPage("Add Follow-up", true, pNavigator)
 {
-    consultation = (ConsultationRecord*)object;
+    setConsultation((ConsultationRecord*)object);
     // decide the name and the type of the fields and the corresponding types of input
     { //Status pane - I have it in its own block to separate it.
-        statusPane = new CUContentPane(0);
-        statusLabel = new QLabel("Status:");
-        statusBox = new QComboBox();
-        statusBox->addItem("Pending");
-        statusBox->addItem("Overdue");
-        statusBox->addItem("Complete");
-        statusBox->setDisabled(true);
+        setStatusPane(new CUContentPane(0));
+        setStatusLabel(new QLabel("Status:"));
+        setStatusBox(new QComboBox());
+        getStatusBox()->addItem("Pending");
+        getStatusBox()->addItem("Overdue");
+        getStatusBox()->addItem("Complete");
+        getStatusBox()->setDisabled(true);
 
-        statusPane->addElement(statusLabel, 0, 0, 1, 1, Qt::AlignTop);
-        statusPane->addElement(statusBox, 1, 0, 1, 1, Qt::AlignTop);
+        getStatusPane()->addElement(statusLabel, 0, 0, 1, 1, Qt::AlignTop);
+        getStatusPane()->addElement(statusBox, 1, 0, 1, 1, Qt::AlignTop);
     }
     dueDateField = new CUFormElement("Due Date:", CUFormElement::DATE, this);
     detailsField = new CUFormElement("Details:", CUFormElement::PARAGRAPH, this);
@@ -61,4 +61,73 @@ void AddFollowupForm::sendFollowupToServer()
 
     ClientObjectRequest * r = new ClientObjectRequest(this, recordToBeAdded, ClientObjectRequest::Add);
     setRequest(r);
+}
+
+QComboBox* AddFollowupForm::getStatusBox()
+{
+    return statusBox;
+}
+
+CUFormElement* AddFollowupForm::getDueDateField()
+{
+    return dueDateField;
+}
+
+CUFormElement* AddFollowupForm::getDetailsField()
+{
+    return detailsField;
+}
+CUServerRequestButton* AddFollowupForm::getConfirmButton()
+{
+    return confirmButton;
+}
+
+CUContentPane* AddFollowupForm::getStatusPane()
+{
+    return statusPane;
+}
+
+QLabel* AddFollowupForm::getStatusLabel()
+{
+    return statusLabel;
+}
+
+ConsultationRecord* AddFollowupForm::getConsulation()
+{
+    return consultation;
+}
+
+void AddFollowupForm::setStatusBox(QComboBox* newStatusBox)
+{
+    statusBox = newStatusBox;
+}
+
+void AddFollowupForm::setDueDateField(CUFormElement* newDueDateField)
+{
+    dueDateField = newDueDateField;
+}
+
+void AddFollowupForm::setDetailsField(CUFormElement* newDetailsField)
+{
+    detailsField = newDetailsField;
+}
+
+void AddFollowupForm::setConfirmButton(CUServerRequestButton* newConfirmButton)
+{
+    confirmButton = newConfirmButton;
+}
+
+void AddFollowupForm::setStatusPane(CUContentPane* newStatusPane)
+{
+    statusPane = newStatusPane;
+}
+
+void AddFollowupForm::setStatusLabel(QLabel* newStatusLabel)
+{
+    statusLabel = newStatusLabel;
+}
+
+void AddFollowupForm::setConsultation(ConsultationRecord* newConsultation)
+{
+    consultation = newConsultation;
 }

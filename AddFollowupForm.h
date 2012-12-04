@@ -41,6 +41,24 @@ private:
     CUContentPane *statusPane;
     QLabel *statusLabel;
     ConsultationRecord* consultation;
+
+    QComboBox* getStatusBox();
+    CUFormElement* getDueDateField();
+    CUFormElement* getDetailsField();
+    CUServerRequestButton* getConfirmButton();
+    CUContentPane* getStatusPane();
+    QLabel* getStatusLabel();
+    ConsultationRecord* getConsulation();
+
+    void setStatusBox(QComboBox* newStatusBox);
+    void setDueDateField(CUFormElement* newDueDateField);
+    void setDetailsField(CUFormElement* newDetailsField);
+    void setConfirmButton(CUServerRequestButton* newConfirmButton);
+    void setStatusPane(CUContentPane* newStatusPane);
+    void setStatusLabel(QLabel* newStatusLabel);
+    void setConsultation(ConsultationRecord* newConsultationRecord);
+
+
 };
 
 #endif // ADDFOLLOWUPFORM_H

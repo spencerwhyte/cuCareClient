@@ -2,14 +2,14 @@
 
 AddConsultationRecordForm::AddConsultationRecordForm(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object) : CUPage("Add Consultation", true, pNavigator)
 {
-    patient = (PatientRecord*)object;
+    setPatientRecord((PatientRecord*)object);
 
     // decide the name and the type of the inputField and the type of input
-    dateTimeField = new CUFormElement("Date and Time:", CUFormElement::DATE, this);
-    reasonField = new CUFormElement("Reason for Visit:", CUFormElement::PARAGRAPH, this);
+    setDateTimeField(new CUFormElement("Date and Time:", CUFormElement::DATE, this));
+    setReasonField(new CUFormElement("Reason for Visit:", CUFormElement::PARAGRAPH, this));
 
     // create the buttons
-    confirmButton = new CUServerRequestButton("OK", this);
+    setConfirmButton(new CUServerRequestButton("OK", this));
 
     // add the two elements to the page's content pane
     addElement(dateTimeField, 0, 0, 3);
@@ -29,6 +29,41 @@ AddConsultationRecordForm::~AddConsultationRecordForm()
 CUFormElement* AddConsultationRecordForm::getReasonField()
 {
     return reasonField;
+}
+
+CUFormElement* AddConsultationRecordForm::getDateTimeField()
+{
+    return dateTimeField;
+}
+
+CUServerRequestButton* AddConsultationRecordForm::getConfirmButton()
+{
+    return confirmButton;
+}
+
+void AddConsultationRecordForm::setConfirmButton(CUServerRequestButton* newButton)
+{
+    confirmButton = newButton;
+}
+
+void AddConsultationRecordForm::setReasonField(CUFormElement* newReasonField)
+{
+    reasonField = newReasonField;
+}
+
+void AddConsultationRecordForm::setDateTimeField(CUFormElement* newDateTimeField)
+{
+    dateTimeField = newDateTimeField;
+}
+
+void AddConsultationRecordForm::setPatientRecord(PatientRecord* newPatientRecord)
+{
+    patient = newPatientRecord;
+}
+
+PatientRecord* AddConsultationRecordForm::getPatientRecord()
+{
+    return patient;
 }
 
 void AddConsultationRecordForm::sendConsultationToServer()
