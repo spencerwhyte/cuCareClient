@@ -46,7 +46,6 @@ SOURCES += main.cpp \
     PatientRecord.cpp \
     FollowUpRecord.cpp \
     ConsultationRecord.cpp \
-    ClientSettings.cpp \
     CUNavigationProvisioning.cpp \
     QueryDatabaseForm.cpp \
     ConsultationRecordPage.cpp \
@@ -72,7 +71,8 @@ SOURCES += main.cpp \
     addpatientrecordform.cpp \
     EditPatientRecordForm.cpp \
     AdministrativeAssisstantEditConsultationRecordForm.cpp \
-    AdministrativeAssisstantAddConsultationRecordForm.cpp
+    AdministrativeAssisstantAddConsultationRecordForm.cpp \
+    ClientSettings.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -96,7 +96,6 @@ HEADERS += \
     FollowUpRecord.h \
     ConsultationRecord.h \
     ClientObjectResponseDelegate.h \
-    ClientSettings.h \
     QueryDatabaseForm.h \
     ConsultationRecordPage.h \
     HomePage.h \
@@ -123,7 +122,8 @@ HEADERS += \
     UpdateFollowupForm.h \
     EditPatientRecordForm.h \
     AdministrativeAssisstantEditConsultationRecordForm.h \
-    AdministrativeAssisstantAddConsultationRecordForm.h
+    AdministrativeAssisstantAddConsultationRecordForm.h \
+    ClientSettings.h
 
 
 QT += network

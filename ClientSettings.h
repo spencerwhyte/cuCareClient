@@ -6,8 +6,11 @@
 
 #ifndef CLIENTSETTINGS_H
 #define CLIENTSETTINGS_H
-
+#include <QFile>
 #include <QHostAddress>
+#include <QByteArray>
+#include <QStringList>
+#include <QSettings>
 
 /*
   The purpose of the client settings class
@@ -33,14 +36,20 @@ public:
     bool setDefaultPortString(QString & port);
     bool setDefaultAddressString(QString & address);
 
+    void saveSettings();
+    bool loadSettings();
+
     ~ClientSettings();
 private:
     QHostAddress * address;
     qint64 port;
+
+    QSettings * settings;
+
     ClientSettings();
 
     ClientSettings(ClientSettings  const &);
-      void operator=(ClientSettings const &);
+    void operator=(ClientSettings  const &);
 };
 
 #endif // CLIENTSETTINGS_H

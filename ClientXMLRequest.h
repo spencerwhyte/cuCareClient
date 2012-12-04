@@ -5,7 +5,7 @@
   */
 
 #ifndef CLIENTXMLREQUEST_H
-#define CLIENTXMLREQUEST_H]
+#define CLIENTXMLREQUEST_H
 
 #include <QMap>
 #include <QXmlStreamWriter>
