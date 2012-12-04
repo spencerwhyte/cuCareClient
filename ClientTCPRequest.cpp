@@ -4,16 +4,23 @@
   Creates an ClientTCPRequest object where TCPSocket is the socket
   that will be used for data transfer
   */
-ClientTCPRequest::ClientTCPRequest() : socket(new QTcpSocket(this)), data(new QString()), totalBytesSent(0){
-
-
+ClientTCPRequest::ClientTCPRequest() : socket(new QTcpSocket(this)), data(new QString()), totalBytesSent(0), timer(NULL){
+    QTimer * timeoutTimer = new QTimer();
+    timeoutTimer->setInterval(8000);
+    timeoutTimer->setSingleShot(true);
+    timer = timeoutTimer;
+    timer->start();
+    connect(timer, SIGNAL(timeout()), this, SLOT(connectionTimedOut()));
     connect(getSocket(), SIGNAL(connected()), this, SLOT(readyToSend()));
     connect(getSocket(), SIGNAL(bytesWritten(qint64)), this, SLOT(dataSent(qint64)));
 }
 
 ClientTCPRequest::~ClientTCPRequest(){
     delete data;
+    delete timer;
 }
+
+
 
 void ClientTCPRequest::dataSent(qint64 bytesSent){
     totalBytesSent += bytesSent;
@@ -22,8 +29,15 @@ void ClientTCPRequest::dataSent(qint64 bytesSent){
     }
 }
 
-void ClientTCPRequest::readyToSend(){
+void ClientTCPRequest::connectionTimedOut(){
 
+    TCPRequestFailed();
+    socket->disconnect();
+}
+
+void ClientTCPRequest::readyToSend(){
+    qDebug() << "Ready to send";
+    timer->stop();
     if(getSocket()->state()==QAbstractSocket::ConnectedState){
         QByteArray dataToSend;
         dataToSend.append(*data);
@@ -66,6 +80,7 @@ int ClientTCPRequest::fillTCPRequest(QString &data){
     setData(new QString(data));
 
     getSocket()->connectToHost(ClientSettings::GetClientSettings().getDefaultAddress(), ClientSettings::GetClientSettings().getDefaultPort());
+
     qDebug() << "CONNECTING TO HOST";
 }
 

@@ -8,6 +8,7 @@
 #define CLIENTTCPRESPONSE_H
 #include <QObject>
 #include <QTcpSocket>
+#include <QTimer>
 
 /*
   The purpose of the ClientTCPResponse is to
@@ -18,7 +19,6 @@ class ClientTCPResponse : public QObject
 {
     Q_OBJECT
     QTcpSocket * socket;
-
     bool dataReceived;
     QString * allData;
 public:

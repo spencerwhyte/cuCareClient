@@ -9,6 +9,8 @@
 #include <QObject>
 #include <QTcpSocket>
 #include "ClientSettings.h"
+#include <QTimer>
+
 /*
   The purpose of the ClientTCPRequest class is
   to provide the ability to send data to the
@@ -21,9 +23,8 @@ class ClientTCPRequest : public QObject
     qint64 totalBytesSent;
     QTcpSocket * socket;
     QString * data;
-
     QString * getData();
-
+    QTimer * timer;
 
     void setData(QString * newData);
     void setSocket(QTcpSocket * socket);
@@ -59,6 +60,7 @@ public:
 
 
 public slots:
+    void connectionTimedOut();
     void dataSent(qint64 bytesSent);
     void readyToSend();
 
