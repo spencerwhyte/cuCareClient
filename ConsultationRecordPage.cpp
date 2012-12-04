@@ -1,7 +1,9 @@
 #include"ConsultationRecordPage.h"
 
-ConsultationRecordPage::ConsultationRecordPage(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object) : CUPage(((ConsultationRecord*)object)->getDateAndTime().toString(), true, pNavigator), dataEntries(NULL), currentObjectRequest(NULL)
+ConsultationRecordPage::ConsultationRecordPage(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object) : CUPage(((ConsultationRecord*)object)->getDateAndTime().toString(), true, pNavigator), dataEntries(new QList<FollowUpRecord*>()), currentObjectRequest(NULL)
 {
+    consultation = (ConsultationRecord*)object;
+
     //note the lack of a title. The title should be the patient's name. Make sure you setup the name after the patient data is received
     dateAndTime = new CUFormElement("Date and Time:", CUFormElement::DATE, 0);
     reason = new CUFormElement("Reason for Visit:", CUFormElement::PARAGRAPH, 0);
@@ -12,7 +14,6 @@ ConsultationRecordPage::ConsultationRecordPage(CUNavigationProvisioningInterface
     //diagnosis->setMinimumWidth(500);
 
     //populate the fields
-    ConsultationRecord* consultation = (ConsultationRecord*)object;
     dateAndTime->setInput(consultation->getDateAndTime().toString());
     reason->setInput(consultation->getReason());
     ohipNumber->setInput(consultation->getOHIPNumber());
@@ -40,7 +41,12 @@ ConsultationRecordPage::ConsultationRecordPage(CUNavigationProvisioningInterface
     QObject::connect(followupTable, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(navigateToUpdateFollowups(int, int)));
 
 
-    ClientObjectRequest * request = new ClientObjectRequest(this, *object, ClientObjectRequest::EqualityQuery);
+    FollowUpRecord followUp;
+    ConsultationRecord * currentConsultationRecord = (ConsultationRecord*)object;
+    followUp.setConsultationRecordId(currentConsultationRecord->getId());
+
+
+    ClientObjectRequest * request = new ClientObjectRequest(this, followUp, ClientObjectRequest::EqualityQuery);
     setCurrentObjectRequest(request);
 }
 
@@ -161,8 +167,11 @@ void ConsultationRecordPage::launchPatientContextMenu(const QPoint &)
 
 void ConsultationRecordPage::navigateToUpdateFollowups()
 {
-    StorableInterface* followup = (StorableInterface*)dataEntries->at(followupTable->currentRow());
-    emit navigateAwayFromPage(0, followup);
+    if(followupTable->currentItem()!=NULL)
+    {
+        StorableInterface* followup = (StorableInterface*)dataEntries->at(followupTable->currentRow());
+        emit navigateAwayFromPage(0, followup);
+    }
 }
 
 void ConsultationRecordPage::navigateToUpdateFollowups(int row, int col)
@@ -173,13 +182,31 @@ void ConsultationRecordPage::navigateToUpdateFollowups(int row, int col)
 
 void ConsultationRecordPage::navigateToAddFollowupForm()
 {
-    emit navigateAwayFromPage(1, 0);
+
+    emit navigateAwayFromPage(1, consultation);
 }
 
 void ConsultationRecordPage::addToTable(StorableInterface* object)
 {
-    qDebug() << "BE HAPPY EVERYTHING GOOD";
     dataEntries->append((FollowUpRecord*)object);
+
+    QList<StorableInterface*> * newModel = (QList<StorableInterface*>*)dataEntries;
+
+    addFollowupTableDataAgain(newModel);
+}
+
+void ConsultationRecordPage::updateTable(StorableInterface* object)
+{
+    for(int i =0; i< dataEntries->length(); i++)
+    {
+        qDebug() << "CURRENT ID " << dataEntries->at(i)->getId() << " SEARCHING FOR ID: " <<((FollowUpRecord*)object)->getId();
+        if(dataEntries->at(i)->getId() == ((FollowUpRecord*)object)->getId())
+        {
+            qDebug() << "FOUND YA GONNA GROUND YA";
+            dataEntries->replace(i, ((FollowUpRecord*)object));
+            break;
+        }
+    }
 
     QList<StorableInterface*> * newModel = (QList<StorableInterface*>*)dataEntries;
 

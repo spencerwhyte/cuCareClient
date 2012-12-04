@@ -37,8 +37,11 @@ int ClientHTTPRequest::fillHTTPRequest(QString &data, QString &url){
     dataToBeSent.append("Content-Length: ");
     dataToBeSent.append(new QString(QString::number(data.length())));
     dataToBeSent.append("\r\n");
+    dataToBeSent.append("Host: www.cucare.com");
     dataToBeSent.append("\r\n");
-
+    dataToBeSent.append("Content-Type: text/xml");
+    dataToBeSent.append("\r\n");
+    dataToBeSent.append("\r\n");
     dataToBeSent.append(data);
 
     fillTCPRequest(dataToBeSent);

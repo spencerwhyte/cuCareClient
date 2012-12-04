@@ -114,6 +114,12 @@ void QueryDatabaseForm::setCurrentObjectRequest(ClientObjectRequest * newRequest
 void QueryDatabaseForm::addPatientTableData(QList<StorableInterface*> * da)
 {
     setDataEntries((QList<PatientRecord*> *) da);
+
+    addConsultationTableDataAgain(da);
+}
+
+void QueryDatabaseForm::addConsultationTableDataAgain(QList<StorableInterface*> * da)
+{
     resultsTable->setColumnCount(4);
     QStringList headerList;
     headerList << "Patient Name" << "OHIP Number" << "Phone Number" << "Primary Physician";
@@ -196,19 +202,25 @@ void QueryDatabaseForm::navigateToPatientRecord(int row, int col)
 
 void QueryDatabaseForm::editPatientRecord()
 {
-    StorableInterface* patient = (StorableInterface*)dataEntries->at(resultsTable->currentRow());
-    emit navigateToEditConsultationRecordPage(0, patient);
+    if(resultsTable->currentItem()!=NULL)
+    {
+        StorableInterface* patient = (StorableInterface*)dataEntries->at(resultsTable->currentRow());
+        emit navigateToEditConsultationRecordPage(0, patient);
+    }
 }
 
 void QueryDatabaseForm::deletePatientRecord()
 {
-    qDebug() << "Inside launchPatientContextMenu ATTENTION!!";
-    StorableInterface* patient = (StorableInterface*)dataEntries->at(resultsTable->currentRow());
+    if(resultsTable->currentItem()!=NULL)
+    {
+        qDebug() << "Inside launchPatientContextMenu ATTENTION!!";
+        StorableInterface* patient = (StorableInterface*)dataEntries->at(resultsTable->currentRow());
 
-    ClientObjectRequest * request = new ClientObjectRequest((ClientObjectResponseDelegate*)this, *patient, ClientObjectRequest::Remove);
-    setCurrentObjectRequest(request);
-    // Remove the data from the internal data array
-    //dataEntries->removeAt(resultsTable->currentRow());
+        ClientObjectRequest * request = new ClientObjectRequest((ClientObjectResponseDelegate*)this, *patient, ClientObjectRequest::Remove);
+        setCurrentObjectRequest(request);
+        // Remove the data from the internal data array
+        //dataEntries->removeAt(resultsTable->currentRow());
+    }
 }
 
 void QueryDatabaseForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> *results)
@@ -248,4 +260,13 @@ void QueryDatabaseForm::didSuccessfullyReceiveResponse(QList<StorableInterface *
 void QueryDatabaseForm::didReceiveError(QString & errorMessage)
 {
 
+}
+
+void QueryDatabaseForm::addToTable(StorableInterface* object)
+{
+    dataEntries->append((PatientRecord*)object);
+
+    QList<StorableInterface*> * newModel = (QList<StorableInterface*>*)dataEntries;
+
+    addConsultationTableDataAgain(newModel);
 }

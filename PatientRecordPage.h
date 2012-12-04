@@ -24,11 +24,13 @@ public:
     ~PatientRecordPage();
 
     void addConsultationTableData(QList<StorableInterface*> * da);
+    void addConsultationTableDataAgain(QList<StorableInterface*> * da);
     void setDataEntries(QList<ConsultationRecord*> * da);
     void setCurrentObjectRequest(ClientObjectRequest * newRequest);
 
     void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);
     void didReceiveError(QString & errorMessage);
+    void addToTable(StorableInterface* object);
 
 public slots:
     void editConsultationRecord();

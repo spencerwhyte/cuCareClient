@@ -13,9 +13,25 @@ EditPatientRecordForm::EditPatientRecordForm(CUNavigationProvisioningInterface* 
     phoneField->setInput(patient->getPhoneNumber());
     ohipField->setInput(patient->getOHIPNumber());
     physicianField->setInput(patient->getPrimaryPhysician());
+
+    QObject::disconnect(confirmButton->getButton(), SIGNAL(clicked()), this, SLOT(sendPatientRecordToServer()));
+    QObject::connect(confirmButton->getButton(), SIGNAL(clicked()), this, SLOT(sendEditedPatientRecordToServer()));
 }
 
 EditPatientRecordForm::~EditPatientRecordForm()
 {
     //Do nothing!
+}
+
+void EditPatientRecordForm::sendEditedPatientRecordToServer()
+{
+    PatientRecord recordToBeAdded;
+
+    recordToBeAdded.setName(nameField->getInput());
+    recordToBeAdded.setOHIPNumber(ohipField->getInput());
+    recordToBeAdded.setPhoneNumber(phoneField->getInput());
+    recordToBeAdded.setPrimaryPhysician(physicianField->getInput());
+
+    ClientObjectRequest * r = new ClientObjectRequest(this, recordToBeAdded, ClientObjectRequest::Edit);
+    setRequest(r);
 }

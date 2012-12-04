@@ -13,6 +13,7 @@ This class contains information concerning a consultation record and a table of 
 #include"CUFormElement.h"
 #include"CUNavigationButton.h"
 #include"CUFormTable.h"
+#include"ConsultationRecord.h"
 
 class ConsultationRecordPage : public CUPage, ClientObjectResponseDelegate
 {
@@ -31,6 +32,7 @@ public:
 
     void setCurrentObjectRequest(ClientObjectRequest * newRequest);
     void addToTable(StorableInterface* object);
+    void updateTable(StorableInterface* object);
 
 public slots:
     void addFollowupButtonClicked();
@@ -43,6 +45,7 @@ private:
     CUFormElement *dateAndTime, *reason, *ohipNumber, *diagnosis;
     CUNavigationButton *addFollowupButton;
     CUFormTable *followupTable;
+    ConsultationRecord* consultation;
     QList<FollowUpRecord*> * dataEntries;
     ClientObjectRequest * currentObjectRequest;
 };

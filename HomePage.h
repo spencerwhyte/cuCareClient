@@ -11,6 +11,8 @@ public:
     HomePage(CUNavigationProvisioningInterface *pNavigator);
     ~HomePage();
 
+    virtual void addToTable(StorableInterface* object) {};
+
 public slots:
     void addPatientButtonClicked();
     void queryDatabaseButtonClicked();

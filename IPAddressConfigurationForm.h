@@ -25,6 +25,7 @@ public:
     IPAddressConfigurationForm(CUNavigationProvisioningInterface *pNavigator);
     ~IPAddressConfigurationForm();
 
+
 public slots:
     void submitButtonClicked();
 

@@ -19,7 +19,7 @@ QWidget* CUPageFactory::navigateFromConsultationRecordPage(int choice, StorableI
     }
     else if (choice == 1) // he chose to go to the addFollowupPage
     {
-        returnPage = new AddFollowupForm(navigator);
+        returnPage = new AddFollowupForm(navigator, object);
     }
     return returnPage;
 }

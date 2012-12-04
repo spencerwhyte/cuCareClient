@@ -17,7 +17,8 @@ public:
     EditConsultationRecordForm(CUNavigationProvisioningInterface* pNavigator, StorableInterface* consultation);
     //EditConsultationRecordForm(ConsultationRecord *consultation);
     ~EditConsultationRecordForm();
-
+public slots:
+    void sendUpdatedConsultationToServer();
 private:
     CUFormElement *diagnosisField;
 };

@@ -12,7 +12,7 @@
 #include "CUFormElement.h"
 #include "CUServerRequestButton.h"
 
-class AddConsultationRecordForm : public CUPage, ClientObjectResponseDelegate
+class AddConsultationRecordForm : public CUPage, public ClientObjectResponseDelegate
 {
     Q_OBJECT
 
@@ -23,6 +23,7 @@ public:
 
     void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);
     void didReceiveError(QString & errorMessage);
+
 
 public slots:
     void sendConsultationToServer();
@@ -35,8 +36,6 @@ protected:
     CUFormElement *reasonField;
     CUFormElement *ohipField;
     CUServerRequestButton *confirmButton;
-
-  //ConsultationRecord *consultation; //Again, expected change.
 };
 
 #endif // ADDCONSULTATIONRECORDFORM_H

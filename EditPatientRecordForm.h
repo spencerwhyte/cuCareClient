@@ -16,6 +16,10 @@ public:
     EditPatientRecordForm(CUNavigationProvisioningInterface* pNavigator, StorableInterface* patient);
   //EditPatientRecordForm(PatientRecord *patient);
     ~EditPatientRecordForm();
+
+public slots:
+        void sendEditedPatientRecordToServer();
+
 };
 
 #endif // EDITPATIENTRECORDFORM_H

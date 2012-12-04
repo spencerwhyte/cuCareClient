@@ -21,7 +21,7 @@
 #include "CUFormElement.h"
 #include "CUServerRequestButton.h"
 
-class AddPatientRecordForm : public CUPage
+class AddPatientRecordForm : public CUPage, public ClientObjectResponseDelegate
 {
     Q_OBJECT
 
@@ -29,6 +29,18 @@ public:
     AddPatientRecordForm(CUNavigationProvisioningInterface *pNavigator); //Note - this should /only/ be given an input from a subclass!
   //AddPatientRecordForm(PatientRecord *patient, QString title = "Add Patient Record"); //This is simply what I'd be expecting to change!
     ~AddPatientRecordForm();
+
+    void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);
+
+    void didReceiveError(QString & errorMessage);
+
+public slots:
+        void sendPatientRecordToServer();
+
+signals:
+        void goBack(StorableInterface* object);
+
+
 
 protected:
     CUFormElement *nameField;

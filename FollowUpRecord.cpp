@@ -3,13 +3,13 @@
 // Setters
 
 void FollowUpRecord::setStatusForString(QString s){
-    if(QString::compare(QString("PENDING"),s) == 0){
+    if(QString::compare(QString("PENDING"),s, Qt::CaseInsensitive) == 0){
         setStatus(PENDING);
         return;
-    }else if(QString::compare(QString("OVERDUE"),s) == 0){
+    }else if(QString::compare(QString("OVERDUE"),s, Qt::CaseInsensitive) == 0){
         setStatus(OVERDUE);
         return;
-    }else if(QString::compare(QString("COMPLETE"),s) == 0){
+    }else if(QString::compare(QString("COMPLETE"),s, Qt::CaseInsensitive) == 0){
         setStatus(COMPLETE);
         return;
     }

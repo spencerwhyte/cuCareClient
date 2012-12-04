@@ -1,7 +1,8 @@
 #include "AddFollowupForm.h"
 
-AddFollowupForm::AddFollowupForm(CUNavigationProvisioningInterface *pNavigator) : CUPage("Add Follow-up", true, pNavigator)
+AddFollowupForm::AddFollowupForm(CUNavigationProvisioningInterface *pNavigator, StorableInterface* object) : CUPage("Add Follow-up", true, pNavigator)
 {
+    consultation = (ConsultationRecord*)object;
     // decide the name and the type of the fields and the corresponding types of input
     { //Status pane - I have it in its own block to separate it.
         statusPane = new CUContentPane(0);
@@ -26,10 +27,39 @@ AddFollowupForm::AddFollowupForm(CUNavigationProvisioningInterface *pNavigator) 
     addElement(dueDateField, 0, 1, 3);
     addElement(detailsField, 0, 2, 3);
     addElement(confirmButton, 2, 3);
+
+    QObject::connect(confirmButton->getButton(), SIGNAL(clicked()), this, SLOT(sendFollowupToServer()));
+    QObject::connect(this, SIGNAL(goBack(StorableInterface*)), pNavigator, SLOT(back(StorableInterface*)));
 }
 
 // since all QT elements will be garbage-collected and the elements in this page have no extra non-QT pointers, there is no content in most destructor bodies for now
 AddFollowupForm::~AddFollowupForm()
 {
 
+}
+
+
+void AddFollowupForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> * results){
+    StorableInterface* record = results->at(0);
+
+    emit goBack(record);
+}
+
+void AddFollowupForm::didReceiveError(QString & errorMessage){
+
+}
+
+void AddFollowupForm::sendFollowupToServer()
+{
+
+    FollowUpRecord recordToBeAdded;
+
+    recordToBeAdded.setConsultationRecordId(consultation->getId());
+    recordToBeAdded.setStatusForString(statusBox->currentText());
+    recordToBeAdded.setDueDateTime(dueDateField->getDate());
+    recordToBeAdded.setDetails(detailsField->getInput());
+
+    qDebug() << "I AM BEING CALLED FROM THE DEEP!";
+    ClientObjectRequest * r = new ClientObjectRequest(this, recordToBeAdded, ClientObjectRequest::Add);
+    setRequest(r);
 }

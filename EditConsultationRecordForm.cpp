@@ -15,9 +15,24 @@ EditConsultationRecordForm::EditConsultationRecordForm(CUNavigationProvisioningI
     ohipField->setInput(consultation->getOHIPNumber());
 
     setPageTitle("Edit Consultation");
+
+    QObject::disconnect(confirmButton->getButton(), SIGNAL(clicked()), this, SLOT(sendConsultationToServer()));
+    QObject::connect(confirmButton->getButton(), SIGNAL(clicked()), this, SLOT(sendUpdatedConsultationToServer()));
 }
 
 EditConsultationRecordForm::~EditConsultationRecordForm()
 {
     //Do nothing!
+}
+
+void EditConsultationRecordForm::sendUpdatedConsultationToServer()
+{
+    ConsultationRecord recordToBeAdded;
+    recordToBeAdded.setDateAndTime(dateTimeField->getDate());
+    recordToBeAdded.setOHIPNumber(ohipField->getInput());
+    recordToBeAdded.setReason(reasonField->getInput());
+
+
+    ClientObjectRequest * r = new ClientObjectRequest(this, recordToBeAdded, ClientObjectRequest::Edit);
+    setRequest(r);
 }

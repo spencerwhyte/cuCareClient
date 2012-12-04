@@ -16,6 +16,13 @@ public:
     UpdateFollowupForm(CUNavigationProvisioningInterface* pNavigator, StorableInterface* followup);
   //UpdateFollowupForm(FollowUpRecord *followup);
     ~UpdateFollowupForm();
+
+    void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);
+
+    void didReceiveError(QString & errorMessage);
+
+public slots:
+    void sendFollowupToServer();
 };
 
 #endif // UPDATEFOLLOWUPFORM_H

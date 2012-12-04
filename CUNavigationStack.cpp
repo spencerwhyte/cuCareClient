@@ -32,5 +32,5 @@ void CUNavigationStack::pop()
 QWidget* CUNavigationStack::lastQWidget()
 {
     int previousIndex = currentIndex();
-    QWidget* previousWidget = widget(previousIndex);
+    QWidget* previousWidget = widget(previousIndex - 1);
 }

@@ -33,9 +33,9 @@ int ClientXMLRequest::fillXMLRequest(QMap<QString, QVariant> &data, QString &obj
 
     QString url;
     url.append("/");
-    url.append(operation);
+    url.append(operation.toLower());
     url.append("/");
-    url.append(objectName);
+    url.append(objectName.toLower());
 
     fillHTTPRequest(xmlText, url);
 

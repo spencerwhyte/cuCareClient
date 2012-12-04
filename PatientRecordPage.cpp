@@ -71,6 +71,12 @@ void PatientRecordPage::didReceiveError(QString & errorMessage){
 void PatientRecordPage::addConsultationTableData(QList<StorableInterface*> * da)
 {
     setDataEntries((QList<ConsultationRecord*> *) da);
+
+    addConsultationTableDataAgain(da);
+}
+
+void PatientRecordPage::addConsultationTableDataAgain(QList<StorableInterface*> * da)
+{
     consultationRecordsTable->setColumnCount(1);
     QStringList headerList;
     headerList << "Date and Time of Consultation";
@@ -119,8 +125,12 @@ void PatientRecordPage::launchPatientContextMenu(const QPoint &)
 
 void PatientRecordPage::editConsultationRecord()
 {
-    StorableInterface* consultation = dataEntries->at(consultationRecordsTable->currentRow());
-    emit navigateAwayFromPage(0, consultation);
+    if(consultationRecordsTable->currentItem()!=NULL)
+    {
+        StorableInterface* consultation = dataEntries->at(consultationRecordsTable->currentRow());
+        qDebug() << ((ConsultationRecord*)consultation)->getId() << "should not be -1";
+        emit navigateAwayFromPage(0, consultation);
+    }
 }
 
 void PatientRecordPage::navigateToConsultationRecordPage(int row, int col)
@@ -132,4 +142,13 @@ void PatientRecordPage::navigateToConsultationRecordPage(int row, int col)
 void PatientRecordPage::navigateToAddPatientRecordPage()
 {
     emit navigateAwayFromPage(2, 0);
+}
+
+void PatientRecordPage::addToTable(StorableInterface* object)
+{
+    dataEntries->append((ConsultationRecord*)object);
+
+    QList<StorableInterface*> * newModel = (QList<StorableInterface*>*)dataEntries;
+
+    addConsultationTableDataAgain(newModel);
 }

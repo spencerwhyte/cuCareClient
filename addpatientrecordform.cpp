@@ -21,10 +21,37 @@ AddPatientRecordForm::AddPatientRecordForm(CUNavigationProvisioningInterface *pN
     addElement(ohipField, 0, 2, 3);
     addElement(physicianField, 0, 3, 3);
     addElement(confirmButton, 2, 4);
+
+    QObject::connect(confirmButton->getButton(), SIGNAL(clicked()), this, SLOT(sendPatientRecordToServer()));
+    QObject::connect(this, SIGNAL(goBack(StorableInterface*)), pNavigator, SLOT(back(StorableInterface*)));
+
 }
 
 // since all QT elements will be garbage-collected and the elements in this page have no extra non-QT pointers, there is no content in most destructor bodies for now
 AddPatientRecordForm::~AddPatientRecordForm()
 {
 
+}
+
+void AddPatientRecordForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> * results){
+    StorableInterface* record = results->at(0);
+
+    emit goBack(record);
+}
+
+void AddPatientRecordForm::didReceiveError(QString & errorMessage){
+
+}
+
+void AddPatientRecordForm::sendPatientRecordToServer()
+{
+    PatientRecord recordToBeAdded;
+
+    recordToBeAdded.setName(nameField->getInput());
+    recordToBeAdded.setOHIPNumber(ohipField->getInput());
+    recordToBeAdded.setPhoneNumber(phoneField->getInput());
+    recordToBeAdded.setPrimaryPhysician(physicianField->getInput());
+
+    ClientObjectRequest * r = new ClientObjectRequest(this, recordToBeAdded, ClientObjectRequest::Add);
+    setRequest(r);
 }

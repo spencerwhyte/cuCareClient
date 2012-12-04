@@ -21,10 +21,16 @@ void CUNavigationProvisioning::back()
 void CUNavigationProvisioning::back(StorableInterface* newObject)
 {
     qDebug() <<"STARTING PLACE";
-    ConsultationRecordPage* widgetToModify = (ConsultationRecordPage*)applicationStack->lastQWidget();
-    QList<StorableInterface *> empty;
-    widgetToModify->didSuccessfullyReceiveResponse(&empty);
+    CUPage* widgetToModify = (CUPage*)applicationStack->lastQWidget();
     widgetToModify->addToTable(newObject);
+    back();
+}
+
+void CUNavigationProvisioning::updateThenBack(StorableInterface* newObject)
+{
+    qDebug() <<"STARTING PLACE";
+    CUPage* widgetToModify = (CUPage*)applicationStack->lastQWidget();
+    widgetToModify->updateTable(newObject);
     back();
 }
 
