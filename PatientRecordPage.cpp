@@ -154,3 +154,19 @@ void PatientRecordPage::addToTable(StorableInterface* object)
 
     addConsultationTableDataAgain(newModel);
 }
+
+void PatientRecordPage::updateTable(StorableInterface* object)
+{
+    for(int i =0; i< dataEntries->length(); i++)
+    {
+        if(dataEntries->at(i)->getId() == ((ConsultationRecord*)object)->getId())
+        {
+            dataEntries->replace(i, ((ConsultationRecord*)object));
+            break;
+        }
+    }
+
+    QList<StorableInterface*> * newModel = (QList<StorableInterface*>*)dataEntries;
+
+    addConsultationTableDataAgain(newModel);
+}

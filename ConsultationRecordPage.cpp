@@ -199,10 +199,8 @@ void ConsultationRecordPage::updateTable(StorableInterface* object)
 {
     for(int i =0; i< dataEntries->length(); i++)
     {
-        qDebug() << "CURRENT ID " << dataEntries->at(i)->getId() << " SEARCHING FOR ID: " <<((FollowUpRecord*)object)->getId();
         if(dataEntries->at(i)->getId() == ((FollowUpRecord*)object)->getId())
         {
-            qDebug() << "FOUND YA GONNA GROUND YA";
             dataEntries->replace(i, ((FollowUpRecord*)object));
             break;
         }

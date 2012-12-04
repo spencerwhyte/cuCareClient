@@ -17,8 +17,13 @@ public:
     EditConsultationRecordForm(CUNavigationProvisioningInterface* pNavigator, StorableInterface* consultation);
     //EditConsultationRecordForm(ConsultationRecord *consultation);
     ~EditConsultationRecordForm();
+
+    void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);
+
+    void didReceiveError(QString & errorMessage);
+
 public slots:
-    void sendUpdatedConsultationToServer();
+    void sendConsultationToServer();
 private:
     CUFormElement *diagnosisField;
     ConsultationRecord* consultation;

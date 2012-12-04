@@ -48,7 +48,7 @@ protected:
     CUFormElement *ohipField;
     CUFormElement *physicianField;
     CUServerRequestButton *confirmButton;
-  //PatientRecord *patient; //Again, expected change.
+    PatientRecord *patient;
 };
 
 #endif // ADDPATIENTRECORDFORM_H

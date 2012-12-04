@@ -31,6 +31,7 @@ public:
     void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);
     void didReceiveError(QString & errorMessage);
     void addToTable(StorableInterface* object);
+    void updateTable(StorableInterface* object);
 
 public slots:
     void editConsultationRecord();

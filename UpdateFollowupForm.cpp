@@ -31,20 +31,6 @@ UpdateFollowupForm::~UpdateFollowupForm()
 {
     //Do nothing!
 }
-/*
-void UpdateFollowupForm::sendUpdatedFollowupToServer()
-{
-
-    FollowUpRecord recordToBeAdded;
-
-    recordToBeAdded.setStatusForString(statusBox->currentText());
-    recordToBeAdded.setDueDateTime(dueDateField->getDate());
-    recordToBeAdded.setDetails(detailsField->getInput());
-
-    qDebug() << "the edit request is solid";
-    ClientObjectRequest * r = new ClientObjectRequest(this, recordToBeAdded, ClientObjectRequest::Edit);
-    setRequest(r);
-}*/
 
 void UpdateFollowupForm::didSuccessfullyReceiveResponse(QList<StorableInterface *> * results){
     StorableInterface* record = results->at(0);

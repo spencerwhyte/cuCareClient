@@ -3,7 +3,7 @@
 CUFormTable::CUFormTable(int pColumns, int pRows) : QTableWidget(pRows, pColumns)
 {
     setSelectionBehavior(QAbstractItemView::SelectRows);
-
+    setSelectionMode(QAbstractItemView::SingleSelection);
 	columns = pColumns;
 	rows = pRows;
 

@@ -115,10 +115,10 @@ void QueryDatabaseForm::addPatientTableData(QList<StorableInterface*> * da)
 {
     setDataEntries((QList<PatientRecord*> *) da);
 
-    addConsultationTableDataAgain(da);
+    addQueryTableDataAgain(da);
 }
 
-void QueryDatabaseForm::addConsultationTableDataAgain(QList<StorableInterface*> * da)
+void QueryDatabaseForm::addQueryTableDataAgain(QList<StorableInterface*> * da)
 {
     resultsTable->setColumnCount(4);
     QStringList headerList;
@@ -268,5 +268,21 @@ void QueryDatabaseForm::addToTable(StorableInterface* object)
 
     QList<StorableInterface*> * newModel = (QList<StorableInterface*>*)dataEntries;
 
-    addConsultationTableDataAgain(newModel);
+    addQueryTableDataAgain(newModel);
+}
+
+void QueryDatabaseForm::updateTable(StorableInterface* object)
+{
+    for(int i =0; i< dataEntries->length(); i++)
+    {
+        if(dataEntries->at(i)->getId() == ((PatientRecord*)object)->getId())
+        {
+            dataEntries->replace(i, ((PatientRecord*)object));
+            break;
+        }
+    }
+
+    QList<StorableInterface*> * newModel = (QList<StorableInterface*>*)dataEntries;
+
+    addQueryTableDataAgain(newModel);
 }

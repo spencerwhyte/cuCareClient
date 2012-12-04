@@ -29,9 +29,10 @@ public:
 	~QueryDatabaseForm();
 
     void addPatientTableData(QList<StorableInterface*> * dataEntries);
-    void addConsultationTableDataAgain(QList<StorableInterface*> * da);
+    void addQueryTableDataAgain(QList<StorableInterface*> * da);
     virtual void didSuccessfullyReceiveResponse(QList<StorableInterface *>*results);
     void addToTable(StorableInterface* object);
+    void updateTable(StorableInterface* object);
 
 
     void setDataEntries(QList<PatientRecord*> *dataEntries);

@@ -17,9 +17,15 @@ public:
   //EditPatientRecordForm(PatientRecord *patient);
     ~EditPatientRecordForm();
 
-public slots:
-        void sendEditedPatientRecordToServer();
+    void didSuccessfullyReceiveResponse(QList<StorableInterface *> * results);
 
+    void didReceiveError(QString & errorMessage);
+
+public slots:
+        void sendPatientRecordToServer();
+
+private:
+        PatientRecord *patient;
 };
 
 #endif // EDITPATIENTRECORDFORM_H
